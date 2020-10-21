@@ -28,7 +28,7 @@
 #
 
 import unittest
-import jacocoBadgeGenerator as jbg
+import JacocoBadgeGenerator as jbg
 
 class TestJacocoBadgeGenerator(unittest.TestCase) :
 
