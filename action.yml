@@ -1,27 +1,23 @@
-# Make sure to change the action name here (must be unique).
-# Update the rest as needed.
-name: 'unique-action-goes-here'
-description: 'BRIEF DESCRIPTION OF YOUR ACTION'
-branding: # Look at documentation for branding options/requirements. These are my favorites.
+name: 'jacoco-badge-generator'
+description: 'Github action for generating a jacoco coverage percentage badge.'
+branding: 
   icon: 'book-open'
   color: 'green'
 inputs:
-  input-one:  
-    description: 'Description of input-one'
-    required: true
-    default: 'default value goes here'
-  input-two:
-    description: 'Description of input-two'
+  jacoco-csv-file:  
+    description: 'Full path, relative to the root of the repository, to the jacoco csv file, including filename'
     required: false
-    default: 'default value goes here'
+    default: 'target/site/jacoco/jacoco.csv'
+  jacoco-badge-file:
+    description: 'Full path, relative to the root of the repository, to the created badge, including filename'
+    required: false
+    default: '.github/badges/jacoco.svg'
 outputs:
-  output-one:
-    description: 'Description of output-one'
-  output-two:
-    description: 'Description of output-two'	
+  coverage:
+    description: 'The jacoco coverage percentage as computed from the data in the jacoco.csv file.'
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.input-one }}
-    - ${{ inputs.input-two }}
+    - ${{ inputs.jacoco-csv-file }}
+    - ${{ inputs.jacoco-badge-file }}
