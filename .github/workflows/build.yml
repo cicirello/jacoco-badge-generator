@@ -25,7 +25,3 @@ jobs:
 
     - name: Verify that the Docker image for the action builds
       run: docker build . --file Dockerfile
-
-# You might consider adding a step here that actually
-# executes the GitHub Action you are testing (version in the main branch),
-# along with any steps necessary to verify output is correct.

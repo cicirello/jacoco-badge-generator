@@ -1,84 +1,169 @@
-# python-github-action-template
-A template repository for GitHub Actions implemented in Python.
+# jacoco-badge-generator
 
-## Files in This Template
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/cicirello/jacoco-badge-generator?label=Marketplace&logo=GitHub)](https://github.com/marketplace/actions/jacoco-badge-generator)
+[![build](https://github.com/cicirello/jacoco-badge-generator/workflows/build/badge.svg)](https://github.com/cicirello/jacoco-badge-generator/actions?query=workflow%3Abuild)
+[![GitHub](https://img.shields.io/github/license/cicirello/jacoco-badge-generator)](https://github.com/cicirello/jacoco-badge-generator/blob/main/LICENSE)
+![GitHub top language](https://img.shields.io/github/languages/top/cicirello/jacoco-badge-generator)
 
-### README.md
+The jacoco-badge-generator GitHub Action parses a `jacoco.csv` from a Jacoco coverage report,
+computes the coverage percentage, and generates a badge to provide an easy to read visual 
+summary of the code coverage of your
+test cases.  The badge that is generated is inspired by the style of the badges 
+of [Shields.io](https://github.com/badges/shields), however, the badge is entirely generated
+within the jacoco-badge-generator GitHub Action, with no external calls.  Here are
+a few samples of what the badges look like:
+* ![Coverage 100%](https://github.com/cicirello/jacoco-badge-generator/blob/main/tests/100.svg): We use bright green for 100% coverage.
+* ![Coverage 99.9%](https://github.com/cicirello/jacoco-badge-generator/blob/main/tests/999.svg): We use green for coverage from 90% up through 99.9%.
+* ![Coverage 80%](https://github.com/cicirello/jacoco-badge-generator/blob/main/tests/80.svg): We use yellow green for coverage from 80% up through 89.9%.
+* ![Coverage 70%](https://github.com/cicirello/jacoco-badge-generator/blob/main/tests/70.svg): We use yellow for coverage from 70% up through 79.9%.
+* ![Coverage 60%](https://github.com/cicirello/jacoco-badge-generator/blob/main/tests/60.svg): We use orange for coverage from 60% up through 69.9%.
+* ![Coverage 59.9%](https://github.com/cicirello/jacoco-badge-generator/blob/main/tests/599.svg): We use red for coverage from 0% up through 59.9%.
 
-Obviously, update this to reflect your GitHub Action.
+The coverage displayed in the badge is the result of truncating to one 
+decimal place.  If that decimal place is 0, then it is displayed as an 
+integer.  The rationale for truncating to one decimal place, rather than 
+rounding is to avoid displaying a just failing coverage as passing. For
+example, if the user of the action considers 80% to be a passing level,
+then we wish to avoid the case of 79.9999% being rounded to 80% (it will
+instead be truncated to 79.9%).  
 
-### LICENSE
+The action also outputs the actual computed coverage percentage to the 
+precision provided by Python, the language the action is implemented in. So
+you can add a step to your workflow to access this if desired (the action
+output is a value in the interval from 0.0 to 1.0).  
 
-Choose your license.  This template is licensed under the MIT license,
-so that is what the LICENSE file indicates. If you use this template,
-either keep the MIT license or update to something compatible.
+## Inputs
 
-### dockerignore
+All inputs include default values, and are thus optional provided the
+defaults are relevant to your use-case.
 
-The `.dockerignore` is set up as a whitelist, initially 
-allowing only the `Dockerfile` and the `entrypoint.py`.
-If you rename `entrypoint.py`, be sure to edit 
-the `.dockerignore` (or likewise, if your GitHub Action
-needs any additional files while running).
+### `jacoco-csv-file`
 
-### gitignore
+This input is the full path, relative to the root of the repository, to 
+the `jacoco.csv` file, including filename.  It defaults 
+to `target/site/jacoco/jacoco.csv`, which is the default location and filename
+assuming you are using the Jacoco Maven plugin and don't change the default
+output location.
 
-The `.gitignore` includes Python related things you likely
-won't want to store in git (update as appropriate).
+### `jacoco-badge-file`
 
-### Dockerfile
+This input is the full path, relative to the root of the repository, to the 
+created badge, including the filename.  The action will create any directories
+in the path if they don't already exist.  The default is `.github/badges/jacoco.svg`
+and the file format is an `svg`.  __The action doesn't commit the file. You will 
+need to have additional steps in your workflow to do that.__
 
-The `Dockerfile` in this template pulls an image that
-includes Python, and then sets the entrypoint to `entrypoint.py`.
-If you rename `entrypoint.py` (or need additional files) then
-don't forget to edit the `Dockerfile`.
+## Outputs
 
-Additionally, you will need to decide which docker image to start
-with. There are two that I commonly use that I also maintain,
-both of which can be pulled from either Docker Hub or the Github Container
-Registry. Uncomment/comment as appropriate in the Dockerfile
-as desired. Or if you'd rather not pull one of my images, you can 
-see the source repository for the details.  Here are the options
-found in the Dockerfile comments:
-* An image with Alpine Linux and Python only to keep image small for fast loading: `FROM cicirello/pyaction-lite:latest`
-* An image with Alpine Linux, Python, and git, which is also relatively small: `FROM cicirello/pyaction:latest`
-* To pull from the Github Container Registry instead of Docker Hub: `FROM ghcr.io/cicirello/pyaction-lite:latest` (and likewise for the other image).
+### `coverage`
 
-The source repositories for these images:
-* https://github.com/cicirello/pyaction-lite
-* https://github.com/cicirello/pyaction
+This output is the actual computed coverage percentage in the interval 
+from 0.0 to 1.0.
 
-### action.yml
+## Example Workflow
 
-Edit the `action.yml` file to define your action's inputs and outputs
-(see examples in the file).
+### Prerequisite: Running Jacoco
 
-### entrypoint.py
+This example workflow assumes that you are using Maven to build and test
+a Java project, and that you have the `jacoco-maven-plugin`
+configured in your `pom.xml` in the test phase with something
+along the lines of the following:
 
-You can rename this Python file to whatever you want, provided you change
-its name in all other files above that reference it.  The template version
-includes examples of accessing Action inputs and producing outputs.  Make
-sure it is executable (the one in the template is already executable). If
-you simply rename the file, it should keep the executable bit set. However,
-if you delete it and replace it with a new file, you'll need to set it
-executable.
+```XML
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.jacoco</groupId>
+      <artifactId>jacoco-maven-plugin</artifactId>
+      <version>0.8.6</version>
+      <executions>
+        <execution>
+          <goals>
+            <goal>prepare-agent</goal>
+          </goals>
+        </execution>
+        <execution>
+          <id>generate-code-coverage-report</id>
+          <phase>test</phase>
+          <goals>
+            <goal>report</goal>
+          </goals>
+        </execution>
+      </executions>
+      </plugin>
+  </plugins>
+</build>
+```
 
-### tests/tests.py
+### The Example Workflow
 
-Python unit test cases could go here.
+This sample workflow runs on pushes and pull requests on the main
+branch.  It first sets up Java, and runs the tests with Maven. If you
+have Jacoco configured to run during the test phase, this will also
+produce the Jacoco reports.  The jacoco-badge-generator action is then
+run to parse the `jacoco.csv`, compute the coverage percentage, and
+generate the badge.  The coverage percentage is then logged in the
+workflow so you can inspect later if necessary. After that, the
+[peter-evans/create-pull-request](https://github.com/peter-evans/create-pull-request) action 
+is used to generate a pull-request if the badge has changed.
+And finally, the Jacoco coverage reports are uploaded as a workflow
+artifact using the [actions/upload-artifact](https://github.com/actions/upload-artifact)
+GitHub Action, so you can inspect them if necessary.
 
-### .github/dependabot.yml
+```yml
+name: build
 
-The template repository enables GitHub's dependabot for keeping dependencies up to date
-(it generates pull requests when new versions are found).  The template file
-enables dependabot for Docker (since we're using Docker for the GitHub Action),
-and GitHub Actions to keep any workflow dependencies up to date.
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
-### .github/workflows/build.yml
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-This workflow runs on pushes and pull requests against the main branch. It
-executes all Python unit tests (see tests/tests.py section above). It verifies that
-the docker image for the GitHub Action builds. You might consider adding steps to this
-workflow to also have it execute the GitHub Action (from the main branch).
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up JDK 1.11
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.11
+
+    - name: Build with Maven
+      run: mvn -B test
+
+    - name: Generate Jacoco Badge
+      id: jacoco
+      uses: cicirello/jacoco-badge-generator@v1.0.0
+
+    - name: Log coverage percentage
+      run: |
+        echo "coverage = ${{ steps.jacoco.outputs.coverage }}"
+
+    - name: Create pull request
+      if: ${{ github.event_name == 'push' }}
+      uses: peter-evans/create-pull-request@v3.4.1
+      with:
+        title: "Autogenerated Jacoco Coverage Badge"
+        body: > 
+          Autogenerated Jacoco coverage badge, generated by 
+          the [jacoco-badge-generator](https://github.com/cicirello/jacoco-badge-generator) 
+          GitHub action.
+        commit-message: "Autogenerated Jacoco Coverage Badge"
+        branch: create-pull-request/badge
+        delete-branch: true
+
+    - name: Upload Jacoco coverage report
+      uses: actions/upload-artifact@v2
+      with:
+        name: jacoco-report
+        path: target/site/jacoco/
+```
 
 
+## License
+
+This GitHub action is released under
+the [MIT License](https://github.com/cicirello/jacoco-badge-generator/blob/main/LICENSE).
