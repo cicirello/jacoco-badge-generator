@@ -30,6 +30,8 @@
 import csv
 import sys
 import math
+import pathlib
+import os
 
 badgeTemplate = '<svg xmlns="http://www.w3.org/2000/svg" width="104" \
 height="20" role="img" aria-label="coverage: {0}">\
@@ -109,12 +111,23 @@ def badgeCoverageStringColorPair(coverage) :
         cov = "{0:.1f}%".format(coverage)
     return cov, colors[c]
 
+def createOutputDirectories(jacocoBadgeFile) :
+    """Creates the output directory if it doesn't already exist.
+
+    Keyword arguments:
+    jacocoBadgeFile - The path, including filename, to the output badge file.
+    """
+    if not os.path.exists(jacocoBadgeFile) :
+        p = pathlib.Path(os.path.dirname(jacocoBadgeFile))
+        p.mkdir(parents=True, exist_ok=True)
+
 if __name__ == "__main__" :
     jacocoCsvFile = sys.argv[1]
     jacocoBadgeFile = sys.argv[2]
 
     cov = computeCoverage(jacocoCsvFile)
     covStr, color = badgeCoverageStringColorPair(cov)
+    createOutputDirectories(jacocoBadgeFile)
     with open(jacocoBadgeFile, "w") as badge :
         badge.write(generateBadge(covStr, color))
 
