@@ -119,7 +119,7 @@ def createOutputDirectories(jacocoBadgeFile) :
     """
     if not os.path.exists(jacocoBadgeFile) :
         p = pathlib.Path(os.path.dirname(jacocoBadgeFile))
-        p.mkdir(mode=0o755, parents=True, exist_ok=True)
+        p.mkdir(parents=True, exist_ok=True)
 
 if __name__ == "__main__" :
     jacocoCsvFile = sys.argv[1]
