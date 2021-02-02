@@ -1,6 +1,6 @@
 # jacoco-badge-generator: Github action for generating a jacoco coverage percentage badge
 # 
-# Copyright (c) 2020-2021 Vincent A Cicirello
+# Copyright (c) 2020 Vincent A Cicirello
 # https://www.cicirello.org/
 #
 # MIT License
@@ -38,7 +38,7 @@ inputs:
   jacoco-badge-file:
     description: 'Full path, relative to the root of the repository, to the created badge, including filename'
     required: false
-    default: 'badges/jacoco.svg'
+    default: '.github/badges/jacoco.svg'
 outputs:
   coverage:
     description: 'The jacoco coverage percentage as computed from the data in the jacoco.csv file.'
