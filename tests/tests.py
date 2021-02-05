@@ -3,7 +3,7 @@
 # jacoco-badge-generator: Github action for generating a jacoco coverage
 # percentage badge.
 # 
-# Copyright (c) 2020 Vincent A Cicirello
+# Copyright (c) 2020-2021 Vincent A Cicirello
 # https://www.cicirello.org/
 #
 # MIT License
@@ -33,13 +33,23 @@ import JacocoBadgeGenerator as jbg
 class TestJacocoBadgeGenerator(unittest.TestCase) :
 
     def testFullCoverage(self) :
-        self.assertAlmostEqual(1, jbg.computeCoverage("tests/jacoco100.csv"))
+        self.assertAlmostEqual(1, jbg.computeCoverage("tests/jacoco100.csv")[0])
 
     def testCoverage90(self) :
-        self.assertAlmostEqual(0.9, jbg.computeCoverage("tests/jacoco90.csv"))
+        self.assertAlmostEqual(0.9, jbg.computeCoverage("tests/jacoco90.csv")[0])
 
     def testCoverage901(self) :
-        self.assertAlmostEqual(0.901, jbg.computeCoverage("tests/jacoco901.csv"))
+        self.assertAlmostEqual(0.901, jbg.computeCoverage("tests/jacoco901.csv")[0])
+
+    def testFullCoverageBranches(self) :
+        self.assertAlmostEqual(1, jbg.computeCoverage("tests/branches100.csv")[1])
+
+    def testCoverage90Branches(self) :
+        self.assertAlmostEqual(0.9, jbg.computeCoverage("tests/branches90.csv")[1])
+
+    def testCoverage901Branches(self) :
+        self.assertAlmostEqual(0.901, jbg.computeCoverage("tests/branches901.csv")[1])
+
     
     def testFormatPercentage(self) :
         self.assertEqual("100%", jbg.badgeCoverageStringColorPair(1)[0])

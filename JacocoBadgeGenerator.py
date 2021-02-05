@@ -3,7 +3,7 @@
 # jacoco-badge-generator: Github action for generating a jacoco coverage
 # percentage badge.
 # 
-# Copyright (c) 2020 Vincent A Cicirello
+# Copyright (c) 2020-2021 Vincent A Cicirello
 # https://www.cicirello.org/
 #
 # MIT License
@@ -75,20 +75,25 @@ def generateBadge(covStr, color, badgeType="coverage") :
 
 def computeCoverage(filename) :
     """Parses a jacoco.csv file and computes code coverage
-    percentage.
+    percentages. Returns: coverage, branchCoverage.  The coverage
+    is instruction coverage.
 
     Keyword arguments:
     filename - The name, including path, of the jacoco.csv
     """
     missed = 0
     covered = 0
+    missedBranches = 0
+    coveredBranches = 0
     with open(filename, newline='') as csvfile :
         jacocoReader = csv.reader(csvfile)
         for i, row in enumerate(jacocoReader) :
             if i > 0 :
                 missed += int(row[3])
                 covered += int(row[4])
-    return covered / (covered + missed)
+                missedBranches += int(row[5])
+                coveredBranches += int(row[6])
+    return covered / (covered + missed), coveredBranches / (coveredBranches + missedBranches)
 
 def badgeCoverageStringColorPair(coverage) :
     """Converts the coverage percentage to a formatted string,
@@ -126,14 +131,14 @@ if __name__ == "__main__" :
     jacocoCsvFile = sys.argv[1]
     jacocoBadgeFile = sys.argv[2]
 
-    cov = computeCoverage(jacocoCsvFile)
+    cov, branches = computeCoverage(jacocoCsvFile)
     covStr, color = badgeCoverageStringColorPair(cov)
     createOutputDirectories(jacocoBadgeFile)
     with open(jacocoBadgeFile, "w") as badge :
         badge.write(generateBadge(covStr, color))
 
     print("::set-output name=coverage::" + str(cov))
-    
+    print("::set-output name=branches::" + str(branches))
     
 
 
