@@ -140,7 +140,7 @@ jobs:
 
     - name: Generate Jacoco Badge
       id: jacoco
-      uses: cicirello/jacoco-badge-generator@v1.0.0
+      uses: cicirello/jacoco-badge-generator@v1.1.0
 
     - name: Log coverage percentage
       run: |
