@@ -46,9 +46,9 @@ height="20" role="img" aria-label="coverage: {0}">\
 font-family="Verdana,Geneva,DejaVu Sans,sans-serif" \
 text-rendering="geometricPrecision" font-size="110">\
 <text aria-hidden="true" x="315" y="150" fill="#010101" \
-fill-opacity=".3" transform="scale(.1)" textLength="510">coverage</text>\
+fill-opacity=".3" transform="scale(.1)" textLength="510">{3}</text>\
 <text x="315" y="140" transform="scale(.1)" fill="#fff" \
-textLength="510">coverage</text>\
+textLength="510">{3}</text>\
 <text aria-hidden="true" x="815" y="150" \
 fill="#010101" fill-opacity=".3" transform="scale(.1)" \
 textLength="{2}">{0}</text><text x="815" y="140" \
@@ -57,12 +57,13 @@ transform="scale(.1)" fill="#fff" textLength="{2}">{0}</text>\
 
 colors = [ "#4c1", "#97ca00", "#a4a61d", "#dfb317", "#fe7d37", "#e05d44" ]
 
-def generateBadge(covStr, color) :
+def generateBadge(covStr, color, badgeType="coverage") :
     """Generates the badge as a string.
 
     Keyword arguments:
     covStr - The coverage as a string.
     color - The color for the badge.
+    badgeType - The text string for a label on the badge.
     """
     if len(covStr) >= 4 :
         textLength = "330"
@@ -70,7 +71,7 @@ def generateBadge(covStr, color) :
         textLength = "250" 
     else :
         textLength = "170"
-    return badgeTemplate.format(covStr, color, textLength)
+    return badgeTemplate.format(covStr, color, textLength, badgeType)
 
 def computeCoverage(filename) :
     """Parses a jacoco.csv file and computes code coverage
