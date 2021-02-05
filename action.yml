@@ -1,6 +1,6 @@
 # jacoco-badge-generator: Github action for generating a jacoco coverage percentage badge
 # 
-# Copyright (c) 2020 Vincent A Cicirello
+# Copyright (c) 2020-2021 Vincent A Cicirello
 # https://www.cicirello.org/
 #
 # MIT License
@@ -42,6 +42,8 @@ inputs:
 outputs:
   coverage:
     description: 'The jacoco coverage percentage as computed from the data in the jacoco.csv file.'
+  branches:
+    description: 'The jacoco branch coverage percentage as computed from the data in the jacoco.csv file.'
 runs:
   using: 'docker'
   image: 'Dockerfile'
