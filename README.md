@@ -57,7 +57,14 @@ need to have additional steps in your workflow to do that.__
 ### `coverage`
 
 This output is the actual computed coverage percentage in the interval 
-from 0.0 to 1.0.
+from 0.0 to 1.0.  This is overall coverage computed from the instruction
+coverage data in the Jacoco csv report.
+
+### `branches`
+
+This output is the actual computed branches coverage percentage 
+in the interval from 0.0 to 1.0.  This is the percentage of branches
+covered, computed from the branches data in the Jacoco csv report.
 
 ## Example Workflow
 
