@@ -145,6 +145,7 @@ jobs:
     - name: Log coverage percentage
       run: |
         echo "coverage = ${{ steps.jacoco.outputs.coverage }}"
+        echo "branch coverage = ${{ steps.jacoco.outputs.branches }}"
 
     - name: Commit the badge (if it changed)
       run: |
