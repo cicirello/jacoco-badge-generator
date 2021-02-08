@@ -94,4 +94,63 @@ class TestJacocoBadgeGenerator(unittest.TestCase) :
             badge = jbg.generateBadge(covStr, color)
             with open(expectedFiles[i],"r") as f :
                 self.assertEqual(f.read(), badge)
+        covStr, color = jbg.badgeCoverageStringColorPair(0.999)
+        badge = jbg.generateBadge(covStr, color, "branches")
+        with open("tests/999b.svg","r") as f :
+            self.assertEqual(f.read(), badge)
+
+    def testSplitPath(self) :
+        cases = [ ( "./jacoco.svg", ".", "jacoco.svg" ),
+                  ( "/jacoco.svg", ".", "jacoco.svg" ),
+                  ( "jacoco.svg", ".", "jacoco.svg" ),
+                  ( "./a/jacoco.svg", "a", "jacoco.svg" ),
+                  ( "/a/jacoco.svg", "a", "jacoco.svg" ),
+                  ( "a/jacoco.svg", "a", "jacoco.svg" ),
+                  ( "./a/b/jacoco.svg", "a/b", "jacoco.svg" ),
+                  ( "/a/b/jacoco.svg", "a/b", "jacoco.svg" ),
+                  ( "a/b/jacoco.svg", "a/b", "jacoco.svg" )
+                  ]
+        for testcase, directoryExpected, filenameExpected in cases :
+            directory, filename = jbg.splitPath(testcase)
+            self.assertEqual(directoryExpected, directory)
+            self.assertEqual(filenameExpected, filename)
+
+    def testFormPath(self) :
+        cases = [ ( ".", "jacoco.svg", "jacoco.svg" ),
+                  ( "./", "jacoco.svg", "jacoco.svg" ),
+                  ( "/", "jacoco.svg", "jacoco.svg" ),
+                  ( "", "jacoco.svg", "jacoco.svg" ),
+                  ( ".", "/jacoco.svg", "jacoco.svg" ),
+                  ( "./", "/jacoco.svg", "jacoco.svg" ),
+                  ( "/", "/jacoco.svg", "jacoco.svg" ),
+                  ( "", "/jacoco.svg", "jacoco.svg" ),
+                  ( "./a", "jacoco.svg", "a/jacoco.svg" ),
+                  ( "./a/", "jacoco.svg", "a/jacoco.svg" ),
+                  ( "/a", "jacoco.svg", "a/jacoco.svg" ),
+                  ( "/a/", "jacoco.svg", "a/jacoco.svg" ),
+                  ( "a", "jacoco.svg", "a/jacoco.svg" ),
+                  ( "a/", "jacoco.svg", "a/jacoco.svg" ),
+                  ( "./a", "/jacoco.svg", "a/jacoco.svg" ),
+                  ( "./a/", "/jacoco.svg", "a/jacoco.svg" ),
+                  ( "/a", "/jacoco.svg", "a/jacoco.svg" ),
+                  ( "/a/", "/jacoco.svg", "a/jacoco.svg" ),
+                  ( "a", "/jacoco.svg", "a/jacoco.svg" ),
+                  ( "a/", "/jacoco.svg", "a/jacoco.svg" ),
+                  ( "./a/b", "jacoco.svg", "a/b/jacoco.svg" ),
+                  ( "./a/b/", "jacoco.svg", "a/b/jacoco.svg" ),
+                  ( "/a/b", "jacoco.svg", "a/b/jacoco.svg" ),
+                  ( "/a/b/", "jacoco.svg", "a/b/jacoco.svg" ),
+                  ( "a/b", "jacoco.svg", "a/b/jacoco.svg" ),
+                  ( "a/b/", "jacoco.svg", "a/b/jacoco.svg" ),
+                  ( "./a/b", "/jacoco.svg", "a/b/jacoco.svg" ),
+                  ( "./a/b/", "/jacoco.svg", "a/b/jacoco.svg" ),
+                  ( "/a/b", "/jacoco.svg", "a/b/jacoco.svg" ),
+                  ( "/a/b/", "/jacoco.svg", "a/b/jacoco.svg" ),
+                  ( "a/b", "/jacoco.svg", "a/b/jacoco.svg" ),
+                  ( "a/b/", "/jacoco.svg", "a/b/jacoco.svg" )
+                  ]
+        for directory, filename, expected in cases :
+            self.assertEqual(expected, jbg.formFullPathToFile(directory, filename))
+            
+                  
                           

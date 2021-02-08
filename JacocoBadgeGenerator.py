@@ -34,7 +34,7 @@ import pathlib
 import os
 
 badgeTemplate = '<svg xmlns="http://www.w3.org/2000/svg" width="104" \
-height="20" role="img" aria-label="coverage: {0}">\
+height="20" role="img" aria-label="{3}: {0}">\
 <linearGradient id="s" x2="0" y2="100%">\
 <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>\
 <stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="r">\
@@ -117,25 +117,89 @@ def badgeCoverageStringColorPair(coverage) :
         cov = "{0:.1f}%".format(coverage)
     return cov, colors[c]
 
-def createOutputDirectories(jacocoBadgeFile) :
+def createOutputDirectories(badgesDirectory) :
     """Creates the output directory if it doesn't already exist.
 
     Keyword arguments:
-    jacocoBadgeFile - The path, including filename, to the output badge file.
+    badgesDirectory - The badges directory
     """
-    if not os.path.exists(jacocoBadgeFile) :
-        p = pathlib.Path(os.path.dirname(jacocoBadgeFile))
-        p.mkdir(parents=True, exist_ok=True)
+    if not os.path.exists(badgesDirectory) :
+        p = pathlib.Path(badgesDirectory)
+        p.mkdir(mode=0o777, parents=True, exist_ok=True)
+
+def splitPath(filenameWithPath) :
+    """Breaks a filename including path into containing directory and filename.
+
+    Keyword arguments:
+    filenameWithPath - The filename including path.
+    """
+    if filenameWithPath.startswith("./") :
+        filenameWithPath = filenameWithPath[2:]
+    if filenameWithPath[0] == "/" :
+        filenameWithPath = filenameWithPath[1:]
+    i = filenameWithPath.rfind("/")
+    if i >= 0 :
+        return filenameWithPath[:i], filenameWithPath[i+1:]
+    else :
+        return ".", filenameWithPath
+
+def formFullPathToFile(directory, filename) :
+    """Generates path string.
+
+    Keyword arguments:
+    directory - The directory for the badges
+    filename - The filename for the badge.
+    """
+    if len(filename) > 1 and filename[0:2] == "./" :
+        filename = filename[2:]
+    if filename[0] == "/" :
+        filename = filename[1:]
+    if len(directory) > 1 and directory[0:2] == "./" :
+        directory = directory[2:]
+    if len(directory) > 0 and directory[0] == "/" :
+        directory = directory[1:]
+    if directory == "" or directory == "." :
+        return filename
+    elif directory[-1] == "/" :
+        return directory + filename
+    else :
+        return directory + "/" + filename
 
 if __name__ == "__main__" :
     jacocoCsvFile = sys.argv[1]
-    jacocoBadgeFile = sys.argv[2]
+    badgesDirectory = sys.argv[2]
+    coverageFilename = sys.argv[3]
+    branchesFilename = sys.argv[4]
+    generateCoverageBadge = sys.argv[5].lower() == "true"
+    generateBranchesBadge = sys.argv[6].lower() == "true"
+
+    ## This next input is deprecated. For now, if it was passed,
+    ## then map it into the new replacement inputs.
+    jacocoBadgeFile = sys.argv[7]
+    if len(jacocoBadgeFile) > 0 :
+        badgesDirectory, coverageFilename = splitPath(jacocoBadgeFile)
+
+    if len(badgesDirectory) > 1 and badgesDirectory[0:2] == "./" :
+        badgesDirectory = badgesDirectory[2:]
+    if len(badgesDirectory) > 0 and badgesDirectory[0] == "/" :
+        badgesDirectory = badgesDirectory[1:]
+    if badgesDirectory == "." :
+        badgesDirectory = ""
 
     cov, branches = computeCoverage(jacocoCsvFile)
-    covStr, color = badgeCoverageStringColorPair(cov)
-    createOutputDirectories(jacocoBadgeFile)
-    with open(jacocoBadgeFile, "w") as badge :
-        badge.write(generateBadge(covStr, color))
+
+    if (generateCoverageBadge or generateBranchesBadge) and badgesDirectory != "" :
+        createOutputDirectories(badgesDirectory)
+
+    if generateCoverageBadge :
+        covStr, color = badgeCoverageStringColorPair(cov)
+        with open(formFullPathToFile(badgesDirectory, coverageFilename), "w") as badge :
+            badge.write(generateBadge(covStr, color))
+
+    if generateBranchesBadge :
+        covStr, color = badgeCoverageStringColorPair(branches)
+        with open(formFullPathToFile(badgesDirectory, branchesFilename), "w") as badge :
+            badge.write(generateBadge(covStr, color, "branches"))
 
     print("::set-output name=coverage::" + str(cov))
     print("::set-output name=branches::" + str(branches))
