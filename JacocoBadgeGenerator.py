@@ -183,6 +183,8 @@ if __name__ == "__main__" :
         badgesDirectory = badgesDirectory[2:]
     if len(badgesDirectory) > 0 and badgesDirectory[0] == "/" :
         badgesDirectory = badgesDirectory[1:]
+    if badgesDirectory == "." :
+        badgesDirectory = ""
 
     cov, branches = computeCoverage(jacocoCsvFile)
 
