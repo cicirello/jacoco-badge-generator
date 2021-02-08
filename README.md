@@ -79,7 +79,7 @@ This input controls whether or not to generate the branches coverage badge, and 
 to `false`. This defaults to `false` to avoid surprising users who upgrade from earlier
 versions with a badge they didn't know would be generated.
 
-### `jacoco-badge-file`
+### `jacoco-badge-file` __DEPRECATED__
 
 __This input is DEPRECATED.__ You should instead use the combination of 
 the `badges-directory` and `coverage-badge-filename` inputs. This input 
