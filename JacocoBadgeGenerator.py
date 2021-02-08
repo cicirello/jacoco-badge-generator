@@ -150,15 +150,15 @@ def formFullPathToFile(directory, filename) :
     directory - The directory for the badges
     filename - The filename for the badge.
     """
-    if filename[0] == "." :
-        filename = filename[1:]
+    if len(filename) > 1 and filename[0:2] == "./" :
+        filename = filename[2:]
     if filename[0] == "/" :
         filename = filename[1:]
-    if len(directory) > 0 and directory[0] == "." :
-        directory = directory[1:]
+    if len(directory) > 1 and directory[0:2] == "./" :
+        directory = directory[2:]
     if len(directory) > 0 and directory[0] == "/" :
         directory = directory[1:]
-    if directory == "" :
+    if directory == "" or directory == "." :
         return filename
     elif directory[-1] == "/" :
         return directory + filename
@@ -179,8 +179,8 @@ if __name__ == "__main__" :
     if len(jacocoBadgeFile) > 0 :
         badgesDirectory, coverageFilename = splitPath(jacocoBadgeFile)
 
-    if len(badgesDirectory) > 0 and badgesDirectory[0] == "." :
-        badgesDirectory = badgesDirectory[1:]
+    if len(badgesDirectory) > 1 and badgesDirectory[0:2] == "./" :
+        badgesDirectory = badgesDirectory[2:]
     if len(badgesDirectory) > 0 and badgesDirectory[0] == "/" :
         badgesDirectory = badgesDirectory[1:]
 
