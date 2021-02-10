@@ -43,7 +43,7 @@ generating a badge from JaCoCo's line counter data.
 ### Branches Coverage (C1 Coverage)
 
 The badge generator also optionally supports generating a badge for Branches Coverage
-of C1 Coverage, with the generated badge labeled as "branches".  See 
+(or C1 Coverage), with the generated badge labeled as "branches".  See 
 the [inputs](#inputs) section for a description of the action
 inputs.  JaCoCo 
 measures [C1 Coverage or Branches Coverage](https://www.jacoco.org/jacoco/trunk/doc/counters.html)
