@@ -41,6 +41,9 @@ class TestJacocoBadgeGenerator(unittest.TestCase) :
     def testCoverage901(self) :
         self.assertAlmostEqual(0.901, jbg.computeCoverage("tests/jacoco901.csv")[0])
 
+    def testCoverageNoInstructions(self) :
+        self.assertAlmostEqual(1, jbg.computeCoverage("tests/jacocoDivZero.csv")[0])
+
     def testFullCoverageBranches(self) :
         self.assertAlmostEqual(1, jbg.computeCoverage("tests/branches100.csv")[1])
 
@@ -50,7 +53,9 @@ class TestJacocoBadgeGenerator(unittest.TestCase) :
     def testCoverage901Branches(self) :
         self.assertAlmostEqual(0.901, jbg.computeCoverage("tests/branches901.csv")[1])
 
-    
+    def testCoverageNoBranches(self) :
+        self.assertAlmostEqual(1, jbg.computeCoverage("tests/branchesDivZero.csv")[1])
+
     def testFormatPercentage(self) :
         self.assertEqual("100%", jbg.badgeCoverageStringColorPair(1)[0])
         self.assertEqual("100%", jbg.badgeCoverageStringColorPair(1.0)[0])
