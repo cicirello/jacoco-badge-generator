@@ -14,6 +14,14 @@ _The developers of the jacoco-badge-generator GitHub Action are not affiliated
 with the developers of JaCoCo, although we are a fan and user of their excellent 
 test coverage tool._ 
 
+The documentation is organized into the following sections:
+* [The Coverage Metrics](#the-coverage-metrics): Explains the JaCoCo metrics that are supported by the badge generator, such as what they measure, and why they were chosen for inclusion for the jacoco-badge-generator GitHub Action.
+* [Badge Style and Content](#badge-style-and-content): Provides examples of the appearance of the badges that are generated, including a description of the color scheme used, and the formatting of the percentages.
+* [Inputs](#inputs): Detailed descriptions of the action inputs.
+* [Outputs](#outputs): Detailed descriptions of the action inputs.
+* [Example Workflows](#example-workflows): Example GitHub workflows demonstrating usage of the jacoco-badge-generator action.
+
+
 ## The Coverage Metrics
 
 The jacoco-badge-generator GitHub Action currently supports generating badges for 
@@ -150,6 +158,7 @@ filename. This defaults to the empty string. Note that if you were using
 the old default value for this input in prior versions, then you should be all
 set with the default values for the new pair of replacement inputs.
 
+
 ## Outputs
 
 The action also outputs the actual computed coverage percentages as double-precision
@@ -169,7 +178,7 @@ in the interval from 0.0 to 1.0.  This is the percentage of branches
 covered, computed from the branches data in the JaCoCo csv report.
 
 
-## Example Workflow
+## Example Workflows
 
 ### Prerequisite: Running JaCoCo
 
