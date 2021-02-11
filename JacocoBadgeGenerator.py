@@ -93,7 +93,23 @@ def computeCoverage(filename) :
                 covered += int(row[4])
                 missedBranches += int(row[5])
                 coveredBranches += int(row[6])
-    return covered / (covered + missed), coveredBranches / (coveredBranches + missedBranches)
+    return (calculatePercentage(covered, missed),
+            calculatePercentage(coveredBranches, missedBranches))
+
+def calculatePercentage(covered, missed) :
+    """Calculates the coverage percentage from number of
+    covered and number of missed. Returns 1 if both are 0
+    to handle the special case of running on an empty class
+    (no instructions) or a case with no if, switch, loops (no
+    branches).
+
+    Keyword arguments:
+    covered - The number of X covered (where X is the metric).
+    missed - The number of X missed (where X is the metric).
+    """
+    if missed == 0 :
+        return 1
+    return covered / (covered + missed)
 
 def badgeCoverageStringColorPair(coverage) :
     """Converts the coverage percentage to a formatted string,
