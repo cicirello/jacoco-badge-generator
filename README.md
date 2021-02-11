@@ -46,7 +46,9 @@ value, such as `foo(5)` versus passing the result of a calculation to the method
 `foo(2.0 + bar/11.0)`. Line counting considers both of these as 1 line; while the second case
 will factor in more heavily into JaCoCo's instruction counting than will the first case. For
 these reasons, although JaCoCo also provides line coverage data, we do not currently support
-generating a badge from JaCoCo's line counter data.  
+generating a badge from JaCoCo's line counter data. JaCoCo's use of byte-code instructions
+in its definition of C0 Coverage is a more meaningful measure of coverage than is counting
+lines of code.
 
 ### Branches Coverage (C1 Coverage)
 
