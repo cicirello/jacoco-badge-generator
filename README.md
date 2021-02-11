@@ -120,7 +120,8 @@ directory if it doesn't already exist, although the action itself does not commi
 
 ### `coverage-badge-filename`
 
-This input is the filename for the coverage badge. The default filename 
+This input is the filename for the coverage badge (Instructions or C0 
+Coverage). The default filename 
 is `jacoco.svg`. The file format is an `svg`. The badge file will be 
 created within the `badges-directory`
 directory. __The action doesn't commit the badge file. You will 
@@ -128,7 +129,8 @@ need to have additional steps in your workflow to do that.__
 
 ### `branches-badge-filename`
 
-This input is the filename for the branches coverage badge. The default filename 
+This input is the filename for the branches coverage badge (C1 
+Coverage). The default filename 
 is `branches.svg`. The file format is an `svg`. The badge file will be 
 created within the `badges-directory`
 directory. __The action doesn't commit the badge file. You will 
@@ -136,8 +138,8 @@ need to have additional steps in your workflow to do that.__
 
 ### `generate-coverage-badge`
 
-This input controls whether or not to generate the overall coverage badge, and defaults
-to `true`.
+This input controls whether or not to generate the coverage badge (Instructions 
+Coverage), and defaults to `true`.
 
 ### `generate-branches-badge`
 
@@ -168,7 +170,7 @@ desired (these action outputs are values in the interval from 0.0 to 1.0).
 ### `coverage`
 
 This output is the actual computed coverage percentage in the interval 
-from 0.0 to 1.0.  This is overall coverage computed from the instruction
+from 0.0 to 1.0.  This is coverage computed from the instructions
 coverage data in the JaCoCo csv report.
 
 ### `branches`
@@ -213,7 +215,7 @@ along the lines of the following:
 </build>
 ```
 
-### Example Workflow 1: Generate overall coverage badge only.
+### Example Workflow 1: Generate instructions (or C0) coverage badge only.
 
 This sample workflow runs on pushes to the main
 branch.  It first sets up Java, and runs the tests with Maven. If you
@@ -276,10 +278,10 @@ jobs:
         path: target/site/jacoco/
 ```
 
-### Example Workflow 2: Generate overall coverage and branches coverage badges.
+### Example Workflow 2: Generate instructions coverage and branches coverage badges.
 
 This example workflow is just like the above example, however, it generates
-both badges (overall coverage percentage and branches coverage percentage).
+both badges (instructions coverage percentage and branches coverage percentage).
 
 ```yml
 name: build
