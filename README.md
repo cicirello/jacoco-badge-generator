@@ -35,7 +35,7 @@ The default behavior of the badge generator is to generate only the Instructions
 badge, which is labeled on the badge simply as "coverage". JaCoCo 
 measures [C0 Coverage](https://www.jacoco.org/jacoco/trunk/doc/counters.html)
 from the Java bytecode instructions in the compiled `.class` files. One of the advantages
-to counting the byte-code instructions executed or missed, rather than lines of source code, 
+to counting the bytecode instructions executed or missed, rather than lines of source code, 
 is that it is independent of coding style and formatting. As a simple example, consider
 the sequence of Java statements to swap the values in two 
 variables: `int temp = a; a = b; b = temp;`.  A line counter will count this as 1 line if
@@ -46,7 +46,7 @@ value, such as `foo(5)` versus passing the result of a calculation to the method
 `foo(2.0 + bar/11.0)`. Line counting considers both of these as 1 line; while the second case
 will factor in more heavily into JaCoCo's instruction counting than will the first case. For
 these reasons, although JaCoCo also provides line coverage data, we do not currently support
-generating a badge from JaCoCo's line counter data. JaCoCo's use of byte-code instructions
+generating a badge from JaCoCo's line counter data. JaCoCo's use of bytecode instructions
 in its definition of C0 Coverage is a more meaningful measure of coverage than is counting
 lines of code.
 
@@ -256,7 +256,7 @@ jobs:
 
     - name: Generate JaCoCo Badge
       id: jacoco
-      uses: cicirello/jacoco-badge-generator@v1.2.1
+      uses: cicirello/jacoco-badge-generator@v2.0.0
 
     - name: Log coverage percentage
       run: |
@@ -309,7 +309,7 @@ jobs:
 
     - name: Generate JaCoCo Badge
       id: jacoco
-      uses: cicirello/jacoco-badge-generator@v1.2.1
+      uses: cicirello/jacoco-badge-generator@v2.0.0
       with:
         generate-branches-badge: true
 
