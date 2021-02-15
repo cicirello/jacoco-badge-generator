@@ -55,10 +55,6 @@ inputs:
     description: 'Controls whether or not to generate the branches coverage badge.'
     required: false
     default: false
-  jacoco-badge-file:
-    description: 'DEPRECATED: Instead, you should use the combination of the badges-directory and coverage-badge-filename inputs. This input will be removed in the next release, and has been retained only to ease transition. If this input is used it takes precedence over the new badges-directory and coverage-badge-filename inputs. Full path, relative to the root of the repository, to the created coverage badge, including filename.'
-    required: false
-    default: ''
 outputs:
   coverage:
     description: 'The jacoco coverage percentage as computed from the data in the jacoco.csv file.'
@@ -74,4 +70,3 @@ runs:
     - ${{ inputs.branches-badge-filename }}
     - ${{ inputs.generate-coverage-badge }}
     - ${{ inputs.generate-branches-badge }}
-    - ${{ inputs.jacoco-badge-file }}
