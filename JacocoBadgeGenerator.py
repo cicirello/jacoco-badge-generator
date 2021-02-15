@@ -189,12 +189,6 @@ if __name__ == "__main__" :
     generateCoverageBadge = sys.argv[5].lower() == "true"
     generateBranchesBadge = sys.argv[6].lower() == "true"
 
-    ## This next input is deprecated. For now, if it was passed,
-    ## then map it into the new replacement inputs.
-    jacocoBadgeFile = sys.argv[7]
-    if len(jacocoBadgeFile) > 0 :
-        badgesDirectory, coverageFilename = splitPath(jacocoBadgeFile)
-
     if len(badgesDirectory) > 1 and badgesDirectory[0:2] == "./" :
         badgesDirectory = badgesDirectory[2:]
     if len(badgesDirectory) > 0 and badgesDirectory[0] == "/" :
