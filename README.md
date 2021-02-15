@@ -149,19 +149,6 @@ This input controls whether or not to generate the branches coverage badge, and 
 to `false`. This defaults to `false` to avoid surprising users who upgrade from earlier
 versions with a badge they didn't know would be generated.
 
-### `jacoco-badge-file` __DEPRECATED__
-
-__This input is DEPRECATED.__ You should instead use the combination of 
-the `badges-directory` and `coverage-badge-filename` inputs. This input 
-will be removed in the next release, and has been retained only to ease 
-transition from earlier versions of this GitHub Action. If this input is 
-used it takes precedence over the new `badges-directory` 
-and `coverage-badge-filename` inputs. This input is the full path, relative 
-to the root of the repository, to the created coverage badge, including 
-filename. This defaults to the empty string. Note that if you were using 
-the old default value for this input in prior versions, then you should be all
-set with the default values for the new pair of replacement inputs.
-
 
 ## Outputs
 
