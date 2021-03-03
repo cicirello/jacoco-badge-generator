@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 ### Changed
+* Changed the tag used to pull the base docker image from `latest`
+  to the specific version number that is the latest. The reason for this change
+  is to ensure that we have the opportunity to test against updates to
+  the base image before such changes affect releases. Using the `latest`
+  tag when pulling the base image runs the risk of a change in the base
+  image breaking the action (although this risk is small).
 
 ### Deprecated
 
