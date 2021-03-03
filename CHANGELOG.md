@@ -9,6 +9,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 ### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### CI/CD
+
+
+## [2.0.1] - 2021-3-3
+
+### Changed
 * Changed the tag used to pull the base docker image from `latest`
   to the specific version number that is the latest. The reason for this change
   is to ensure that we have the opportunity to test against updates to
@@ -16,18 +29,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   tag when pulling the base image runs the risk of a change in the base
   image breaking the action (although this risk is small).
 
-### Deprecated
-
-### Removed
-
 ### Fixed
 * Fixed a bug related to permissions on the badges directory if it 
   didn't already exist prior to running the action. Bug only appeared to
   exhibit itself if the `jacoco-badge-generator` was used in combination with
   version 3.6 or later of the `peter-evans/create-pull-request` action, and only
   if the badges directory didn't already exist. This bug is now resolved.
-
-### CI/CD
 
 
 ## [2.0.0] - 2021-2-15
