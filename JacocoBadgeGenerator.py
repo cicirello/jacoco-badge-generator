@@ -141,6 +141,7 @@ def createOutputDirectories(badgesDirectory) :
     """
     if not os.path.exists(badgesDirectory) :
         p = pathlib.Path(badgesDirectory)
+        os.umask(0)
         p.mkdir(mode=0o777, parents=True, exist_ok=True)
 
 def splitPath(filenameWithPath) :
