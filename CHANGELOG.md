@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-2-24
+## [Unreleased] - 2021-3-3
 
 ### Added
 
@@ -17,6 +17,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 ### CI/CD
+
+
+## [2.0.1] - 2021-3-3
+
+### Changed
+* Changed the tag used to pull the base docker image from `latest`
+  to the specific version number that is the latest. The reason for this change
+  is to ensure that we have the opportunity to test against updates to
+  the base image before such changes affect releases. Using the `latest`
+  tag when pulling the base image runs the risk of a change in the base
+  image breaking the action (although this risk is small).
+
+### Fixed
+* Fixed a bug related to permissions on the badges directory if it 
+  didn't already exist prior to running the action. Bug only appeared to
+  exhibit itself if the `jacoco-badge-generator` was used in combination with
+  version 3.6 or later of the `peter-evans/create-pull-request` action, and only
+  if the badges directory didn't already exist. This bug is now resolved.
 
 
 ## [2.0.0] - 2021-2-15
