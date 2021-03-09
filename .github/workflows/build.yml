@@ -38,3 +38,6 @@ jobs:
       run: |
         echo "coverage = ${{ steps.integration.outputs.coverage }}"
         echo "branch coverage = ${{ steps.integration.outputs.branches }}"
+
+    - name: Verify integration test results
+      run: python3 -u -m unittest tests/integration.py
