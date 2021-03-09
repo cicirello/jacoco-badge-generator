@@ -27,6 +27,7 @@ jobs:
       run: docker build . --file Dockerfile
 
     - name: Integration test
+      id: integration
       uses: ./
       with:
         jacoco-csv-file: tests/jacoco.csv
@@ -35,5 +36,5 @@ jobs:
 
     - name: Log integration test outputs
       run: |
-        echo "coverage = ${{ steps.jacoco.outputs.coverage }}"
-        echo "branch coverage = ${{ steps.jacoco.outputs.branches }}"
+        echo "coverage = ${{ steps.integration.outputs.coverage }}"
+        echo "branch coverage = ${{ steps.integration.outputs.branches }}"
