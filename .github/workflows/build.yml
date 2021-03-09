@@ -27,7 +27,7 @@ jobs:
       run: docker build . --file Dockerfile
 
     - name: Integration test
-      uses: /
+      uses: ./
       with:
         jacoco-csv-file: tests/jacoco.csv
         badges-directory: tests/badges
