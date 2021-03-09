@@ -36,5 +36,9 @@ class IntegrationTest(unittest.TestCase) :
             with open("tests/badges/jacoco.svg","r") as generated :
                 self.assertEqual(expected.read(), generated.read())
 
+    def verifyBranchesBadge(self) :
+        with open("tests/90b.svg","r") as expected :
+            with open("tests/badges/branches.svg","r") as generated :
+                self.assertEqual(expected.read(), generated.read())
 
     
