@@ -25,3 +25,19 @@ jobs:
 
     - name: Verify that the Docker image for the action builds
       run: docker build . --file Dockerfile
+
+    - name: Integration test
+      id: integration
+      uses: ./
+      with:
+        jacoco-csv-file: tests/jacoco.csv
+        badges-directory: tests/badges
+        generate-branches-badge: true
+
+    - name: Log integration test outputs
+      run: |
+        echo "coverage = ${{ steps.integration.outputs.coverage }}"
+        echo "branch coverage = ${{ steps.integration.outputs.branches }}"
+
+    - name: Verify integration test results
+      run: python3 -u -m unittest tests/integration.py
