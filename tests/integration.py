@@ -31,12 +31,12 @@ import unittest
 
 class IntegrationTest(unittest.TestCase) :
 
-    def verifyInstructionsBadge(self) :
+    def testIntegrationInstructionsBadge(self) :
         with open("tests/100.svg","r") as expected :
             with open("tests/badges/jacoco.svg","r") as generated :
                 self.assertEqual(expected.read(), generated.read())
 
-    def verifyBranchesBadge(self) :
+    def testIntegrationBranchesBadge(self) :
         with open("tests/90b.svg","r") as expected :
             with open("tests/badges/branches.svg","r") as generated :
                 self.assertEqual(expected.read(), generated.read())
