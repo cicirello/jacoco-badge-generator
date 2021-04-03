@@ -4,12 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-3-29
+## [Unreleased] - 2021-4-3
 
 ### Added
 
 ### Changed
-* Bumped base docker image to pyaction-lite, v3.13.3.
+* Bumped base docker image to pyaction-lite, v3.13.4.
 
 ### Deprecated
 
