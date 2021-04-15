@@ -1,7 +1,7 @@
 # jacoco-badge-generator
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/cicirello/jacoco-badge-generator?label=Marketplace&logo=GitHub)](https://github.com/marketplace/actions/jacoco-badge-generator)
-[![build](https://github.com/cicirello/jacoco-badge-generator/workflows/build/badge.svg)](https://github.com/cicirello/jacoco-badge-generator/actions?query=workflow%3Abuild)
+[![build](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/build.yml/badge.svg)](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/build.yml)
 [![CodeQL](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/codeql-analysis.yml)
 [![GitHub](https://img.shields.io/github/license/cicirello/jacoco-badge-generator)](https://github.com/cicirello/jacoco-badge-generator/blob/main/LICENSE)
 ![GitHub top language](https://img.shields.io/github/languages/top/cicirello/jacoco-badge-generator)
