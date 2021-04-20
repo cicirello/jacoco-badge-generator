@@ -3,7 +3,7 @@
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/cicirello/jacoco-badge-generator?label=Marketplace&logo=GitHub)](https://github.com/marketplace/actions/jacoco-badge-generator)
 [![build](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/build.yml/badge.svg)](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/build.yml)
 [![CodeQL](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/codeql-analysis.yml)
-[![GitHub](https://img.shields.io/github/license/cicirello/jacoco-badge-generator)](https://github.com/cicirello/jacoco-badge-generator/blob/main/LICENSE)
+[![License](https://img.shields.io/github/license/cicirello/jacoco-badge-generator)](https://github.com/cicirello/jacoco-badge-generator/blob/main/LICENSE)
 ![GitHub top language](https://img.shields.io/github/languages/top/cicirello/jacoco-badge-generator)
 
 The jacoco-badge-generator GitHub Action parses a `jacoco.csv` from a JaCoCo coverage report,
@@ -174,7 +174,7 @@ covered, computed from the branches data in the JaCoCo csv report.
 
 ### Prerequisite: Running JaCoCo
 
-This example workflow assumes that you are using Maven to build and test
+The example workflows assume that you are using Maven to build and test
 a Java project, and that you have the `jacoco-maven-plugin`
 configured in your `pom.xml` in the test phase with something
 along the lines of the following:
@@ -234,10 +234,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Set up JDK 1.11
-      uses: actions/setup-java@v1
+    - name: Set up the Java JDK
+      uses: actions/setup-java@v2
       with:
-        java-version: 1.11
+        java-version: '11'
+        distribution: 'adopt'
 
     - name: Build with Maven
       run: mvn -B test
@@ -287,10 +288,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Set up JDK 1.11
-      uses: actions/setup-java@v1
+    - name: Set up the Java JDK
+      uses: actions/setup-java@v2
       with:
-        java-version: 1.11
+        java-version: '11'
+        distribution: 'adopt'
 
     - name: Build with Maven
       run: mvn -B test
