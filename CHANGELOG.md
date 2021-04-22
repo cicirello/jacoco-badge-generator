@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2021-4-22
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### CI/CD
+
+
+## [2.1.0] - 2021-4-22
+
+### Added
 * Added support for multi-module projects: The `jacoco-badge-generator` is now
   able to generate coverage (both instructions and branches) for a multi-module
   project, computing the coverage percentages from a combination of the data
@@ -15,12 +30,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 * Updated example workflows to utilize the updated release of actions/setup-java.
 * Bumped base docker image to pyaction-lite, v3.13.5.
-
-### Deprecated
-
-### Removed
-
-### Fixed
 
 ### CI/CD
 * Enabled CodeQL code scanning on all push/pull-request events.
