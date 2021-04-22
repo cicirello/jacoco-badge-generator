@@ -32,7 +32,7 @@ branding:
   color: 'green'
 inputs:
   jacoco-csv-file:  
-    description: 'Full path, relative to the root of the repository, to the jacoco csv file, including filename'
+    description: 'Full path, relative to the root of the repository, to the jacoco csv file(s), including filename(s)'
     required: false
     default: 'target/site/jacoco/jacoco.csv'
   badges-directory:

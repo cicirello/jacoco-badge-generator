@@ -33,28 +33,33 @@ import JacocoBadgeGenerator as jbg
 class TestJacocoBadgeGenerator(unittest.TestCase) :
 
     def testFullCoverage(self) :
-        self.assertAlmostEqual(1, jbg.computeCoverage("tests/jacoco100.csv")[0])
+        self.assertAlmostEqual(1, jbg.computeCoverage(["tests/jacoco100.csv"])[0])
 
     def testCoverage90(self) :
-        self.assertAlmostEqual(0.9, jbg.computeCoverage("tests/jacoco90.csv")[0])
+        self.assertAlmostEqual(0.9, jbg.computeCoverage(["tests/jacoco90.csv"])[0])
 
     def testCoverage901(self) :
-        self.assertAlmostEqual(0.901, jbg.computeCoverage("tests/jacoco901.csv")[0])
+        self.assertAlmostEqual(0.901, jbg.computeCoverage(["tests/jacoco901.csv"])[0])
 
     def testCoverageNoInstructions(self) :
-        self.assertAlmostEqual(1, jbg.computeCoverage("tests/jacocoDivZero.csv")[0])
+        self.assertAlmostEqual(1, jbg.computeCoverage(["tests/jacocoDivZero.csv"])[0])
 
     def testFullCoverageBranches(self) :
-        self.assertAlmostEqual(1, jbg.computeCoverage("tests/branches100.csv")[1])
+        self.assertAlmostEqual(1, jbg.computeCoverage(["tests/branches100.csv"])[1])
 
     def testCoverage90Branches(self) :
-        self.assertAlmostEqual(0.9, jbg.computeCoverage("tests/branches90.csv")[1])
+        self.assertAlmostEqual(0.9, jbg.computeCoverage(["tests/branches90.csv"])[1])
 
     def testCoverage901Branches(self) :
-        self.assertAlmostEqual(0.901, jbg.computeCoverage("tests/branches901.csv")[1])
+        self.assertAlmostEqual(0.901, jbg.computeCoverage(["tests/branches901.csv"])[1])
 
     def testCoverageNoBranches(self) :
-        self.assertAlmostEqual(1, jbg.computeCoverage("tests/branchesDivZero.csv")[1])
+        self.assertAlmostEqual(1, jbg.computeCoverage(["tests/branchesDivZero.csv"])[1])
+
+    def testComputeCoverageMultiJacocoReports(self) :
+        coverage, branches = jbg.computeCoverage(["tests/multi1.csv", "tests/multi2.csv"])
+        self.assertAlmostEqual(0.78, coverage)
+        self.assertAlmostEqual(0.87, branches)
 
     def testFormatPercentage(self) :
         self.assertEqual("100%", jbg.badgeCoverageStringColorPair(1)[0])

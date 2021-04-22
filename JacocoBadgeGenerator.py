@@ -32,6 +32,7 @@ import sys
 import math
 import pathlib
 import os
+import os.path
 
 badgeTemplate = '<svg xmlns="http://www.w3.org/2000/svg" width="104" \
 height="20" role="img" aria-label="{3}: {0}">\
@@ -73,26 +74,27 @@ def generateBadge(covStr, color, badgeType="coverage") :
         textLength = "170"
     return badgeTemplate.format(covStr, color, textLength, badgeType)
 
-def computeCoverage(filename) :
-    """Parses a jacoco.csv file and computes code coverage
+def computeCoverage(fileList) :
+    """Parses one or more jacoco.csv files and computes code coverage
     percentages. Returns: coverage, branchCoverage.  The coverage
     is instruction coverage.
 
     Keyword arguments:
-    filename - The name, including path, of the jacoco.csv
+    fileList - A list (or any iterable) of the filenames, including path, of the jacoco.csv files.
     """
     missed = 0
     covered = 0
     missedBranches = 0
     coveredBranches = 0
-    with open(filename, newline='') as csvfile :
-        jacocoReader = csv.reader(csvfile)
-        for i, row in enumerate(jacocoReader) :
-            if i > 0 :
-                missed += int(row[3])
-                covered += int(row[4])
-                missedBranches += int(row[5])
-                coveredBranches += int(row[6])
+    for filename in fileList :
+        with open(filename, newline='') as csvfile :
+            jacocoReader = csv.reader(csvfile)
+            for i, row in enumerate(jacocoReader) :
+                if i > 0 :
+                    missed += int(row[3])
+                    covered += int(row[4])
+                    missedBranches += int(row[5])
+                    coveredBranches += int(row[6])
     return (calculatePercentage(covered, missed),
             calculatePercentage(coveredBranches, missedBranches))
 
@@ -197,7 +199,9 @@ if __name__ == "__main__" :
     if badgesDirectory == "." :
         badgesDirectory = ""
 
-    cov, branches = computeCoverage(jacocoCsvFile)
+    jacocoFileList = jacocoCsvFile.split()
+
+    cov, branches = computeCoverage(jacocoFileList)
 
     if (generateCoverageBadge or generateBranchesBadge) and badgesDirectory != "" :
         createOutputDirectories(badgesDirectory)

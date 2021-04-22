@@ -26,18 +26,35 @@ jobs:
     - name: Verify that the Docker image for the action builds
       run: docker build . --file Dockerfile
 
-    - name: Integration test
-      id: integration
+    - name: Integration test with a single jacoco.csv
+      id: integration1
       uses: ./
       with:
         jacoco-csv-file: tests/jacoco.csv
         badges-directory: tests/badges
         generate-branches-badge: true
 
-    - name: Log integration test outputs
+    - name: Log integration test outputs with a single jacoco.csv
       run: |
-        echo "coverage = ${{ steps.integration.outputs.coverage }}"
-        echo "branch coverage = ${{ steps.integration.outputs.branches }}"
+        echo "coverage = ${{ steps.integration1.outputs.coverage }}"
+        echo "branch coverage = ${{ steps.integration1.outputs.branches }}"
+
+    - name: Integration test with multiple jacoco.csv files
+      id: integration2
+      uses: ./
+      with:
+        jacoco-csv-file: >
+          tests/multi1.csv
+          tests/multi2.csv
+        badges-directory: tests/badges
+        generate-branches-badge: true
+        coverage-badge-filename: coverageMulti.svg
+        branches-badge-filename: branchesMulti.svg
+
+    - name: Log integration test outputs with multiple jacoco.csv files
+      run: |
+        echo "coverage = ${{ steps.integration2.outputs.coverage }}"
+        echo "branch coverage = ${{ steps.integration2.outputs.branches }}"
 
     - name: Verify integration test results
       run: python3 -u -m unittest tests/integration.py
