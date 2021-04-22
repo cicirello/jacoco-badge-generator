@@ -374,7 +374,7 @@ jobs:
       uses: cicirello/jacoco-badge-generator@v2.0.1
       with:
         generate-branches-badge: true
-		jacoco-csv-file: >
+        jacoco-csv-file: >
           module1/target/site/jacoco/jacoco.csv
           module2/target/site/jacoco/jacoco.csv
           module3/target/site/jacoco/jacoco.csv
@@ -438,7 +438,7 @@ jobs:
       uses: cicirello/jacoco-badge-generator@v2.0.1
       with:
         generate-branches-badge: true
-		jacoco-csv-file: module1/target/site/jacoco/jacoco.csv
+        jacoco-csv-file: module1/target/site/jacoco/jacoco.csv
         coverage-badge-filename: jacoco1.svg
         branches-badge-filename: branches1.svg
 
@@ -447,7 +447,7 @@ jobs:
       uses: cicirello/jacoco-badge-generator@v2.0.1
       with:
         generate-branches-badge: true
-		jacoco-csv-file: module2/target/site/jacoco/jacoco.csv
+        jacoco-csv-file: module2/target/site/jacoco/jacoco.csv
         coverage-badge-filename: jacoco2.svg
         branches-badge-filename: branches2.svg
 
