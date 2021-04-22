@@ -26,7 +26,7 @@ jobs:
     - name: Verify that the Docker image for the action builds
       run: docker build . --file Dockerfile
 
-    - name: Integration test with a single jacoco.csv case
+    - name: Integration test with a single jacoco.csv
       id: integration1
       uses: ./
       with:
@@ -34,12 +34,12 @@ jobs:
         badges-directory: tests/badges
         generate-branches-badge: true
 
-    - name: Log integration test outputs: single jacoco.csv case
+    - name: Log integration test outputs with a single jacoco.csv
       run: |
         echo "coverage = ${{ steps.integration1.outputs.coverage }}"
         echo "branch coverage = ${{ steps.integration1.outputs.branches }}"
 
-    - name: Integration test with multiple jacoco.csv filescase
+    - name: Integration test with multiple jacoco.csv files
       id: integration2
       uses: ./
       with:
@@ -51,7 +51,7 @@ jobs:
         coverage-badge-filename: coverageMulti.svg
         branches-badge-filename: branchesMulti.svg
 
-    - name: Log integration test outputs: multi jacoco.csv case
+    - name: Log integration test outputs with multiple jacoco.csv files
       run: |
         echo "coverage = ${{ steps.integration2.outputs.coverage }}"
         echo "branch coverage = ${{ steps.integration2.outputs.branches }}"
