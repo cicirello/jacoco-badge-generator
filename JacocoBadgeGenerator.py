@@ -32,6 +32,7 @@ import sys
 import math
 import pathlib
 import os
+import os.path
 
 badgeTemplate = '<svg xmlns="http://www.w3.org/2000/svg" width="104" \
 height="20" role="img" aria-label="{3}: {0}">\
@@ -198,7 +199,7 @@ if __name__ == "__main__" :
     if badgesDirectory == "." :
         badgesDirectory = ""
 
-    jacocoFileList = [ jacocoCsvFile ]
+    jacocoFileList = jacocoCsvFile.split()
 
     cov, branches = computeCoverage(jacocoFileList)
 
