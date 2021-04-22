@@ -41,4 +41,12 @@ class IntegrationTest(unittest.TestCase) :
             with open("tests/badges/branches.svg","r") as generated :
                 self.assertEqual(expected.read(), generated.read())
 
+    def testIntegrationMultiJacocoReportsCase(self) :
+        with open("tests/78.svg","r") as expected :
+            with open("tests/badges/coverageMulti.svg","r") as generated :
+                self.assertEqual(expected.read(), generated.read())
+        with open("tests/87b.svg","r") as expected :
+            with open("tests/badges/branchesMulti.svg","r") as generated :
+                self.assertEqual(expected.read(), generated.read())
+
     
