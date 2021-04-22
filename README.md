@@ -254,7 +254,7 @@ jobs:
 
     - name: Generate JaCoCo Badge
       id: jacoco
-      uses: cicirello/jacoco-badge-generator@v2.0.1
+      uses: cicirello/jacoco-badge-generator@v2.1.0
 
     - name: Log coverage percentage
       run: |
@@ -308,7 +308,7 @@ jobs:
 
     - name: Generate JaCoCo Badge
       id: jacoco
-      uses: cicirello/jacoco-badge-generator@v2.0.1
+      uses: cicirello/jacoco-badge-generator@v2.1.0
       with:
         generate-branches-badge: true
 
@@ -371,7 +371,7 @@ jobs:
 
     - name: Generate JaCoCo Badge
       id: jacoco
-      uses: cicirello/jacoco-badge-generator@v2.0.1
+      uses: cicirello/jacoco-badge-generator@v2.1.0
       with:
         generate-branches-badge: true
         jacoco-csv-file: >
@@ -433,18 +433,18 @@ jobs:
     - name: Build with Maven
       run: mvn -B test
 
-    - name: Generate JaCoCo Badge: Module 1
+    - name: Generate JaCoCo Badges for Module 1
       id: jacocoMod1
-      uses: cicirello/jacoco-badge-generator@v2.0.1
+      uses: cicirello/jacoco-badge-generator@v2.1.0
       with:
         generate-branches-badge: true
         jacoco-csv-file: module1/target/site/jacoco/jacoco.csv
         coverage-badge-filename: jacoco1.svg
         branches-badge-filename: branches1.svg
 
-    - name: Generate JaCoCo Badge: Module 2
+    - name: Generate JaCoCo Badges for Module 2
       id: jacocoMod2
-      uses: cicirello/jacoco-badge-generator@v2.0.1
+      uses: cicirello/jacoco-badge-generator@v2.1.0
       with:
         generate-branches-badge: true
         jacoco-csv-file: module2/target/site/jacoco/jacoco.csv
