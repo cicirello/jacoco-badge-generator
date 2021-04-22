@@ -26,7 +26,7 @@ jobs:
     - name: Verify that the Docker image for the action builds
       run: docker build . --file Dockerfile
 
-    - name: Integration test: single jacoco.csv case
+    - name: Integration test with a single jacoco.csv case
       id: integration1
       uses: ./
       with:
@@ -39,7 +39,7 @@ jobs:
         echo "coverage = ${{ steps.integration1.outputs.coverage }}"
         echo "branch coverage = ${{ steps.integration1.outputs.branches }}"
 
-    - name: Integration test: multiple jacoco.csv filescase
+    - name: Integration test with multiple jacoco.csv filescase
       id: integration2
       uses: ./
       with:
