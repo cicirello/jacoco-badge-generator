@@ -184,13 +184,16 @@ def formFullPathToFile(directory, filename) :
     else :
         return directory + "/" + filename
 
-def filterMissingReports(jacocoFileList) :
+def filterMissingReports(jacocoFileList, failIfMissing=False) :
     """Validates report file existence, and returns a list
     containing a subset of the report files that exist. Logs
     files that don't exist to the console as warnings.
 
     Keyword arguments:
     jacocoFileList - A list of jacoco.csv files.
+    failIfMissing - If true and if any of the jacoco.csv files
+    don't exist, then it will exit with a non-zero exit code causing
+    workflow to fail.
     """
     goodReports = []
     for f in jacocoFileList :
@@ -198,6 +201,8 @@ def filterMissingReports(jacocoFileList) :
             goodReports.append(f)
         else :
             print("WARNING: Report file", f, "does not exist.")
+    if failIfMissing and len(goodReports) != len(jacocoFileList) :
+        sys.exit(1)
     return goodReports
 
 if __name__ == "__main__" :
@@ -207,6 +212,7 @@ if __name__ == "__main__" :
     branchesFilename = sys.argv[4]
     generateCoverageBadge = sys.argv[5].lower() == "true"
     generateBranchesBadge = sys.argv[6].lower() == "true"
+    onMissingReport = sys.argv[7].lower()
 
     if len(badgesDirectory) > 1 and badgesDirectory[0:2] == "./" :
         badgesDirectory = badgesDirectory[2:]
@@ -215,9 +221,10 @@ if __name__ == "__main__" :
     if badgesDirectory == "." :
         badgesDirectory = ""
 
-    jacocoFileList = filterMissingReports(jacocoCsvFile.split())
+    jacocoFileList = jacocoCsvFile.split()
+    filteredFileList = filterMissingReports(jacocoFileList, onMissingReport=="fail")
 
-    cov, branches = computeCoverage(jacocoFileList)
+    cov, branches = computeCoverage(filteredFileList)
 
     if (generateCoverageBadge or generateBranchesBadge) and badgesDirectory != "" :
         createOutputDirectories(badgesDirectory)
