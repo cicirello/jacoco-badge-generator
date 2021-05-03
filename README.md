@@ -141,6 +141,11 @@ This input is the directory for storing badges, relative to the root of the
 repository. The default is `.github/badges`. The action will create the badges
 directory if it doesn't already exist, although the action itself does not commit.
 
+### `generate-coverage-badge`
+
+This input controls whether or not to generate the coverage badge (Instructions 
+Coverage), and defaults to `true`.
+
 ### `coverage-badge-filename`
 
 This input is the filename for the coverage badge (Instructions or C0 
@@ -149,6 +154,12 @@ is `jacoco.svg`. The file format is an `svg`. The badge file will be
 created within the `badges-directory`
 directory. __The action doesn't commit the badge file. You will 
 need to have additional steps in your workflow to do that.__
+
+### `generate-branches-badge`
+
+This input controls whether or not to generate the branches coverage badge, and defaults
+to `false`. This defaults to `false` to avoid surprising users who upgrade from earlier
+versions with a badge they didn't know would be generated.
 
 ### `branches-badge-filename`
 
@@ -159,16 +170,8 @@ created within the `badges-directory`
 directory. __The action doesn't commit the badge file. You will 
 need to have additional steps in your workflow to do that.__
 
-### `generate-coverage-badge`
 
-This input controls whether or not to generate the coverage badge (Instructions 
-Coverage), and defaults to `true`.
 
-### `generate-branches-badge`
-
-This input controls whether or not to generate the branches coverage badge, and defaults
-to `false`. This defaults to `false` to avoid surprising users who upgrade from earlier
-versions with a badge they didn't know would be generated.
 
 
 ## Outputs
