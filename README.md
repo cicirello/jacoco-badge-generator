@@ -170,8 +170,24 @@ created within the `badges-directory`
 directory. __The action doesn't commit the badge file. You will 
 need to have additional steps in your workflow to do that.__
 
+### `on-missing-report`
 
+This input controls what happens if one or more `jacoco.csv` files do not exist.
+The default is `on-missing-report: fail`, in which case the action will 
+return a non-zero exit code (causing the workflow run to fail) if one 
+or more files listed in the `jacoco-csv-file` input do not exist, or if
+an empty list of files is passed to the action. If you would rather the workflow
+itself not fail, then you can use `on-missing-report: quiet`, in which case
+the action will instead quietly exit in this case without producing badges.
+Although not recommended, a third option, `on-missing-report: badges`, will
+cause the action to produce badges from the report files that do exist, simply
+ignoring missing report files. We do not recommend this option since such a 
+case is likely due to an error in your workflow, and any badges produced are
+likely computed with missing data.
 
+Regardless of value passed to this input, the action will log warnings for
+any files listed in the `jacoco-csv-file` input that do not exist, for your 
+inspection in the workflow run. 
 
 
 ## Outputs
