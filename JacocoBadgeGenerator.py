@@ -184,6 +184,22 @@ def formFullPathToFile(directory, filename) :
     else :
         return directory + "/" + filename
 
+def filterMissingReports(jacocoFileList) :
+    """Validates report file existence, and returns a list
+    containing a subset of the report files that exist. Logs
+    files that don't exist to the console as warnings.
+
+    Keyword arguments:
+    jacocoFileList - A list of jacoco.csv files.
+    """
+    goodReports = []
+    for f in jacocoFileList :
+        if os.path.exists(f) :
+            goodReports.append(f)
+        else :
+            print("WARNING: Report file", f, "does not exist.")
+    return goodReports
+
 if __name__ == "__main__" :
     jacocoCsvFile = sys.argv[1]
     badgesDirectory = sys.argv[2]
@@ -199,7 +215,7 @@ if __name__ == "__main__" :
     if badgesDirectory == "." :
         badgesDirectory = ""
 
-    jacocoFileList = jacocoCsvFile.split()
+    jacocoFileList = filterMissingReports(jacocoCsvFile.split())
 
     cov, branches = computeCoverage(jacocoFileList)
 
