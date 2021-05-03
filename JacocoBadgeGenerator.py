@@ -223,24 +223,33 @@ if __name__ == "__main__" :
 
     jacocoFileList = jacocoCsvFile.split()
     filteredFileList = filterMissingReports(jacocoFileList, onMissingReport=="fail")
+    
+    if len(filteredFileList) == 0 :
+        print("WARNING: No JaCoCo csv reports found.")
+        if onMissingReport=="fail" :
+            sys.exit(1)
 
-    cov, branches = computeCoverage(filteredFileList)
+    noReportsMissing = len(jacocoFileList)==len(filteredFileList)
 
-    if (generateCoverageBadge or generateBranchesBadge) and badgesDirectory != "" :
-        createOutputDirectories(badgesDirectory)
+    if len(filteredFileList) > 0 and (noReportsMissing or onMissingReport!="quiet") :  
 
-    if generateCoverageBadge :
-        covStr, color = badgeCoverageStringColorPair(cov)
-        with open(formFullPathToFile(badgesDirectory, coverageFilename), "w") as badge :
-            badge.write(generateBadge(covStr, color))
+        cov, branches = computeCoverage(filteredFileList)
 
-    if generateBranchesBadge :
-        covStr, color = badgeCoverageStringColorPair(branches)
-        with open(formFullPathToFile(badgesDirectory, branchesFilename), "w") as badge :
-            badge.write(generateBadge(covStr, color, "branches"))
+        if (generateCoverageBadge or generateBranchesBadge) and badgesDirectory != "" :
+            createOutputDirectories(badgesDirectory)
 
-    print("::set-output name=coverage::" + str(cov))
-    print("::set-output name=branches::" + str(branches))
+        if generateCoverageBadge :
+            covStr, color = badgeCoverageStringColorPair(cov)
+            with open(formFullPathToFile(badgesDirectory, coverageFilename), "w") as badge :
+                badge.write(generateBadge(covStr, color))
+
+        if generateBranchesBadge :
+            covStr, color = badgeCoverageStringColorPair(branches)
+            with open(formFullPathToFile(badgesDirectory, branchesFilename), "w") as badge :
+                badge.write(generateBadge(covStr, color, "branches"))
+
+        print("::set-output name=coverage::" + str(cov))
+        print("::set-output name=branches::" + str(branches))
     
 
 
