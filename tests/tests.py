@@ -32,6 +32,9 @@ import JacocoBadgeGenerator as jbg
 
 class TestJacocoBadgeGenerator(unittest.TestCase) :
 
+    def testFilterMissingReports_empty(self) :
+        self.assertEqual([], jbg.filterMissingReports([]))
+
     def testFilterMissingReports(self) :
         expected = ["tests/jacoco100.csv", "tests/jacoco90.csv"]
         case = ["tests/idontexist1.csv",
