@@ -201,6 +201,10 @@ def filterMissingReports(jacocoFileList, failIfMissing=False) :
             goodReports.append(f)
         else :
             print("WARNING: Report file", f, "does not exist.")
+    if len(goodReports) == 0 :
+        print("WARNING: No JaCoCo csv reports found.")
+        if failIfMissing :
+            sys.exit(1)
     if failIfMissing and len(goodReports) != len(jacocoFileList) :
         sys.exit(1)
     return goodReports
@@ -214,6 +218,10 @@ if __name__ == "__main__" :
     generateBranchesBadge = sys.argv[6].lower() == "true"
     onMissingReport = sys.argv[7].lower()
 
+    if onMissingReport not in {"fail", "quiet", "badges"} :
+        print("ERROR: Invalid value for on-missing-report.")
+        sys.exit(1)
+
     if len(badgesDirectory) > 1 and badgesDirectory[0:2] == "./" :
         badgesDirectory = badgesDirectory[2:]
     if len(badgesDirectory) > 0 and badgesDirectory[0] == "/" :
@@ -224,11 +232,6 @@ if __name__ == "__main__" :
     jacocoFileList = jacocoCsvFile.split()
     filteredFileList = filterMissingReports(jacocoFileList, onMissingReport=="fail")
     
-    if len(filteredFileList) == 0 :
-        print("WARNING: No JaCoCo csv reports found.")
-        if onMissingReport=="fail" :
-            sys.exit(1)
-
     noReportsMissing = len(jacocoFileList)==len(filteredFileList)
 
     if len(filteredFileList) > 0 and (noReportsMissing or onMissingReport!="quiet") :  
