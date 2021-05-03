@@ -173,6 +173,7 @@ need to have additional steps in your workflow to do that.__
 ### `on-missing-report`
 
 This input controls what happens if one or more `jacoco.csv` files do not exist.
+This input accepts one of three possible values: `fail`, `quiet`, or `badges`.
 The default is `on-missing-report: fail`, in which case the action will 
 return a non-zero exit code (causing the workflow run to fail) if one 
 or more files listed in the `jacoco-csv-file` input do not exist, or if
