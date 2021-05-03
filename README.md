@@ -182,9 +182,9 @@ itself not fail, then you can use `on-missing-report: quiet`, in which case
 the action will instead quietly exit in this case without producing badges.
 Although not recommended, a third option, `on-missing-report: badges`, will
 cause the action to produce badges from the report files that do exist, simply
-ignoring missing report files. We do not recommend this option since such a 
-case is likely due to an error in your workflow, and any badges produced are
-likely computed with missing data.
+ignoring missing report files, provided that at least one such report file 
+exists. We do not recommend this option since such a case is likely due to an 
+error in your workflow, and any badges produced are likely computed with missing data.
 
 Regardless of value passed to this input, the action will log warnings for
 any files listed in the `jacoco-csv-file` input that do not exist, for your 
