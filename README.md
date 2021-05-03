@@ -12,7 +12,7 @@ generates badges for one or both of these (configurable with action inputs) to p
 to read visual summary of the code coverage of your test cases. The action supports
 both the basic case of a single `jacoco.csv`, as well as multi-module projects in which
 case the action can produce coverage badges from the combination of the JaCoCo reports
-from all modules.
+from all modules, provided that the individual reports are independent.
 
 _The developers of the jacoco-badge-generator GitHub Action are not affiliated 
 with the developers of JaCoCo, although we are a fan and user of their excellent 
@@ -122,7 +122,18 @@ output location.
 If you have a multi-module project, you can pass the paths (including filenames)
 to all of the `jacoco.csv` files for all of the sub-projects. Separate these by spaces,
 and in particular see the [Multi-Module Example Workflows](#multi-module-example-workflows)
-for an example of how to do this.
+for an example of how to do this. Multi-module support is limited to cases where
+each module has its own test coverage report, and where those reports don't overlap.
+
+The action assumes that all reports passed via this input are 
+independent of each other. If you are using matrix testing, such that 
+each group of tests produces a report, and where the groups overlap in what
+they are testing (e.g., one group tests a portion of a class or method, 
+and another group tests another portion, etc), then the coverage computed by 
+this action will not be correct. The csv reports don't contain enough information
+to properly merge such overlapping reports. If this applies to your use-case, then
+you will need to have JaCoCo produce a single JaCoCo report first (for example, 
+see [jacoco:report-aggregate](https://www.jacoco.org/jacoco/trunk/doc/report-aggregate-mojo.html)). 
 
 ### `badges-directory`
 
