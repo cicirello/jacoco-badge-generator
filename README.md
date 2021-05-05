@@ -102,12 +102,12 @@ of [Shields.io](https://github.com/badges/shields), however, the badges are enti
 within the jacoco-badge-generator GitHub Action, with no external calls.  Here are
 a few samples of what the badges look like:
 * ![Coverage 100%](tests/100.svg) We use bright green for 100% coverage.
-* ![Coverage 99.9%](https://github.com/cicirello/jacoco-badge-generator/blob/main/tests/999.svg) We use green for coverage from 90% up through 99.9%.
-* ![Coverage 80%](https://github.com/cicirello/jacoco-badge-generator/blob/main/tests/80.svg) We use yellow green for coverage from 80% up through 89.9%.
-* ![Coverage 70%](https://github.com/cicirello/jacoco-badge-generator/blob/main/tests/70.svg) We use yellow for coverage from 70% up through 79.9%.
-* ![Coverage 60%](https://github.com/cicirello/jacoco-badge-generator/blob/main/tests/60.svg) We use orange for coverage from 60% up through 69.9%.
-* ![Coverage 59.9%](https://github.com/cicirello/jacoco-badge-generator/blob/main/tests/599.svg) We use red for coverage from 0% up through 59.9%.
-* ![Branches Coverage 99.9%](https://github.com/cicirello/jacoco-badge-generator/blob/main/tests/999b.svg) A sample of a branch coverage badge.
+* ![Coverage 99.9%](tests/999.svg) We use green for coverage from 90% up through 99.9%.
+* ![Coverage 80%](tests/80.svg) We use yellow green for coverage from 80% up through 89.9%.
+* ![Coverage 70%](tests/70.svg) We use yellow for coverage from 70% up through 79.9%.
+* ![Coverage 60%](tests/60.svg) We use orange for coverage from 60% up through 69.9%.
+* ![Coverage 59.9%](tests/599.svg) We use red for coverage from 0% up through 59.9%.
+* ![Branches Coverage 99.9%](tests/999b.svg) A sample of a branch coverage badge.
 
 The coverage displayed in the badge is the result of truncating to one 
 decimal place.  If that decimal place is 0, then it is displayed as an 
