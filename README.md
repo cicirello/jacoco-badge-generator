@@ -19,12 +19,24 @@ with the developers of JaCoCo, although we are a fan and user of their excellent
 test coverage tool._ 
 
 The documentation is organized into the following sections:
-* [The Coverage Metrics](#the-coverage-metrics): Explains the JaCoCo metrics that are supported by the badge generator, such as what they measure, and why they were chosen for inclusion for the jacoco-badge-generator GitHub Action.
-* [Badge Style and Content](#badge-style-and-content): Provides examples of the appearance of the badges that are generated, including a description of the color scheme used, and the formatting of the percentages.
+* [The Coverage Metrics](#the-coverage-metrics): Explains the JaCoCo 
+  metrics that are supported by the badge generator, such as what 
+  they measure, and why they were chosen for inclusion for 
+  the jacoco-badge-generator GitHub Action.
+* [Badge Style and Content](#badge-style-and-content): Provides 
+  examples of the appearance of the badges that are generated, 
+  including a description of the color scheme used, and the 
+  formatting of the percentages.
 * [Inputs](#inputs): Detailed descriptions of the action inputs.
 * [Outputs](#outputs): Detailed descriptions of the action inputs.
-* [Example Workflows](#example-workflows): Example GitHub workflows demonstrating usage of the jacoco-badge-generator action.
-* [Multi-Module Example Workflows](#multi-module-example-workflows): Example GitHub workflows demonstrating usage of the jacoco-badge-generator action with multi-module projects.
+* [Example Workflows](#example-workflows): Example GitHub workflows 
+  demonstrating usage of the jacoco-badge-generator action.
+* [Multi-Module Example Workflows](#multi-module-example-workflows): Example 
+  GitHub workflows demonstrating usage of the jacoco-badge-generator 
+  action with multi-module projects.
+* [Examples in Other Projects](#examples-in-other-projects): Links to 
+  a few repositories that are actively using the action, as well as 
+  direct links to the relevant workflow files.
 
 
 ## The Coverage Metrics
@@ -509,7 +521,7 @@ within the `pom.xml`, which is then activated via a command line option when `mv
 is run by the workflow.
 
 | Repository | Workflow | Maven pom.xml | 
-| ----- | ----- | -----|
+| :----- | :----- | :-----|
 | [Chips-n-Salsa](https://github.com/cicirello/Chips-n-Salsa) | [build.yml](https://github.com/cicirello/Chips-n-Salsa/blob/master/.github/workflows/build.yml) | [pom.xml](https://github.com/cicirello/Chips-n-Salsa/blob/master/pom.xml) |
 | [JavaPermutationTools](https://github.com/cicirello/JavaPermutationTools) | [build.yml](https://github.com/cicirello/JavaPermutationTools/blob/master/.github/workflows/build.yml) | [pom.xml](https://github.com/cicirello/JavaPermutationTools/blob/master/pom.xml) |
 | [ZigguratGaussian](https://github.com/cicirello/ZigguratGaussian) | [build.yml](https://github.com/cicirello/ZigguratGaussian/blob/master/.github/workflows/build.yml) | [pom.xml](https://github.com/cicirello/ZigguratGaussian/blob/master/pom.xml) |
