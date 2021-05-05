@@ -191,6 +191,7 @@ The behavior of these is defined as follows:
   ignoring missing report files, provided that at least one such report file 
   exists. We do not recommend this option since such a case is likely due to an 
   error in your workflow, and any badges produced are likely computed with missing data.
+
 Regardless of value passed to this input, the action will log warnings for
 any files listed in the `jacoco-csv-file` input that do not exist, for your 
 inspection in the workflow run. 
