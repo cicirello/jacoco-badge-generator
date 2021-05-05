@@ -174,18 +174,23 @@ need to have additional steps in your workflow to do that.__
 
 This input controls what happens if one or more `jacoco.csv` files do not exist.
 This input accepts one of three possible values: `fail`, `quiet`, or `badges`.
-The default is `on-missing-report: fail`, in which case the action will 
-return a non-zero exit code (causing the workflow run to fail) if one 
-or more files listed in the `jacoco-csv-file` input do not exist, or if
-an empty list of files is passed to the action. If you would rather the workflow
-itself not fail, then you can use `on-missing-report: quiet`, in which case
-the action will instead quietly exit in this case without producing badges.
-Although not recommended, a third option, `on-missing-report: badges`, will
-cause the action to produce badges from the report files that do exist, simply
-ignoring missing report files, provided that at least one such report file 
-exists. We do not recommend this option since such a case is likely due to an 
-error in your workflow, and any badges produced are likely computed with missing data.
-
+The behavior of these is defined as follows:
+* The default is `on-missing-report: fail`, in which case the action will 
+  return a non-zero exit code (causing the workflow run to fail) if one 
+  or more files listed in the `jacoco-csv-file` input do not exist, or if
+  an empty list of files is passed to the action. We recommend that you use
+  this default since missing coverage report files in most cases probably means
+  that there is either a bug in your workflow (e.g., typo in path to jacoco.csv)
+  or that something went wrong in an earlier step (e.g., unit tests failed, halting
+  generation of the coverage report).
+* You can use `on-missing-report: quiet` if you would rather the workflow
+  itself not fail, in which case the action will instead quietly exit 
+  without producing badges if any JaCoCo reports are missing.
+* Although not recommended, a third option, `on-missing-report: badges`, will
+  cause the action to produce badges from the report files that do exist, simply
+  ignoring missing report files, provided that at least one such report file 
+  exists. We do not recommend this option since such a case is likely due to an 
+  error in your workflow, and any badges produced are likely computed with missing data.
 Regardless of value passed to this input, the action will log warnings for
 any files listed in the `jacoco-csv-file` input that do not exist, for your 
 inspection in the workflow run. 
