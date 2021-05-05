@@ -115,7 +115,13 @@ integer.  The rationale for truncating to one decimal place, rather than
 rounding is to avoid displaying a just failing coverage as passing. For
 example, if the user of the action considers 80% to be a passing level,
 then we wish to avoid the case of 79.9999% being rounded to 80% (it will
-instead be truncated to 79.9%).  
+instead be truncated to 79.9%). 
+
+If you use the action's default badges directory and default badge filenames
+(see []() section for how to change these), then you can add the coverage badge
+to your repository's readme with the following 
+markdown: `![Coverage](.github/badges/jacoco.svg)`, and likewise for the
+branch coverage badge: `![Coverage](.github/badges/branches.svg)`
 
 
 ## Inputs
