@@ -498,6 +498,21 @@ jobs:
         fi
 ```
 
+## Examples in Other Projects
+
+If you would like to see examples where the action is actively used, here 
+are a few repositories that are actively using the `jacoco-badge-generator` action.
+The table provides a link to repositories using the action, and direct links to the
+relevant workflow as well as the Maven `pom.xml` so you can see how JaCoCo is 
+configured. Note that in most of these JaCoCo is configured within a Maven profile
+within the `pom.xml`, which is then activated via a command line option when `mvn`
+is run by the workflow.
+
+| Repository | Workflow | Maven pom.xml | 
+| ----- | ----- | -----|
+| [Chips-n-Salsa](https://github.com/cicirello/Chips-n-Salsa) | [build.yml](https://github.com/cicirello/Chips-n-Salsa/blob/master/.github/workflows/build.yml) | [pom.xml](https://github.com/cicirello/Chips-n-Salsa/blob/master/pom.xml) |
+| [JavaPermutationTools](https://github.com/cicirello/JavaPermutationTools) | [build.yml](https://github.com/cicirello/JavaPermutationTools/blob/master/.github/workflows/build.yml) | [pom.xml](https://github.com/cicirello/JavaPermutationTools/blob/master/pom.xml) |
+| [ZigguratGaussian](https://github.com/cicirello/ZigguratGaussian) | [build.yml](https://github.com/cicirello/ZigguratGaussian/blob/master/.github/workflows/build.yml) | [pom.xml](https://github.com/cicirello/ZigguratGaussian/blob/master/pom.xml) |
 
 ## License
 
