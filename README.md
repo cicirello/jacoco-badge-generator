@@ -101,7 +101,7 @@ The badges that are generated are inspired by the style of the badges
 of [Shields.io](https://github.com/badges/shields), however, the badges are entirely generated
 within the jacoco-badge-generator GitHub Action, with no external calls.  Here are
 a few samples of what the badges look like:
-* ![Coverage 100%](https://github.com/cicirello/jacoco-badge-generator/blob/main/tests/100.svg) We use bright green for 100% coverage.
+* ![Coverage 100%](tests/100.svg) We use bright green for 100% coverage.
 * ![Coverage 99.9%](https://github.com/cicirello/jacoco-badge-generator/blob/main/tests/999.svg) We use green for coverage from 90% up through 99.9%.
 * ![Coverage 80%](https://github.com/cicirello/jacoco-badge-generator/blob/main/tests/80.svg) We use yellow green for coverage from 80% up through 89.9%.
 * ![Coverage 70%](https://github.com/cicirello/jacoco-badge-generator/blob/main/tests/70.svg) We use yellow for coverage from 70% up through 79.9%.
