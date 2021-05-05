@@ -184,6 +184,31 @@ def formFullPathToFile(directory, filename) :
     else :
         return directory + "/" + filename
 
+def filterMissingReports(jacocoFileList, failIfMissing=False) :
+    """Validates report file existence, and returns a list
+    containing a subset of the report files that exist. Logs
+    files that don't exist to the console as warnings.
+
+    Keyword arguments:
+    jacocoFileList - A list of jacoco.csv files.
+    failIfMissing - If true and if any of the jacoco.csv files
+    don't exist, then it will exit with a non-zero exit code causing
+    workflow to fail.
+    """
+    goodReports = []
+    for f in jacocoFileList :
+        if os.path.exists(f) :
+            goodReports.append(f)
+        else :
+            print("WARNING: Report file", f, "does not exist.")
+    if len(goodReports) == 0 :
+        print("WARNING: No JaCoCo csv reports found.")
+        if failIfMissing :
+            sys.exit(1)
+    if failIfMissing and len(goodReports) != len(jacocoFileList) :
+        sys.exit(1)
+    return goodReports
+
 if __name__ == "__main__" :
     jacocoCsvFile = sys.argv[1]
     badgesDirectory = sys.argv[2]
@@ -191,6 +216,11 @@ if __name__ == "__main__" :
     branchesFilename = sys.argv[4]
     generateCoverageBadge = sys.argv[5].lower() == "true"
     generateBranchesBadge = sys.argv[6].lower() == "true"
+    onMissingReport = sys.argv[7].lower()
+
+    if onMissingReport not in {"fail", "quiet", "badges"} :
+        print("ERROR: Invalid value for on-missing-report.")
+        sys.exit(1)
 
     if len(badgesDirectory) > 1 and badgesDirectory[0:2] == "./" :
         badgesDirectory = badgesDirectory[2:]
@@ -200,24 +230,29 @@ if __name__ == "__main__" :
         badgesDirectory = ""
 
     jacocoFileList = jacocoCsvFile.split()
+    filteredFileList = filterMissingReports(jacocoFileList, onMissingReport=="fail")
+    
+    noReportsMissing = len(jacocoFileList)==len(filteredFileList)
 
-    cov, branches = computeCoverage(jacocoFileList)
+    if len(filteredFileList) > 0 and (noReportsMissing or onMissingReport!="quiet") :  
 
-    if (generateCoverageBadge or generateBranchesBadge) and badgesDirectory != "" :
-        createOutputDirectories(badgesDirectory)
+        cov, branches = computeCoverage(filteredFileList)
 
-    if generateCoverageBadge :
-        covStr, color = badgeCoverageStringColorPair(cov)
-        with open(formFullPathToFile(badgesDirectory, coverageFilename), "w") as badge :
-            badge.write(generateBadge(covStr, color))
+        if (generateCoverageBadge or generateBranchesBadge) and badgesDirectory != "" :
+            createOutputDirectories(badgesDirectory)
 
-    if generateBranchesBadge :
-        covStr, color = badgeCoverageStringColorPair(branches)
-        with open(formFullPathToFile(badgesDirectory, branchesFilename), "w") as badge :
-            badge.write(generateBadge(covStr, color, "branches"))
+        if generateCoverageBadge :
+            covStr, color = badgeCoverageStringColorPair(cov)
+            with open(formFullPathToFile(badgesDirectory, coverageFilename), "w") as badge :
+                badge.write(generateBadge(covStr, color))
 
-    print("::set-output name=coverage::" + str(cov))
-    print("::set-output name=branches::" + str(branches))
+        if generateBranchesBadge :
+            covStr, color = badgeCoverageStringColorPair(branches)
+            with open(formFullPathToFile(badgesDirectory, branchesFilename), "w") as badge :
+                badge.write(generateBadge(covStr, color, "branches"))
+
+        print("::set-output name=coverage::" + str(cov))
+        print("::set-output name=branches::" + str(branches))
     
 
 

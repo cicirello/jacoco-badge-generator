@@ -12,7 +12,7 @@ generates badges for one or both of these (configurable with action inputs) to p
 to read visual summary of the code coverage of your test cases. The action supports
 both the basic case of a single `jacoco.csv`, as well as multi-module projects in which
 case the action can produce coverage badges from the combination of the JaCoCo reports
-from all modules.
+from all modules, provided that the individual reports are independent.
 
 _The developers of the jacoco-badge-generator GitHub Action are not affiliated 
 with the developers of JaCoCo, although we are a fan and user of their excellent 
@@ -122,13 +122,29 @@ output location.
 If you have a multi-module project, you can pass the paths (including filenames)
 to all of the `jacoco.csv` files for all of the sub-projects. Separate these by spaces,
 and in particular see the [Multi-Module Example Workflows](#multi-module-example-workflows)
-for an example of how to do this.
+for an example of how to do this. Multi-module support is limited to cases where
+each module has its own test coverage report, and where those reports don't overlap.
+
+The action assumes that all reports passed via this input are 
+independent of each other. If you are using matrix testing, such that 
+each group of tests produces a report, and where the groups overlap in what
+they are testing (e.g., one group tests a portion of a class or method, 
+and another group tests another portion, etc), then the coverage computed by 
+this action will not be correct. The csv reports don't contain enough information
+to properly merge such overlapping reports. If this applies to your use-case, then
+you will need to have JaCoCo produce a single JaCoCo report first (for example, 
+see [jacoco:report-aggregate](https://www.jacoco.org/jacoco/trunk/doc/report-aggregate-mojo.html)). 
 
 ### `badges-directory`
 
 This input is the directory for storing badges, relative to the root of the 
 repository. The default is `.github/badges`. The action will create the badges
 directory if it doesn't already exist, although the action itself does not commit.
+
+### `generate-coverage-badge`
+
+This input controls whether or not to generate the coverage badge (Instructions 
+Coverage), and defaults to `true`.
 
 ### `coverage-badge-filename`
 
@@ -139,6 +155,12 @@ created within the `badges-directory`
 directory. __The action doesn't commit the badge file. You will 
 need to have additional steps in your workflow to do that.__
 
+### `generate-branches-badge`
+
+This input controls whether or not to generate the branches coverage badge, and defaults
+to `false`. This defaults to `false` to avoid surprising users who upgrade from earlier
+versions with a badge they didn't know would be generated.
+
 ### `branches-badge-filename`
 
 This input is the filename for the branches coverage badge (C1 
@@ -148,16 +170,31 @@ created within the `badges-directory`
 directory. __The action doesn't commit the badge file. You will 
 need to have additional steps in your workflow to do that.__
 
-### `generate-coverage-badge`
+### `on-missing-report`
 
-This input controls whether or not to generate the coverage badge (Instructions 
-Coverage), and defaults to `true`.
+This input controls what happens if one or more `jacoco.csv` files do not exist.
+This input accepts one of three possible values: `fail`, `quiet`, or `badges`.
+The behavior of these is defined as follows:
+* The default is `on-missing-report: fail`, in which case the action will 
+  return a non-zero exit code (causing the workflow run to fail) if one 
+  or more files listed in the `jacoco-csv-file` input do not exist, or if
+  an empty list of files is passed to the action. We recommend that you use
+  this default since missing coverage report files in most cases probably means
+  that there is either a bug in your workflow (e.g., typo in path to jacoco.csv)
+  or that something went wrong in an earlier step (e.g., unit tests failed, halting
+  generation of the coverage report).
+* You can use `on-missing-report: quiet` if you would rather the workflow
+  itself not fail, in which case the action will instead quietly exit 
+  without producing badges if any JaCoCo reports are missing.
+* Although not recommended, a third option, `on-missing-report: badges`, will
+  cause the action to produce badges from the report files that do exist, simply
+  ignoring missing report files, provided that at least one such report file 
+  exists. We do not recommend this option since such a case is likely due to an 
+  error in your workflow, and any badges produced are likely computed with missing data.
 
-### `generate-branches-badge`
-
-This input controls whether or not to generate the branches coverage badge, and defaults
-to `false`. This defaults to `false` to avoid surprising users who upgrade from earlier
-versions with a badge they didn't know would be generated.
+Regardless of value passed to this input, the action will log warnings for
+any files listed in the `jacoco-csv-file` input that do not exist, for your 
+inspection in the workflow run. 
 
 
 ## Outputs
@@ -194,7 +231,7 @@ along the lines of the following:
     <plugin>
       <groupId>org.jacoco</groupId>
       <artifactId>jacoco-maven-plugin</artifactId>
-      <version>0.8.6</version>
+      <version>0.8.7</version>
       <executions>
         <execution>
           <goals>
@@ -213,6 +250,11 @@ along the lines of the following:
   </plugins>
 </build>
 ```
+
+Note that the jacoco-badge-generator action has been tested with
+the `jacoco.csv` files generated by `jacoco-maven-plugin` versions
+0.8.6 and 0.8.7, and has not been tested with earlier versions
+of JaCoCo.
 
 ### Example Workflow 1: Generate instructions (or C0) coverage badge only.
 

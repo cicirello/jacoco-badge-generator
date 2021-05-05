@@ -32,6 +32,19 @@ import JacocoBadgeGenerator as jbg
 
 class TestJacocoBadgeGenerator(unittest.TestCase) :
 
+    def testFilterMissingReports_empty(self) :
+        self.assertEqual([], jbg.filterMissingReports([]))
+
+    def testFilterMissingReports(self) :
+        expected = ["tests/jacoco100.csv", "tests/jacoco90.csv"]
+        case = ["tests/idontexist1.csv",
+                "tests/jacoco100.csv",
+                "tests/idontexist2.csv",
+                "tests/idontexist3.csv",
+                "tests/jacoco90.csv",
+                "tests/idontexist4.csv"]
+        self.assertEqual(expected, jbg.filterMissingReports(case))
+        
     def testFullCoverage(self) :
         self.assertAlmostEqual(1, jbg.computeCoverage(["tests/jacoco100.csv"])[0])
 

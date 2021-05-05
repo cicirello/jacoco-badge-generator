@@ -55,6 +55,10 @@ inputs:
     description: 'Controls whether or not to generate the branches coverage badge.'
     required: false
     default: false
+  on-missing-report:
+    description: 'Controls what happens if one or more jacoco.csv files do not exist.'
+    required: false
+    default: 'fail'
 outputs:
   coverage:
     description: 'The jacoco coverage percentage as computed from the data in the jacoco.csv file.'
@@ -70,3 +74,4 @@ runs:
     - ${{ inputs.branches-badge-filename }}
     - ${{ inputs.generate-coverage-badge }}
     - ${{ inputs.generate-branches-badge }}
+    - ${{ inputs.on-missing-report }}
