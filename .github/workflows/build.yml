@@ -46,11 +46,11 @@ jobs:
         jacoco-csv-file: >
           tests/multi1.csv
           tests/multi2.csv
+          FileThatDoesntExistForOneTimeTestOfFailingWorkflow.csv
         badges-directory: tests/badges
         generate-branches-badge: true
         coverage-badge-filename: coverageMulti.svg
         branches-badge-filename: branchesMulti.svg
-        on-missing-report: BogusValueForOnetimeTestOfErrorChecking
 
     - name: Log integration test outputs with multiple jacoco.csv files
       run: |
