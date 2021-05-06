@@ -327,7 +327,7 @@ a couple steps:
 
       - name: Generate JaCoCo Badge
         id: jacoco
-        uses: cicirello/jacoco-badge-generator@v2.1.0
+        uses: cicirello/jacoco-badge-generator@v2.1.1
         with:
           generate-branches-badge: true
           jacoco-csv-file: build/reports/jacoco/test/jacocoTestReport.csv
