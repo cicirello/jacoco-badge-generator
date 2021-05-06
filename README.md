@@ -315,6 +315,24 @@ jacocoTestReport {
 }
 ```
 
+To adapt the example workflows from Maven to Gradle, you will need to alter 
+a couple steps:
+
+```yml
+      - name: Run Tests
+        run: ./gradlew test
+
+      - name: Run Test Coverage
+        run: ./gradlew jacocoTestReport
+
+      - name: Generate JaCoCo Badge
+        id: jacoco
+        uses: cicirello/jacoco-badge-generator@v2.1.0
+        with:
+          generate-branches-badge: true
+          jacoco-csv-file: build/reports/jacoco/test/jacocoTestReport.csv
+```
+
 ### Example Workflow 1: Generate instructions (or C0) coverage badge only.
 
 This sample workflow runs on pushes to the main
