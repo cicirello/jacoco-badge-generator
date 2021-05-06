@@ -22,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.1.2] - 2021-5-6
 
 ### CI/CD
-* Introduced major release tag, and automated update upon release.
+* Introduced major release tag, and automated tag update upon release.
 
 
 ## [2.1.1] - 2021-5-5
