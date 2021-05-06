@@ -315,8 +315,23 @@ jacocoTestReport {
 }
 ```
 
-To adapt the example workflows from Maven to Gradle, you will need to alter 
-a couple steps:
+### Basic Action Syntax
+
+If you use Maven as your build tool, then you will have steps
+in your workflow along the lines of the following (which assumes
+that Maven is configured to run JaCoCo during the test phase:
+
+```yml
+    - name: Build with Maven
+      run: mvn -B test
+
+    - name: Generate JaCoCo Badge
+      uses: cicirello/jacoco-badge-generator@v2
+        with:
+          generate-branches-badge: true
+```
+
+The equivalent for Gradle is:
 
 ```yml
       - name: Run Tests
@@ -327,10 +342,19 @@ a couple steps:
 
       - name: Generate JaCoCo Badge
         id: jacoco
-        uses: cicirello/jacoco-badge-generator@v2.1.1
+        uses: cicirello/jacoco-badge-generator@v2
         with:
           generate-branches-badge: true
           jacoco-csv-file: build/reports/jacoco/test/jacocoTestReport.csv
+```
+
+You can also use a specific release with:
+
+```yml
+    - name: Generate JaCoCo Badge
+      uses: cicirello/jacoco-badge-generator@v2.1.2
+        with:
+          generate-branches-badge: true
 ```
 
 ### Example Workflow 1: Generate instructions (or C0) coverage badge only.
@@ -373,7 +397,7 @@ jobs:
 
     - name: Generate JaCoCo Badge
       id: jacoco
-      uses: cicirello/jacoco-badge-generator@v2.1.1
+      uses: cicirello/jacoco-badge-generator@v2
 
     - name: Log coverage percentage
       run: |
@@ -431,7 +455,7 @@ jobs:
 
     - name: Generate JaCoCo Badge
       id: jacoco
-      uses: cicirello/jacoco-badge-generator@v2.1.1
+      uses: cicirello/jacoco-badge-generator@v2
       with:
         generate-branches-badge: true
 
@@ -491,7 +515,7 @@ jobs:
 
     - name: Generate JaCoCo Badge
       id: jacoco
-      uses: cicirello/jacoco-badge-generator@v2.1.1
+      uses: cicirello/jacoco-badge-generator@v2
       with:
         generate-branches-badge: true
         jacoco-csv-file: >
@@ -549,7 +573,7 @@ jobs:
 
     - name: Generate JaCoCo Badges for Module 1
       id: jacocoMod1
-      uses: cicirello/jacoco-badge-generator@v2.1.1
+      uses: cicirello/jacoco-badge-generator@v2
       with:
         generate-branches-badge: true
         jacoco-csv-file: module1/target/site/jacoco/jacoco.csv
@@ -558,7 +582,7 @@ jobs:
 
     - name: Generate JaCoCo Badges for Module 2
       id: jacocoMod2
-      uses: cicirello/jacoco-badge-generator@v2.1.1
+      uses: cicirello/jacoco-badge-generator@v2
       with:
         generate-branches-badge: true
         jacoco-csv-file: module2/target/site/jacoco/jacoco.csv
