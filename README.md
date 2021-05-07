@@ -222,6 +222,27 @@ Regardless of value passed to this input, the action will log warnings for
 any files listed in the `jacoco-csv-file` input that do not exist, for your 
 inspection in the workflow run. 
 
+### `fail-if-coverage-less-than`
+
+This input enables directing the action to fail the workflow run if
+the computed coverage is less than a minimum. The default is 0, effectively
+disabling the option. You can specify it as either a floating point value
+in the interval 0.0 to 1.0, or as a percent (with or without the percent sign).
+For example, all of the following are equivalent: `fail-if-coverage-less-than: 0.6`,
+`fail-if-coverage-less-than: 60`, or `fail-if-coverage-less-than: "60%"`.
+Note that in the last case, you need the quotes due to the percent sign.
+Values greater than 1 are assumed percents.
+
+### `fail-if-branches-less-than`
+
+This input enables directing the action to fail the workflow run if
+the computed branches coverage is less than a minimum. The default is 0, effectively
+disabling the option. You can specify it as either a floating point value
+in the interval 0.0 to 1.0, or as a percent (with or without the percent sign).
+For example, all of the following are equivalent: `fail-if-branches-less-than: 0.6`,
+`fail-if-branches-less-than: 60`, or `fail-if-branches-less-than: "60%"`.
+Note that in the last case, you need the quotes due to the percent sign.
+Values greater than 1 are assumed percents.
 
 ## Outputs
 
