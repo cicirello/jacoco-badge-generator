@@ -327,8 +327,8 @@ that Maven is configured to run JaCoCo during the test phase:
 
     - name: Generate JaCoCo Badge
       uses: cicirello/jacoco-badge-generator@v2
-        with:
-          generate-branches-badge: true
+      with:
+        generate-branches-badge: true
 ```
 
 The equivalent for Gradle is:
@@ -341,7 +341,6 @@ The equivalent for Gradle is:
         run: ./gradlew jacocoTestReport
 
       - name: Generate JaCoCo Badge
-        id: jacoco
         uses: cicirello/jacoco-badge-generator@v2
         with:
           generate-branches-badge: true
@@ -353,8 +352,8 @@ You can also use a specific release with:
 ```yml
     - name: Generate JaCoCo Badge
       uses: cicirello/jacoco-badge-generator@v2.1.2
-        with:
-          generate-branches-badge: true
+      with:
+        generate-branches-badge: true
 ```
 
 ### Example Workflow 1: Generate instructions (or C0) coverage badge only.
@@ -465,11 +464,11 @@ jobs:
         echo "branch coverage = ${{ steps.jacoco.outputs.branches }}"
 
     - name: Commit and push the badge (if it changed)
-        uses: EndBug/add-and-commit@v7
-        with:
-          default_author: github_actions
-          message: 'commit badge'
-          add: '*.svg'
+      uses: EndBug/add-and-commit@v7
+      with:
+        default_author: github_actions
+        message: 'commit badge'
+        add: '*.svg'
 
     - name: Upload JaCoCo coverage report
       uses: actions/upload-artifact@v2
@@ -609,8 +608,8 @@ relevant workflow as well as the relevant build configuration (e.g., Maven `pom.
 or Gradle `build.gradle.kts`) so you can see how JaCoCo is 
 configured. Note that in all of the Maven examples, JaCoCo is configured within a 
 Maven profile within the `pom.xml`, which is then activated via a command line 
-option when `mvn` is run by the workflow. Configuration can instead be done in the 
-`<build>` section if you'd rather not use a profile.
+option when `mvn` is run by the workflow on all push/pull request events. Configuration 
+can instead be done in the `<build>` section if you'd rather not use a profile.
 
 | Repository | Workflow | Build Configuration | 
 | :----- | :----- | :-----|
