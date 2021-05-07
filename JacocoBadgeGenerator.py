@@ -290,6 +290,7 @@ if __name__ == "__main__" :
         cov, branches = computeCoverage(filteredFileList)
 
         if coverageIsFailing(cov, branches, minCoverage, minBranches) :
+            print("Failing the workflow run.")
             sys.exit(1)
 
         if (generateCoverageBadge or generateBranchesBadge) and badgesDirectory != "" :
