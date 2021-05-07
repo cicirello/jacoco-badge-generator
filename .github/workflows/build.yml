@@ -63,9 +63,9 @@ jobs:
       id: integration3
       uses: ./
       with:
-        jacoco-csv-file: tests/branches100.csv
+        jacoco-csv-file: tests/jacoco100.csv
         badges-directory: tests
         generate-branches-badge: true
         coverage-badge-filename: 999.svg
         branches-badge-filename: 999b.svg
-        fail-if-branches-less-than: 99.9
+        fail-if-coverage-less-than: 99.9
