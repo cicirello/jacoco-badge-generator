@@ -32,6 +32,43 @@ import JacocoBadgeGenerator as jbg
 
 class TestJacocoBadgeGenerator(unittest.TestCase) :
 
+    def testStringToPercentage(self) :
+        for i in range(0, 101, 10) :
+            expected = i/100
+            s1 = str(i)
+            s2 = s1 + "%"
+            s3 = s1 + " %"
+            s4 = str(expected)
+            self.assertAlmostEqual(expected, jbg.stringToPercentage(s1))
+            self.assertAlmostEqual(expected, jbg.stringToPercentage(s2))
+            self.assertAlmostEqual(expected, jbg.stringToPercentage(s3))
+            self.assertAlmostEqual(expected, jbg.stringToPercentage(s4))
+        for j in range(10, 101, 10) :
+            i = j - 0.5
+            expected = i/100
+            s1 = str(i)
+            s2 = s1 + "%"
+            s3 = s1 + " %"
+            s4 = str(expected)
+            self.assertAlmostEqual(expected, jbg.stringToPercentage(s1))
+            self.assertAlmostEqual(expected, jbg.stringToPercentage(s2))
+            self.assertAlmostEqual(expected, jbg.stringToPercentage(s3))
+            self.assertAlmostEqual(expected, jbg.stringToPercentage(s4))
+        i = 0.0
+        while i <= 1.0 :
+            s1 = str(i)
+            self.assertAlmostEqual(i, jbg.stringToPercentage(s1))
+            s2 = s1 + "%"
+            s3 = s1 + " %"
+            self.assertAlmostEqual(i/100, jbg.stringToPercentage(s2))
+            self.assertAlmostEqual(i/100, jbg.stringToPercentage(s3))
+            i += 0.05
+        self.assertAlmostEqual(0, jbg.stringToPercentage(""))
+        self.assertAlmostEqual(0, jbg.stringToPercentage("%"))
+        self.assertAlmostEqual(0, jbg.stringToPercentage(" %"))
+        self.assertAlmostEqual(0, jbg.stringToPercentage(" "))
+        self.assertAlmostEqual(0, jbg.stringToPercentage("hello"))
+
     def testFilterMissingReports_empty(self) :
         self.assertEqual([], jbg.filterMissingReports([]))
 

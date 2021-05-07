@@ -209,6 +209,35 @@ def filterMissingReports(jacocoFileList, failIfMissing=False) :
         sys.exit(1)
     return goodReports
 
+def stringToPercentage(s) :
+    """Converts a string describing a percentage to
+    a float. The string s can be of any of the following
+    forms: 60.2%, 60.2, or 0.602. All three of these will
+    be treated the same. Without the percent sign, it is
+    treated the same as with the percent sign if the value
+    is greater than 1. This is to gracefully handle
+    user misinterpretation of action input specification. In all cases,
+    this function will return a float in the interval [0.0, 1.0].
+
+    Keyword arguments:
+    s - the string to convert.
+    """
+    if len(s)==0 :
+        return 0
+    doDivide = False
+    if s[-1]=="%" :
+        s = s[:-1].strip()
+        if len(s)==0 :
+            return 0
+        doDivide = True
+    try :
+        p = float(s)
+    except ValueError :
+        return 0
+    if p > 1 :
+        doDivide = True
+    return p / 100 if doDivide else p
+
 if __name__ == "__main__" :
     jacocoCsvFile = sys.argv[1]
     badgesDirectory = sys.argv[2]
