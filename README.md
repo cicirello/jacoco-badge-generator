@@ -244,6 +244,21 @@ For example, all of the following are equivalent: `fail-if-branches-less-than: 0
 Note that in the last case, you need the quotes due to the percent sign.
 Values greater than 1 are assumed percents.
 
+### `fail-on-coverage-decrease`
+
+This input enables directing the action to fail the workflow run if
+the computed coverage is less than it was on the previous run as recorded in the
+existing coverage badge, if one exists. The default is `false`. 
+Use `fail-on-coverage-decrease: true` to enable.
+
+### `fail-on-branches-decrease`
+
+This input enables directing the action to fail the workflow run if
+the computed branches coverage is less than it was on the previous run as recorded in the
+existing branches badge, if one exists. The default is `false`. 
+Use `fail-on-branches-decrease: true` to enable.
+
+
 ## Outputs
 
 The action also outputs the actual computed coverage percentages as double-precision
