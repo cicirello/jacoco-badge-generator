@@ -57,6 +57,11 @@ class TestJacocoBadgeGenerator(unittest.TestCase) :
             self.assertFalse(jbg.coverageDecreased(prior[i]+0.1, f, "branches"))
             self.assertTrue(jbg.coverageDecreased(prior[i]-0.1, f, "branches"))
 
+        for i in range(0, 101, 5) :
+            cov = i / 100
+            self.assertFalse(jbg.coverageDecreased(cov, "tests/idontexist.svg", "coverage"))
+            self.assertFalse(jbg.coverageDecreased(cov, "tests/idontexist.svg", "branches"))
+
     def testGetPriorCoverage(self):
         badgeFiles = [ "tests/0.svg",
                           "tests/599.svg",
