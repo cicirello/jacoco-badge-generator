@@ -290,6 +290,8 @@ if __name__ == "__main__" :
     onMissingReport = sys.argv[7].lower()
     minCoverage = stringToPercentage(sys.argv[8])
     minBranches = stringToPercentage(sys.argv[9])
+    failOnCoverageDecrease = sys.argv[10].lower() == "true"
+    failOnBranchesDecrease = sys.argv[11].lower() == "true"
 
     if onMissingReport not in {"fail", "quiet", "badges"} :
         print("ERROR: Invalid value for on-missing-report.")
