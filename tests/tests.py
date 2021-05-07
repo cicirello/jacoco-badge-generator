@@ -32,6 +32,31 @@ import JacocoBadgeGenerator as jbg
 
 class TestJacocoBadgeGenerator(unittest.TestCase) :
 
+    def testCoverageDecreased(self) :
+        badgeFiles = [ "tests/0.svg",
+                          "tests/599.svg",
+                          "tests/60.svg",
+                          "tests/70.svg",
+                          "tests/80.svg",
+                          "tests/899.svg",
+                          "tests/90.svg",
+                          "tests/99.svg",
+                          "tests/999.svg",
+                          "tests/100.svg"
+                          ]
+        prior = [0, 0.599, 0.6, 0.7, 0.8, 0.899, 0.9, 0.99, 0.999, 1.0 ]
+        for i, f in enumerate(badgeFiles) :
+            self.assertFalse(jbg.coverageDecreased(prior[i], f, "coverage"))
+            self.assertFalse(jbg.coverageDecreased(prior[i]+0.1, f, "coverage"))
+            self.assertTrue(jbg.coverageDecreased(prior[i]-0.1, f, "coverage"))
+
+        branchesBadgeFiles = [ "tests/87b.svg", "tests/90b.svg", "tests/999b.svg" ]
+        prior = [0.87, 0.9, 0.999]
+        for i, f in enumerate(branchesBadgeFiles) :
+            self.assertFalse(jbg.coverageDecreased(prior[i], f, "branches"))
+            self.assertFalse(jbg.coverageDecreased(prior[i]+0.1, f, "branches"))
+            self.assertTrue(jbg.coverageDecreased(prior[i]-0.1, f, "branches"))
+
     def testGetPriorCoverage(self):
         badgeFiles = [ "tests/0.svg",
                           "tests/599.svg",

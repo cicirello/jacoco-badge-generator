@@ -280,6 +280,31 @@ def getPriorCoverage(badgeFilename, whichBadge) :
         return -1
     return stringToPercentage(priorBadge[i:j+1].strip())
 
+def coverageDecreased(coverage, badgeFilename, whichBadge) :
+    """Checks if coverage decreased relative to previous run, and logs
+    a message if it did.
+
+    Keyword arguments:
+    coverage - The coverage in interval 0.0 to 1.0
+    badgeFilename - the filename with path
+    whichBadge - this input should be one of 'coverage' or 'branches'
+    """
+    previous = getPriorCoverage(badgeFilename, whichBadge)
+    # Badge only records 1 decimal place, and thus need
+    # to take care to avoid floating-point rounding error
+    # when old is converted to [0.0 to 1.0] range with div by
+    # 100 in getPriorCoverage.  e.g., 99.9 / 100 = 0.9990000000000001
+    # due to rounding error.
+    old = round(previous * 1000)
+    # Don't need to round with new since this is still as computed
+    # from coverage data at this point.
+    new = coverage * 1000
+    if new < old :
+        s = "Branches coverage" if whichBadge == "branches" else "Coverage"
+        print(s, "decreased from", previous, "to", coverage)
+        return True
+    return False
+
 if __name__ == "__main__" :
     jacocoCsvFile = sys.argv[1]
     badgesDirectory = sys.argv[2]
@@ -319,6 +344,14 @@ if __name__ == "__main__" :
 
         coverageBadgeWithPath = formFullPathToFile(badgesDirectory, coverageFilename)
         branchesBadgeWithPath = formFullPathToFile(badgesDirectory, branchesFilename)
+
+        if failOnCoverageDecrease and coverageDecreased(cov, coverageBadgeWithPath, "coverage") :
+            print("Failing the workflow run.")
+            sys.exit(1)
+
+        if failOnBranchesDecrease and coverageDecreased(branches, branchesBadgeWithPath, "branches") :
+            print("Failing the workflow run.")
+            sys.exit(1)
 
         if (generateCoverageBadge or generateBranchesBadge) and badgesDirectory != "" :
             createOutputDirectories(badgesDirectory)
