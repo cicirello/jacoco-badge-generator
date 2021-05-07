@@ -68,4 +68,4 @@ jobs:
         generate-branches-badge: true
         coverage-badge-filename: 999.svg
         branches-badge-filename: 999b.svg
-        fail-on-branches-decrease: true
+        fail-if-branches-less-than: 99.9
