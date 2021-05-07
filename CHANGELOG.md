@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * A new optional input, `fail-if-branches-less-than`, that 
   enables failing the workflow run if branches coverage is below a 
   user specified minimum.
+* A new optional input, `fail-on-coverage-decrease`, that enables 
+  failing the workflow run if coverage decreased relative to previous run.
+* A new optional input, `fail-on-branches-decrease`, that enables 
+  failing the workflow run if branches coverage decreased relative to previous run.
 
 ### Changed
 
