@@ -238,6 +238,26 @@ def stringToPercentage(s) :
         doDivide = True
     return p / 100 if doDivide else p
 
+def coverageIsFailing(coverage, branches, minCoverage, minBranches) :
+    """Checks if coverage or branchs coverage or both are
+    below minimum to pass workflow run. Logs messages if it is.
+    Actual failing behavior should be handled by caller.
+
+    Keyword arguments:
+    coverage - instructions coverage in interval 0.0 to 1.0.
+    branches - branches coverage in interval 0.0 to 1.0.
+    minCoverage - minimum instructions coverage to pass in interval 0.0 to 1.0.
+    minBranches - minimum branches coverage to pass in interval 0.0 to 1.0.
+    """
+    shouldFail = False
+    if coverage < minCoverage :
+        shouldFail = True
+        print("Coverage of", coverage, "is below passing threshold of", minCoverage)
+    if branches < minBranches :
+        shouldFail = True
+        print("Branches of", branches, "is below passing threshold of", minBranches)
+    return shouldFail
+
 if __name__ == "__main__" :
     jacocoCsvFile = sys.argv[1]
     badgesDirectory = sys.argv[2]
@@ -246,6 +266,8 @@ if __name__ == "__main__" :
     generateCoverageBadge = sys.argv[5].lower() == "true"
     generateBranchesBadge = sys.argv[6].lower() == "true"
     onMissingReport = sys.argv[7].lower()
+    minCoverage = stringToPercentage(sys.argv[8])
+    minBranches = stringToPercentage(sys.argv[9])
 
     if onMissingReport not in {"fail", "quiet", "badges"} :
         print("ERROR: Invalid value for on-missing-report.")
@@ -266,6 +288,9 @@ if __name__ == "__main__" :
     if len(filteredFileList) > 0 and (noReportsMissing or onMissingReport!="quiet") :  
 
         cov, branches = computeCoverage(filteredFileList)
+
+        if coverageIsFailing(cov, branches, minCoverage, minBranches) :
+            sys.exit(1)
 
         if (generateCoverageBadge or generateBranchesBadge) and badgesDirectory != "" :
             createOutputDirectories(badgesDirectory)

@@ -32,6 +32,14 @@ import JacocoBadgeGenerator as jbg
 
 class TestJacocoBadgeGenerator(unittest.TestCase) :
 
+    def testCoverageIsFailing(self) :
+        self.assertFalse(jbg.coverageIsFailing(0, 0, 0, 0))
+        self.assertFalse(jbg.coverageIsFailing(0.5, 0.5, 0.5, 0.5))
+        self.assertFalse(jbg.coverageIsFailing(0.51, 0.51, 0.5, 0.5))
+        self.assertTrue(jbg.coverageIsFailing(0.49, 0.5, 0.5, 0.5))
+        self.assertTrue(jbg.coverageIsFailing(0.5, 0.49, 0.5, 0.5))
+        self.assertTrue(jbg.coverageIsFailing(0.49, 0.49, 0.5, 0.5))
+
     def testStringToPercentage(self) :
         for i in range(0, 101, 10) :
             expected = i/100

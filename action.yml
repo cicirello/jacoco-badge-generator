@@ -59,6 +59,14 @@ inputs:
     description: 'Controls what happens if one or more jacoco.csv files do not exist.'
     required: false
     default: 'fail'
+  fail-if-coverage-less-than:
+    description: 'Enables failing workflow run when coverage below specified threshold.'
+    required: false
+    default: 0
+  fail-if-branches-less-than:
+    description: 'Enables failing workflow run when branches coverage below specified threshold.'
+    required: false
+    default: 0
 outputs:
   coverage:
     description: 'The jacoco coverage percentage as computed from the data in the jacoco.csv file.'
@@ -75,3 +83,5 @@ runs:
     - ${{ inputs.generate-coverage-badge }}
     - ${{ inputs.generate-branches-badge }}
     - ${{ inputs.on-missing-report }}
+    - ${{ inputs.fail-if-coverage-less-than }}
+    - ${{ inputs.fail-if-branches-less-than }}
