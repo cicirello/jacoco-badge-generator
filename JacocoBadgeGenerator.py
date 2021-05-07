@@ -258,6 +258,28 @@ def coverageIsFailing(coverage, branches, minCoverage, minBranches) :
         print("Branches of", branches, "is below passing threshold of", minBranches)
     return shouldFail
 
+def getPriorCoverage(badgeFilename, whichBadge) :
+    """Parses an existing badge (if one exists) returning
+    the coverage percentage stored there. Returns -1 if
+    badge file doesn't exist or if it isn't of the expected format.
+
+    Keyword arguments:
+    badgeFilename - the filename with path
+    whichBadge - this input should be one of 'coverage' or 'branches'
+    """
+    if not os.path.isfile(badgeFilename) :
+        return -1
+    with open(badgeFilename, "r") as f :
+        priorBadge = f.read()
+    i = priorBadge.find(whichBadge)
+    if i < 0 :
+        return -1
+    i += len(whichBadge) + 1
+    j = priorBadge.find("%", i)
+    if j < 0 :
+        return -1
+    return stringToPercentage(priorBadge[i:j+1].strip())
+
 if __name__ == "__main__" :
     jacocoCsvFile = sys.argv[1]
     badgesDirectory = sys.argv[2]

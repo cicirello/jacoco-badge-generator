@@ -32,6 +32,31 @@ import JacocoBadgeGenerator as jbg
 
 class TestJacocoBadgeGenerator(unittest.TestCase) :
 
+    def testGetPriorCoverage(self):
+        badgeFiles = [ "tests/0.svg",
+                          "tests/599.svg",
+                          "tests/60.svg",
+                          "tests/70.svg",
+                          "tests/80.svg",
+                          "tests/899.svg",
+                          "tests/90.svg",
+                          "tests/99.svg",
+                          "tests/999.svg",
+                          "tests/100.svg"
+                          ]
+        expected = [0, 0.599, 0.6, 0.7, 0.8, 0.899, 0.9, 0.99, 0.999, 1.0 ]
+        for i, f in enumerate(badgeFiles) :
+            self.assertAlmostEqual(expected[i], jbg.getPriorCoverage(f, "coverage"))
+        self.assertEqual(-1, jbg.getPriorCoverage("tests/idontexist.svg", "coverage"))
+        self.assertEqual(-1, jbg.getPriorCoverage("tests/999b.svg", "coverage"))
+
+        branchesBadgeFiles = [ "tests/87b.svg", "tests/90b.svg", "tests/999b.svg" ]
+        expected = [0.87, 0.9, 0.999]
+        for i, f in enumerate(branchesBadgeFiles) :
+            self.assertAlmostEqual(expected[i], jbg.getPriorCoverage(f, "branches"))
+        self.assertEqual(-1, jbg.getPriorCoverage("tests/idontexist.svg", "branches"))
+        self.assertEqual(-1, jbg.getPriorCoverage("tests/999.svg", "branches"))
+
     def testCoverageIsFailing(self) :
         self.assertFalse(jbg.coverageIsFailing(0, 0, 0, 0))
         self.assertFalse(jbg.coverageIsFailing(0.5, 0.5, 0.5, 0.5))
