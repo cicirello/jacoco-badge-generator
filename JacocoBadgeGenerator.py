@@ -315,17 +315,20 @@ if __name__ == "__main__" :
             print("Failing the workflow run.")
             sys.exit(1)
 
+        coverageBadgeWithPath = formFullPathToFile(badgesDirectory, coverageFilename)
+        branchesBadgeWithPath = formFullPathToFile(badgesDirectory, branchesFilename)
+
         if (generateCoverageBadge or generateBranchesBadge) and badgesDirectory != "" :
             createOutputDirectories(badgesDirectory)
 
         if generateCoverageBadge :
             covStr, color = badgeCoverageStringColorPair(cov)
-            with open(formFullPathToFile(badgesDirectory, coverageFilename), "w") as badge :
+            with open(coverageBadgeWithPath, "w") as badge :
                 badge.write(generateBadge(covStr, color))
 
         if generateBranchesBadge :
             covStr, color = badgeCoverageStringColorPair(branches)
-            with open(formFullPathToFile(badgesDirectory, branchesFilename), "w") as badge :
+            with open(branchesBadgeWithPath, "w") as badge :
                 badge.write(generateBadge(covStr, color, "branches"))
 
         print("::set-output name=coverage::" + str(cov))
