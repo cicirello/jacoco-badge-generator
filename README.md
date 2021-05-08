@@ -125,7 +125,7 @@ See the [Inputs](#inputs) section for how to change the directory and filenames 
 the badges.  You can of course also link these to the JaCoCo coverage report if you host it
 online, or perhaps to the workflow that generated it, such as with (just replace 
 USERNAME and REPOSITORY with yours):
-```
+```markdown
 [![Coverage](.github/badges/jacoco.svg)](https://github.com/USERNAME/REPOSITORY/actions/workflows/build.yml)
 ```
 The above assumes that the relevant workflow is `build.yml` (replace as needed). This will
