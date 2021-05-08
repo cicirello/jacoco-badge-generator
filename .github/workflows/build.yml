@@ -58,3 +58,22 @@ jobs:
 
     - name: Verify integration test results
       run: python3 -u -m unittest tests/integration.py
+
+    - name: ONE TIME TEST
+      id: integration3
+      uses: ./
+      with:
+        jacoco-csv-file: tests/jacoco100.csv
+        badges-directory: tests
+        generate-branches-badge: true
+        coverage-badge-filename: 999.svg
+        branches-badge-filename: 999b.svg
+        fail-if-coverage-less-than: 99.9
+        fail-on-coverage-decrease: true
+
+    - name: OUTPUT ONE TIME TEST RESULT
+      run: |
+        echo "COVERAGE BADGE"
+        cat tests/999.svg
+        echo "BRANCHES BADGE"
+        cat tests/999b.svg
