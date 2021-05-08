@@ -32,6 +32,106 @@ import JacocoBadgeGenerator as jbg
 
 class TestJacocoBadgeGenerator(unittest.TestCase) :
 
+    def testCoverageDecreased(self) :
+        badgeFiles = [ "tests/0.svg",
+                          "tests/599.svg",
+                          "tests/60.svg",
+                          "tests/70.svg",
+                          "tests/80.svg",
+                          "tests/899.svg",
+                          "tests/90.svg",
+                          "tests/99.svg",
+                          "tests/999.svg",
+                          "tests/100.svg"
+                          ]
+        prior = [0, 0.599, 0.6, 0.7, 0.8, 0.899, 0.9, 0.99, 0.999, 1.0 ]
+        for i, f in enumerate(badgeFiles) :
+            self.assertFalse(jbg.coverageDecreased(prior[i], f, "coverage"))
+            self.assertFalse(jbg.coverageDecreased(prior[i]+0.1, f, "coverage"))
+            self.assertTrue(jbg.coverageDecreased(prior[i]-0.1, f, "coverage"))
+
+        branchesBadgeFiles = [ "tests/87b.svg", "tests/90b.svg", "tests/999b.svg" ]
+        prior = [0.87, 0.9, 0.999]
+        for i, f in enumerate(branchesBadgeFiles) :
+            self.assertFalse(jbg.coverageDecreased(prior[i], f, "branches"))
+            self.assertFalse(jbg.coverageDecreased(prior[i]+0.1, f, "branches"))
+            self.assertTrue(jbg.coverageDecreased(prior[i]-0.1, f, "branches"))
+
+        for i in range(0, 101, 5) :
+            cov = i / 100
+            self.assertFalse(jbg.coverageDecreased(cov, "tests/idontexist.svg", "coverage"))
+            self.assertFalse(jbg.coverageDecreased(cov, "tests/idontexist.svg", "branches"))
+
+    def testGetPriorCoverage(self):
+        badgeFiles = [ "tests/0.svg",
+                          "tests/599.svg",
+                          "tests/60.svg",
+                          "tests/70.svg",
+                          "tests/80.svg",
+                          "tests/899.svg",
+                          "tests/90.svg",
+                          "tests/99.svg",
+                          "tests/999.svg",
+                          "tests/100.svg"
+                          ]
+        expected = [0, 0.599, 0.6, 0.7, 0.8, 0.899, 0.9, 0.99, 0.999, 1.0 ]
+        for i, f in enumerate(badgeFiles) :
+            self.assertAlmostEqual(expected[i], jbg.getPriorCoverage(f, "coverage"))
+        self.assertEqual(-1, jbg.getPriorCoverage("tests/idontexist.svg", "coverage"))
+        self.assertEqual(-1, jbg.getPriorCoverage("tests/999b.svg", "coverage"))
+
+        branchesBadgeFiles = [ "tests/87b.svg", "tests/90b.svg", "tests/999b.svg" ]
+        expected = [0.87, 0.9, 0.999]
+        for i, f in enumerate(branchesBadgeFiles) :
+            self.assertAlmostEqual(expected[i], jbg.getPriorCoverage(f, "branches"))
+        self.assertEqual(-1, jbg.getPriorCoverage("tests/idontexist.svg", "branches"))
+        self.assertEqual(-1, jbg.getPriorCoverage("tests/999.svg", "branches"))
+
+    def testCoverageIsFailing(self) :
+        self.assertFalse(jbg.coverageIsFailing(0, 0, 0, 0))
+        self.assertFalse(jbg.coverageIsFailing(0.5, 0.5, 0.5, 0.5))
+        self.assertFalse(jbg.coverageIsFailing(0.51, 0.51, 0.5, 0.5))
+        self.assertTrue(jbg.coverageIsFailing(0.49, 0.5, 0.5, 0.5))
+        self.assertTrue(jbg.coverageIsFailing(0.5, 0.49, 0.5, 0.5))
+        self.assertTrue(jbg.coverageIsFailing(0.49, 0.49, 0.5, 0.5))
+
+    def testStringToPercentage(self) :
+        for i in range(0, 101, 10) :
+            expected = i/100
+            s1 = str(i)
+            s2 = s1 + "%"
+            s3 = s1 + " %"
+            s4 = str(expected)
+            self.assertAlmostEqual(expected, jbg.stringToPercentage(s1))
+            self.assertAlmostEqual(expected, jbg.stringToPercentage(s2))
+            self.assertAlmostEqual(expected, jbg.stringToPercentage(s3))
+            self.assertAlmostEqual(expected, jbg.stringToPercentage(s4))
+        for j in range(10, 101, 10) :
+            i = j - 0.5
+            expected = i/100
+            s1 = str(i)
+            s2 = s1 + "%"
+            s3 = s1 + " %"
+            s4 = str(expected)
+            self.assertAlmostEqual(expected, jbg.stringToPercentage(s1))
+            self.assertAlmostEqual(expected, jbg.stringToPercentage(s2))
+            self.assertAlmostEqual(expected, jbg.stringToPercentage(s3))
+            self.assertAlmostEqual(expected, jbg.stringToPercentage(s4))
+        i = 0.0
+        while i <= 1.0 :
+            s1 = str(i)
+            self.assertAlmostEqual(i, jbg.stringToPercentage(s1))
+            s2 = s1 + "%"
+            s3 = s1 + " %"
+            self.assertAlmostEqual(i/100, jbg.stringToPercentage(s2))
+            self.assertAlmostEqual(i/100, jbg.stringToPercentage(s3))
+            i += 0.05
+        self.assertAlmostEqual(0, jbg.stringToPercentage(""))
+        self.assertAlmostEqual(0, jbg.stringToPercentage("%"))
+        self.assertAlmostEqual(0, jbg.stringToPercentage(" %"))
+        self.assertAlmostEqual(0, jbg.stringToPercentage(" "))
+        self.assertAlmostEqual(0, jbg.stringToPercentage("hello"))
+
     def testFilterMissingReports_empty(self) :
         self.assertEqual([], jbg.filterMissingReports([]))
 

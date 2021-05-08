@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-5-6
+## [Unreleased] - 2021-5-8
 
 ### Added
 
@@ -17,6 +17,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 ### CI/CD
+
+
+## [2.2.0] - 2021-5-8
+
+### Added
+* A new optional input, `fail-if-coverage-less-than`, that 
+  enables failing the workflow run if coverage is below a 
+  user specified minimum.
+* A new optional input, `fail-if-branches-less-than`, that 
+  enables failing the workflow run if branches coverage is below a 
+  user specified minimum.
+* A new optional input, `fail-on-coverage-decrease`, that enables 
+  failing the workflow run if coverage decreased relative to previous run.
+* A new optional input, `fail-on-branches-decrease`, that enables 
+  failing the workflow run if branches coverage decreased relative to previous run.
+
 
 
 ## [2.1.2] - 2021-5-6

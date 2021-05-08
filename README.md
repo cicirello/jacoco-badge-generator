@@ -120,12 +120,16 @@ instead be truncated to 79.9%).
 If you use the action's default badges directory and default badge filenames, then 
 you can add the coverage badge to your repository's readme with the following 
 markdown: `![Coverage](.github/badges/jacoco.svg)`, and likewise for the
-branch coverage badge: `![Coverage](.github/badges/branches.svg)`.
-You can of course also link these to the JaCoCo coverage report if you host it
-online, or perhaps to the workflow that generated it, such as
-with `[![Coverage](.github/badges/jacoco.svg)](URL-TO-WORKFLOW-RUN-GOES-HERE)`.
+branch coverage badge: `![Branches](.github/badges/branches.svg)`.
 See the [Inputs](#inputs) section for how to change the directory and filenames of
-the badges.
+the badges.  You can of course also link these to the JaCoCo coverage report if you host it
+online, or perhaps to the workflow that generated it, such as with (just replace 
+USERNAME and REPOSITORY with yours):
+```markdown
+[![Coverage](.github/badges/jacoco.svg)](https://github.com/USERNAME/REPOSITORY/actions/workflows/build.yml)
+```
+The above assumes that the relevant workflow is `build.yml` (replace as needed). This will
+link the badge to the runs of that specific workflow.
 
 
 ## Inputs
@@ -221,6 +225,42 @@ The behavior of these is defined as follows:
 Regardless of value passed to this input, the action will log warnings for
 any files listed in the `jacoco-csv-file` input that do not exist, for your 
 inspection in the workflow run. 
+
+### `fail-if-coverage-less-than`
+
+This input enables directing the action to fail the workflow run if
+the computed coverage is less than a minimum. The default is 0, effectively
+disabling the option. You can specify it as either a floating point value
+in the interval 0.0 to 1.0, or as a percent (with or without the percent sign).
+For example, all of the following are equivalent: `fail-if-coverage-less-than: 0.6`,
+`fail-if-coverage-less-than: 60`, or `fail-if-coverage-less-than: "60%"`.
+Note that in the last case, you need the quotes due to the percent sign.
+Values greater than 1 are assumed percents.
+
+### `fail-if-branches-less-than`
+
+This input enables directing the action to fail the workflow run if
+the computed branches coverage is less than a minimum. The default is 0, effectively
+disabling the option. You can specify it as either a floating point value
+in the interval 0.0 to 1.0, or as a percent (with or without the percent sign).
+For example, all of the following are equivalent: `fail-if-branches-less-than: 0.6`,
+`fail-if-branches-less-than: 60`, or `fail-if-branches-less-than: "60%"`.
+Note that in the last case, you need the quotes due to the percent sign.
+Values greater than 1 are assumed percents.
+
+### `fail-on-coverage-decrease`
+
+This input enables directing the action to fail the workflow run if
+the computed coverage is less than it was on the previous run as recorded in the
+existing coverage badge, if one exists. The default is `false`. 
+Use `fail-on-coverage-decrease: true` to enable.
+
+### `fail-on-branches-decrease`
+
+This input enables directing the action to fail the workflow run if
+the computed branches coverage is less than it was on the previous run as recorded in the
+existing branches badge, if one exists. The default is `false`. 
+Use `fail-on-branches-decrease: true` to enable.
 
 
 ## Outputs
@@ -351,7 +391,7 @@ You can also use a specific release with:
 
 ```yml
     - name: Generate JaCoCo Badge
-      uses: cicirello/jacoco-badge-generator@v2.1.2
+      uses: cicirello/jacoco-badge-generator@v2.2.0
       with:
         generate-branches-badge: true
 ```

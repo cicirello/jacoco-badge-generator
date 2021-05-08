@@ -209,6 +209,102 @@ def filterMissingReports(jacocoFileList, failIfMissing=False) :
         sys.exit(1)
     return goodReports
 
+def stringToPercentage(s) :
+    """Converts a string describing a percentage to
+    a float. The string s can be of any of the following
+    forms: 60.2%, 60.2, or 0.602. All three of these will
+    be treated the same. Without the percent sign, it is
+    treated the same as with the percent sign if the value
+    is greater than 1. This is to gracefully handle
+    user misinterpretation of action input specification. In all cases,
+    this function will return a float in the interval [0.0, 1.0].
+
+    Keyword arguments:
+    s - the string to convert.
+    """
+    if len(s)==0 :
+        return 0
+    doDivide = False
+    if s[-1]=="%" :
+        s = s[:-1].strip()
+        if len(s)==0 :
+            return 0
+        doDivide = True
+    try :
+        p = float(s)
+    except ValueError :
+        return 0
+    if p > 1 :
+        doDivide = True
+    return p / 100 if doDivide else p
+
+def coverageIsFailing(coverage, branches, minCoverage, minBranches) :
+    """Checks if coverage or branchs coverage or both are
+    below minimum to pass workflow run. Logs messages if it is.
+    Actual failing behavior should be handled by caller.
+
+    Keyword arguments:
+    coverage - instructions coverage in interval 0.0 to 1.0.
+    branches - branches coverage in interval 0.0 to 1.0.
+    minCoverage - minimum instructions coverage to pass in interval 0.0 to 1.0.
+    minBranches - minimum branches coverage to pass in interval 0.0 to 1.0.
+    """
+    shouldFail = False
+    if coverage < minCoverage :
+        shouldFail = True
+        print("Coverage of", coverage, "is below passing threshold of", minCoverage)
+    if branches < minBranches :
+        shouldFail = True
+        print("Branches of", branches, "is below passing threshold of", minBranches)
+    return shouldFail
+
+def getPriorCoverage(badgeFilename, whichBadge) :
+    """Parses an existing badge (if one exists) returning
+    the coverage percentage stored there. Returns -1 if
+    badge file doesn't exist or if it isn't of the expected format.
+
+    Keyword arguments:
+    badgeFilename - the filename with path
+    whichBadge - this input should be one of 'coverage' or 'branches'
+    """
+    if not os.path.isfile(badgeFilename) :
+        return -1
+    with open(badgeFilename, "r") as f :
+        priorBadge = f.read()
+    i = priorBadge.find(whichBadge)
+    if i < 0 :
+        return -1
+    i += len(whichBadge) + 1
+    j = priorBadge.find("%", i)
+    if j < 0 :
+        return -1
+    return stringToPercentage(priorBadge[i:j+1].strip())
+
+def coverageDecreased(coverage, badgeFilename, whichBadge) :
+    """Checks if coverage decreased relative to previous run, and logs
+    a message if it did.
+
+    Keyword arguments:
+    coverage - The coverage in interval 0.0 to 1.0
+    badgeFilename - the filename with path
+    whichBadge - this input should be one of 'coverage' or 'branches'
+    """
+    previous = getPriorCoverage(badgeFilename, whichBadge)
+    # Badge only records 1 decimal place, and thus need
+    # to take care to avoid floating-point rounding error
+    # when old is converted to [0.0 to 1.0] range with div by
+    # 100 in getPriorCoverage.  e.g., 99.9 / 100 = 0.9990000000000001
+    # due to rounding error.
+    old = round(previous * 1000)
+    # Don't need to round with new since this is still as computed
+    # from coverage data at this point.
+    new = coverage * 1000
+    if new < old :
+        s = "Branches coverage" if whichBadge == "branches" else "Coverage"
+        print(s, "decreased from", previous, "to", coverage)
+        return True
+    return False
+
 if __name__ == "__main__" :
     jacocoCsvFile = sys.argv[1]
     badgesDirectory = sys.argv[2]
@@ -217,6 +313,10 @@ if __name__ == "__main__" :
     generateCoverageBadge = sys.argv[5].lower() == "true"
     generateBranchesBadge = sys.argv[6].lower() == "true"
     onMissingReport = sys.argv[7].lower()
+    minCoverage = stringToPercentage(sys.argv[8])
+    minBranches = stringToPercentage(sys.argv[9])
+    failOnCoverageDecrease = sys.argv[10].lower() == "true"
+    failOnBranchesDecrease = sys.argv[11].lower() == "true"
 
     if onMissingReport not in {"fail", "quiet", "badges"} :
         print("ERROR: Invalid value for on-missing-report.")
@@ -238,17 +338,32 @@ if __name__ == "__main__" :
 
         cov, branches = computeCoverage(filteredFileList)
 
+        if coverageIsFailing(cov, branches, minCoverage, minBranches) :
+            print("Failing the workflow run.")
+            sys.exit(1)
+
+        coverageBadgeWithPath = formFullPathToFile(badgesDirectory, coverageFilename)
+        branchesBadgeWithPath = formFullPathToFile(badgesDirectory, branchesFilename)
+
+        if failOnCoverageDecrease and coverageDecreased(cov, coverageBadgeWithPath, "coverage") :
+            print("Failing the workflow run.")
+            sys.exit(1)
+
+        if failOnBranchesDecrease and coverageDecreased(branches, branchesBadgeWithPath, "branches") :
+            print("Failing the workflow run.")
+            sys.exit(1)
+
         if (generateCoverageBadge or generateBranchesBadge) and badgesDirectory != "" :
             createOutputDirectories(badgesDirectory)
 
         if generateCoverageBadge :
             covStr, color = badgeCoverageStringColorPair(cov)
-            with open(formFullPathToFile(badgesDirectory, coverageFilename), "w") as badge :
+            with open(coverageBadgeWithPath, "w") as badge :
                 badge.write(generateBadge(covStr, color))
 
         if generateBranchesBadge :
             covStr, color = badgeCoverageStringColorPair(branches)
-            with open(formFullPathToFile(badgesDirectory, branchesFilename), "w") as badge :
+            with open(branchesBadgeWithPath, "w") as badge :
                 badge.write(generateBadge(covStr, color, "branches"))
 
         print("::set-output name=coverage::" + str(cov))
