@@ -120,12 +120,16 @@ instead be truncated to 79.9%).
 If you use the action's default badges directory and default badge filenames, then 
 you can add the coverage badge to your repository's readme with the following 
 markdown: `![Coverage](.github/badges/jacoco.svg)`, and likewise for the
-branch coverage badge: `![Coverage](.github/badges/branches.svg)`.
-You can of course also link these to the JaCoCo coverage report if you host it
-online, or perhaps to the workflow that generated it, such as
-with `[![Coverage](.github/badges/jacoco.svg)](URL-TO-WORKFLOW-RUN-GOES-HERE)`.
+branch coverage badge: `![Branches](.github/badges/branches.svg)`.
 See the [Inputs](#inputs) section for how to change the directory and filenames of
-the badges.
+the badges.  You can of course also link these to the JaCoCo coverage report if you host it
+online, or perhaps to the workflow that generated it, such as with (just replace 
+USERNAME and REPOSITORY with yours):
+```
+[![Coverage](.github/badges/jacoco.svg)](https://github.com/USERNAME/REPOSITORY/actions/workflows/build.yml)
+```
+The above assumes that the relevant workflow is `build.yml` (replace as needed). This will
+link the badge to the runs of that specific workflow.
 
 
 ## Inputs
