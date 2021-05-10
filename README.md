@@ -253,14 +253,18 @@ Values greater than 1 are assumed percents.
 This input enables directing the action to fail the workflow run if
 the computed coverage is less than it was on the previous run as recorded in the
 existing coverage badge, if one exists. The default is `false`. 
-Use `fail-on-coverage-decrease: true` to enable.
+Use `fail-on-coverage-decrease: true` to enable. The `generate-coverage-badge`
+input must also be `true` (the default), as the action will otherwise assume
+that there is no existing badge from which to get the prior coverage.
 
 ### `fail-on-branches-decrease`
 
 This input enables directing the action to fail the workflow run if
 the computed branches coverage is less than it was on the previous run as recorded in the
 existing branches badge, if one exists. The default is `false`. 
-Use `fail-on-branches-decrease: true` to enable.
+Use `fail-on-branches-decrease: true` to enable. The `generate-branches-badge`
+input must also be `true`, as the action will otherwise assume
+that there is no existing badge from which to get the prior branches coverage.
 
 
 ## Outputs

@@ -49,6 +49,8 @@ class TestJacocoBadgeGenerator(unittest.TestCase) :
             self.assertFalse(jbg.coverageDecreased(prior[i], f, "coverage"))
             self.assertFalse(jbg.coverageDecreased(prior[i]+0.1, f, "coverage"))
             self.assertTrue(jbg.coverageDecreased(prior[i]-0.1, f, "coverage"))
+            self.assertFalse(jbg.coverageDecreased(prior[i]+0.0001, f, "coverage"))
+            self.assertTrue(jbg.coverageDecreased(prior[i]-0.0001, f, "coverage"))
 
         branchesBadgeFiles = [ "tests/87b.svg", "tests/90b.svg", "tests/999b.svg" ]
         prior = [0.87, 0.9, 0.999]
@@ -56,6 +58,8 @@ class TestJacocoBadgeGenerator(unittest.TestCase) :
             self.assertFalse(jbg.coverageDecreased(prior[i], f, "branches"))
             self.assertFalse(jbg.coverageDecreased(prior[i]+0.1, f, "branches"))
             self.assertTrue(jbg.coverageDecreased(prior[i]-0.1, f, "branches"))
+            self.assertFalse(jbg.coverageDecreased(prior[i]+0.0001, f, "branches"))
+            self.assertTrue(jbg.coverageDecreased(prior[i]-0.0001, f, "branches"))
 
         for i in range(0, 101, 5) :
             cov = i / 100
@@ -173,6 +177,26 @@ class TestJacocoBadgeGenerator(unittest.TestCase) :
         coverage, branches = jbg.computeCoverage(["tests/multi1.csv", "tests/multi2.csv"])
         self.assertAlmostEqual(0.78, coverage)
         self.assertAlmostEqual(0.87, branches)
+
+    def testCoverageTruncatedToString_str(self) :
+        self.assertEqual("100%", jbg.coverageTruncatedToString(1)[0])
+        self.assertEqual("100%", jbg.coverageTruncatedToString(1.0)[0])
+        self.assertEqual("99.9%", jbg.coverageTruncatedToString(0.99999)[0])
+        self.assertEqual("99.8%", jbg.coverageTruncatedToString(0.9989)[0])
+        self.assertEqual("99%", jbg.coverageTruncatedToString(0.99000001)[0])
+        self.assertEqual("99%", jbg.coverageTruncatedToString(0.9904)[0])
+        self.assertEqual("99%", jbg.coverageTruncatedToString(0.99009)[0])
+        self.assertEqual("99.1%", jbg.coverageTruncatedToString(0.991000001)[0])
+
+    def testCoverageTruncatedToString_float(self) :
+        self.assertAlmostEqual(100.0, jbg.coverageTruncatedToString(1)[1])
+        self.assertAlmostEqual(100.0, jbg.coverageTruncatedToString(1.0)[1])
+        self.assertAlmostEqual(99.9, jbg.coverageTruncatedToString(0.99999)[1])
+        self.assertAlmostEqual(99.8, jbg.coverageTruncatedToString(0.9989)[1])
+        self.assertAlmostEqual(99.0, jbg.coverageTruncatedToString(0.99000001)[1])
+        self.assertAlmostEqual(99.0, jbg.coverageTruncatedToString(0.9904)[1])
+        self.assertAlmostEqual(99.0, jbg.coverageTruncatedToString(0.99009)[1])
+        self.assertAlmostEqual(99.1, jbg.coverageTruncatedToString(0.991000001)[1])
 
     def testFormatPercentage(self) :
         self.assertEqual("100%", jbg.badgeCoverageStringColorPair(1)[0])
