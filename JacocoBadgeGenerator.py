@@ -355,11 +355,11 @@ if __name__ == "__main__" :
         coverageBadgeWithPath = formFullPathToFile(badgesDirectory, coverageFilename)
         branchesBadgeWithPath = formFullPathToFile(badgesDirectory, branchesFilename)
 
-        if failOnCoverageDecrease and coverageDecreased(cov, coverageBadgeWithPath, "coverage") :
+        if failOnCoverageDecrease and generateCoverageBadge and coverageDecreased(cov, coverageBadgeWithPath, "coverage") :
             print("Failing the workflow run.")
             sys.exit(1)
 
-        if failOnBranchesDecrease and coverageDecreased(branches, branchesBadgeWithPath, "branches") :
+        if failOnBranchesDecrease and generateBranchesBadge and coverageDecreased(branches, branchesBadgeWithPath, "branches") :
             print("Failing the workflow run.")
             sys.exit(1)
 
