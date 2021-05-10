@@ -49,6 +49,8 @@ class TestJacocoBadgeGenerator(unittest.TestCase) :
             self.assertFalse(jbg.coverageDecreased(prior[i], f, "coverage"))
             self.assertFalse(jbg.coverageDecreased(prior[i]+0.1, f, "coverage"))
             self.assertTrue(jbg.coverageDecreased(prior[i]-0.1, f, "coverage"))
+            self.assertFalse(jbg.coverageDecreased(prior[i]+0.0001, f, "coverage"))
+            self.assertTrue(jbg.coverageDecreased(prior[i]-0.0001, f, "coverage"))
 
         branchesBadgeFiles = [ "tests/87b.svg", "tests/90b.svg", "tests/999b.svg" ]
         prior = [0.87, 0.9, 0.999]
@@ -56,6 +58,8 @@ class TestJacocoBadgeGenerator(unittest.TestCase) :
             self.assertFalse(jbg.coverageDecreased(prior[i], f, "branches"))
             self.assertFalse(jbg.coverageDecreased(prior[i]+0.1, f, "branches"))
             self.assertTrue(jbg.coverageDecreased(prior[i]-0.1, f, "branches"))
+            self.assertFalse(jbg.coverageDecreased(prior[i]+0.0001, f, "branches"))
+            self.assertTrue(jbg.coverageDecreased(prior[i]-0.0001, f, "branches"))
 
         for i in range(0, 101, 5) :
             cov = i / 100

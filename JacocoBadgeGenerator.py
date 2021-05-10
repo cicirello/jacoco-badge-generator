@@ -311,7 +311,7 @@ def coverageDecreased(coverage, badgeFilename, whichBadge) :
     new = coverage * 1000
     if new < old :
         s = "Branches coverage" if whichBadge == "branches" else "Coverage"
-        print(s, "decreased from", previous, "to", coverage)
+        print(s, "decreased from", coverageTruncatedToString(previous)[0], "to", coverageTruncatedToString(coverage)[0])
         return True
     return False
 
