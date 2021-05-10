@@ -113,10 +113,9 @@ def calculatePercentage(covered, missed) :
         return 1
     return covered / (covered + missed)
 
-def badgeCoverageStringColorPair(coverage) :
-    """Converts the coverage percentage to a formatted string,
-    and determines the badge color.
-    Returns: coveragePercentageAsString, colorAsString
+def coverageTruncatedToString(coverage) :
+    """Converts the coverage percentage to a formatted string.
+    Returns: coveragePercentageAsString, coverageTruncatedToOneDecimalPlace
 
     Keyword arguments:
     coverage - The coverage percentage.
@@ -126,13 +125,24 @@ def badgeCoverageStringColorPair(coverage) :
     # passing (e.g., if user considers 70% as passing threshold,
     # then 69.99999...% is technically not passing).
     coverage = int(1000 * coverage) / 10
+    if coverage - int(coverage) == 0 :
+        covStr = "{0:d}%".format(int(coverage))
+    else :
+        covStr = "{0:.1f}%".format(coverage)
+    return covStr, coverage
+
+def badgeCoverageStringColorPair(coverage) :
+    """Converts the coverage percentage to a formatted string,
+    and determines the badge color.
+    Returns: coveragePercentageAsString, colorAsString
+
+    Keyword arguments:
+    coverage - The coverage percentage.
+    """
+    cov, coverage = coverageTruncatedToString(coverage)
     c = math.ceil((100 - coverage) / 10)
     if c >= len(colors) :
         c = len(colors) - 1
-    if coverage - int(coverage) == 0 :
-        cov = "{0:d}%".format(int(coverage))
-    else :
-        cov = "{0:.1f}%".format(coverage)
     return cov, colors[c]
 
 def createOutputDirectories(badgesDirectory) :

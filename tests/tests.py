@@ -174,6 +174,26 @@ class TestJacocoBadgeGenerator(unittest.TestCase) :
         self.assertAlmostEqual(0.78, coverage)
         self.assertAlmostEqual(0.87, branches)
 
+    def testCoverageTruncatedToString_str(self) :
+        self.assertEqual("100%", jbg.coverageTruncatedToString(1)[0])
+        self.assertEqual("100%", jbg.coverageTruncatedToString(1.0)[0])
+        self.assertEqual("99.9%", jbg.coverageTruncatedToString(0.99999)[0])
+        self.assertEqual("99.8%", jbg.coverageTruncatedToString(0.9989)[0])
+        self.assertEqual("99%", jbg.coverageTruncatedToString(0.99000001)[0])
+        self.assertEqual("99%", jbg.coverageTruncatedToString(0.9904)[0])
+        self.assertEqual("99%", jbg.coverageTruncatedToString(0.99009)[0])
+        self.assertEqual("99.1%", jbg.coverageTruncatedToString(0.991000001)[0])
+
+    def testCoverageTruncatedToString_float(self) :
+        self.assertAlmostEqual(100.0, jbg.coverageTruncatedToString(1)[1])
+        self.assertAlmostEqual(100.0, jbg.coverageTruncatedToString(1.0)[1])
+        self.assertAlmostEqual(99.9, jbg.coverageTruncatedToString(0.99999)[1])
+        self.assertAlmostEqual(99.8, jbg.coverageTruncatedToString(0.9989)[1])
+        self.assertAlmostEqual(99.0, jbg.coverageTruncatedToString(0.99000001)[1])
+        self.assertAlmostEqual(99.0, jbg.coverageTruncatedToString(0.9904)[1])
+        self.assertAlmostEqual(99.0, jbg.coverageTruncatedToString(0.99009)[1])
+        self.assertAlmostEqual(99.1, jbg.coverageTruncatedToString(0.991000001)[1])
+
     def testFormatPercentage(self) :
         self.assertEqual("100%", jbg.badgeCoverageStringColorPair(1)[0])
         self.assertEqual("100%", jbg.badgeCoverageStringColorPair(1.0)[0])
