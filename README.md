@@ -333,7 +333,7 @@ of JaCoCo.
 If you use gradle as your build tool, then you can configure JaCoCo
 in `build.gradle.kts` with:
 
-```
+```Kotlin
 plugins {
     jacoco
 }
@@ -347,7 +347,7 @@ tasks.jacocoTestReport {
 
 Or the equivalent in `build.gradle`:
 
-```
+```Gradle
 plugins {
     id 'jacoco'
 }
