@@ -14,6 +14,10 @@ both the basic case of a single `jacoco.csv`, as well as multi-module projects i
 case the action can produce coverage badges from the combination of the JaCoCo reports
 from all modules, provided that the individual reports are independent.
 
+The jacoco-badge-generator can also optionally be used as part of a pull-request check. Specifically, you can
+configure it to fail the workflow run if coverage decreased relative to prior run, and/or if coverage is below
+a target threshold. See the [Inputs](#inputs) section for details of how to configure it for this purpose.
+
 _The developers of the jacoco-badge-generator GitHub Action are not affiliated 
 with the developers of JaCoCo, although we are a fan and user of their excellent 
 test coverage tool._ 
