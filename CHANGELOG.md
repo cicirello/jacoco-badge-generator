@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-5-10
+## [Unreleased] - 2021-5-20
 
 ### Added
 
@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Improved log messages related to the `fail-on-coverage-decrease` 
   and `fail-on-branches-decrease` inputs.
 * Non-functional changes: Refactoring to improve maintainability.
+* Use major release tag when pulling base docker image (e.g., automatically get non-breaking
+  changes to base image, such as bug fixes, etc without need to update Dockerfile).
 
 ### Deprecated
 
