@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Non-functional changes: Refactoring to improve maintainability.
 * Use major release tag when pulling base docker image (e.g., automatically get non-breaking
   changes to base image, such as bug fixes, etc without need to update Dockerfile).
+* Improved documentation of `fail-on-coverage-decrease` and `fail-if-coverage-less-than` inputs.
 
 ### Deprecated
 
