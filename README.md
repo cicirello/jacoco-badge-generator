@@ -1,7 +1,7 @@
 # jacoco-badge-generator
 
 [<img alt="cicirello/jacoco-badge-generator - Coverage badges, and pull request coverage checks, from JaCoCo reports in GitHub Actions" 
-     src="images/jacoco-badge-generator-optimized.svg" width="640">](#jacoco-badge-generator)
+     src="images/jacoco-badge-generator.png" width="640">](#jacoco-badge-generator)
 
 ## About
 
