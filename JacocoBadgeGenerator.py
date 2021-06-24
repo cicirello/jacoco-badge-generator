@@ -326,6 +326,15 @@ def coverageDecreased(coverage, badgeFilename, whichBadge) :
         return True
     return False
 
+def colorCutoffsStringToNumberList(strCutoffs) :
+    """Converts a string of space or comma separated percentages
+    to a list of floats.
+
+    Keyword arguments:
+    strCutoffs - a string of space or comma separated percentages
+    """
+    return list(map(float, strCutoffs.replace(',', ' ').split()))
+
 if __name__ == "__main__" :
     jacocoCsvFile = sys.argv[1]
     badgesDirectory = sys.argv[2]
@@ -338,6 +347,7 @@ if __name__ == "__main__" :
     minBranches = stringToPercentage(sys.argv[9])
     failOnCoverageDecrease = sys.argv[10].lower() == "true"
     failOnBranchesDecrease = sys.argv[11].lower() == "true"
+    colorCutoffs = colorCutoffsStringToNumberList(sys.argv[12])
 
     if onMissingReport not in {"fail", "quiet", "badges"} :
         print("ERROR: Invalid value for on-missing-report.")
@@ -378,12 +388,12 @@ if __name__ == "__main__" :
             createOutputDirectories(badgesDirectory)
 
         if generateCoverageBadge :
-            covStr, color = badgeCoverageStringColorPair(cov)
+            covStr, color = badgeCoverageStringColorPair(cov, colorCutoffs)
             with open(coverageBadgeWithPath, "w") as badge :
                 badge.write(generateBadge(covStr, color))
 
         if generateBranchesBadge :
-            covStr, color = badgeCoverageStringColorPair(branches)
+            covStr, color = badgeCoverageStringColorPair(branches, colorCutoffs)
             with open(branchesBadgeWithPath, "w") as badge :
                 badge.write(generateBadge(covStr, color, "branches"))
 

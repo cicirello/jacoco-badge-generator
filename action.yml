@@ -75,6 +75,10 @@ inputs:
     description: 'Enables failing workflow if branches coverage is less than it was on previous run.'
     required: false
     default: false
+  color-intervals:
+    description: 'List of coverage percentages as cutoffs for each color.'
+    required: false
+    default: 100 90 80 70 60 0
 outputs:
   coverage:
     description: 'The jacoco coverage percentage as computed from the data in the jacoco.csv file.'
@@ -95,3 +99,4 @@ runs:
     - ${{ inputs.fail-if-branches-less-than }}
     - ${{ inputs.fail-on-coverage-decrease }}
     - ${{ inputs.fail-on-branches-decrease }}
+    - ${{ inputs.color-intervals }}

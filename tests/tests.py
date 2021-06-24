@@ -378,5 +378,12 @@ class TestJacocoBadgeGenerator(unittest.TestCase) :
         for directory, filename, expected in cases :
             self.assertEqual(expected, jbg.formFullPathToFile(directory, filename))
             
-                  
-                          
+    def testStringToFloatCutoffs(self) :
+        self.assertEqual([100, 90, 80, 70, 60, 0], jbg.colorCutoffsStringToNumberList('100, 90, 80, 70, 60, 0'))
+        self.assertEqual([100, 90, 80, 70, 60, 0], jbg.colorCutoffsStringToNumberList('100 90 80 70 60 0'))
+        self.assertEqual([100, 90, 80, 70, 60, 0], jbg.colorCutoffsStringToNumberList('100,90,80,70,60,0'))
+        self.assertEquals([], jbg.colorCutoffsStringToNumberList(''))
+        self.assertEquals([], jbg.colorCutoffsStringToNumberList(','))
+        self.assertEquals([], jbg.colorCutoffsStringToNumberList('   '))
+        self.assertEquals([99.9], jbg.colorCutoffsStringToNumberList('99.9'))
+        self.assertEquals([99.9], jbg.colorCutoffsStringToNumberList('99.9,'))
