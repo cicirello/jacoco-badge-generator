@@ -223,6 +223,85 @@ class TestJacocoBadgeGenerator(unittest.TestCase) :
         self.assertEqual(jbg.colors[5], jbg.badgeCoverageStringColorPair(0.0)[1])
         self.assertEqual(jbg.colors[5], jbg.badgeCoverageStringColorPair(0)[1])
 
+    def testColorIndex(self):
+        self.assertEquals(0, jbg.computeColorIndex(100, [100, 90, 80, 70, 60]));
+        self.assertEquals(0, jbg.computeColorIndex(100.0, [100, 90, 80, 70, 60]));
+        self.assertEquals(1, jbg.computeColorIndex(99.999, [100, 90, 80, 70, 60]));
+        self.assertEquals(1, jbg.computeColorIndex(90, [100, 90, 80, 70, 60]));
+        self.assertEquals(2, jbg.computeColorIndex(89.999, [100, 90, 80, 70, 60]));
+        self.assertEquals(2, jbg.computeColorIndex(80, [100, 90, 80, 70, 60]));
+        self.assertEquals(3, jbg.computeColorIndex(79.999, [100, 90, 80, 70, 60]));
+        self.assertEquals(3, jbg.computeColorIndex(70, [100, 90, 80, 70, 60]));
+        self.assertEquals(4, jbg.computeColorIndex(69.999, [100, 90, 80, 70, 60]));
+        self.assertEquals(4, jbg.computeColorIndex(60, [100, 90, 80, 70, 60]));
+        self.assertEquals(5, jbg.computeColorIndex(59.999, [100, 90, 80, 70, 60]));
+        self.assertEquals(5, jbg.computeColorIndex(50, [100, 90, 80, 70, 60]));
+        # more cutoffs than necessary
+        self.assertEquals(0, jbg.computeColorIndex(100, [100, 90, 80, 70, 60, 50]));
+        self.assertEquals(0, jbg.computeColorIndex(100.0, [100, 90, 80, 70, 60, 50]));
+        self.assertEquals(1, jbg.computeColorIndex(99.999, [100, 90, 80, 70, 60, 50]));
+        self.assertEquals(1, jbg.computeColorIndex(90, [100, 90, 80, 70, 60, 50]));
+        self.assertEquals(2, jbg.computeColorIndex(89.999, [100, 90, 80, 70, 60, 50]));
+        self.assertEquals(2, jbg.computeColorIndex(80, [100, 90, 80, 70, 60, 50]));
+        self.assertEquals(3, jbg.computeColorIndex(79.999, [100, 90, 80, 70, 60, 50]));
+        self.assertEquals(3, jbg.computeColorIndex(70, [100, 90, 80, 70, 60, 50]));
+        self.assertEquals(4, jbg.computeColorIndex(69.999, [100, 90, 80, 70, 60, 50]));
+        self.assertEquals(4, jbg.computeColorIndex(60, [100, 90, 80, 70, 60, 50]));
+        self.assertEquals(5, jbg.computeColorIndex(59.999, [100, 90, 80, 70, 60, 50]));
+        self.assertEquals(5, jbg.computeColorIndex(50, [100, 90, 80, 70, 60, 50]));
+        # even more cutoffs than necessary
+        self.assertEquals(0, jbg.computeColorIndex(100, [100, 90, 80, 70, 60, 50, 0]));
+        self.assertEquals(0, jbg.computeColorIndex(100.0, [100, 90, 80, 70, 60, 50, 0]));
+        self.assertEquals(1, jbg.computeColorIndex(99.999, [100, 90, 80, 70, 60, 50, 0]));
+        self.assertEquals(1, jbg.computeColorIndex(90, [100, 90, 80, 70, 60, 50, 0]));
+        self.assertEquals(2, jbg.computeColorIndex(89.999, [100, 90, 80, 70, 60, 50, 0]));
+        self.assertEquals(2, jbg.computeColorIndex(80, [100, 90, 80, 70, 60, 50, 0]));
+        self.assertEquals(3, jbg.computeColorIndex(79.999, [100, 90, 80, 70, 60, 50, 0]));
+        self.assertEquals(3, jbg.computeColorIndex(70, [100, 90, 80, 70, 60, 50, 0]));
+        self.assertEquals(4, jbg.computeColorIndex(69.999, [100, 90, 80, 70, 60, 50, 0]));
+        self.assertEquals(4, jbg.computeColorIndex(60, [100, 90, 80, 70, 60, 50, 0]));
+        self.assertEquals(5, jbg.computeColorIndex(59.999, [100, 90, 80, 70, 60, 50, 0]));
+        self.assertEquals(5, jbg.computeColorIndex(50, [100, 90, 80, 70, 60, 50, 0]));
+        # too few cutoffs
+        self.assertEquals(0, jbg.computeColorIndex(100, [100, 90, 80, 70]));
+        self.assertEquals(0, jbg.computeColorIndex(100.0, [100, 90, 80, 70]));
+        self.assertEquals(1, jbg.computeColorIndex(99.999, [100, 90, 80, 70]));
+        self.assertEquals(1, jbg.computeColorIndex(90, [100, 90, 80, 70]));
+        self.assertEquals(2, jbg.computeColorIndex(89.999, [100, 90, 80, 70]));
+        self.assertEquals(2, jbg.computeColorIndex(80, [100, 90, 80, 70]));
+        self.assertEquals(3, jbg.computeColorIndex(79.999, [100, 90, 80, 70]));
+        self.assertEquals(3, jbg.computeColorIndex(70, [100, 90, 80, 70]));
+        self.assertEquals(4, jbg.computeColorIndex(69.999, [100, 90, 80, 70]));
+        self.assertEquals(4, jbg.computeColorIndex(60, [100, 90, 80, 70]));
+        self.assertEquals(4, jbg.computeColorIndex(59.999, [100, 90, 80, 70]));
+        self.assertEquals(4, jbg.computeColorIndex(50, [100, 90, 80, 70]));
+        # only 1 cutoff
+        self.assertEquals(0, jbg.computeColorIndex(100, [100]));
+        self.assertEquals(0, jbg.computeColorIndex(100.0, [100]));
+        self.assertEquals(1, jbg.computeColorIndex(99.999, [100]));
+        self.assertEquals(1, jbg.computeColorIndex(90, [100]));
+        self.assertEquals(1, jbg.computeColorIndex(89.999, [100]));
+        self.assertEquals(1, jbg.computeColorIndex(80, [100]));
+        self.assertEquals(1, jbg.computeColorIndex(79.999, [100]));
+        self.assertEquals(1, jbg.computeColorIndex(70, [100]));
+        self.assertEquals(1, jbg.computeColorIndex(69.999, [100]));
+        self.assertEquals(1, jbg.computeColorIndex(60, [100]));
+        self.assertEquals(1, jbg.computeColorIndex(59.999, [100]));
+        self.assertEquals(1, jbg.computeColorIndex(50, [100]));
+        # no cutoffs
+        self.assertEquals(0, jbg.computeColorIndex(100, []));
+        self.assertEquals(0, jbg.computeColorIndex(100.0, []));
+        self.assertEquals(0, jbg.computeColorIndex(99.999, []));
+        self.assertEquals(0, jbg.computeColorIndex(90, []));
+        self.assertEquals(0, jbg.computeColorIndex(89.999, []));
+        self.assertEquals(0, jbg.computeColorIndex(80, []));
+        self.assertEquals(0, jbg.computeColorIndex(79.999, []));
+        self.assertEquals(0, jbg.computeColorIndex(70, []));
+        self.assertEquals(0, jbg.computeColorIndex(69.999, []));
+        self.assertEquals(0, jbg.computeColorIndex(60, []));
+        self.assertEquals(0, jbg.computeColorIndex(59.999, []));
+        self.assertEquals(0, jbg.computeColorIndex(50, []));
+        
     def testBadgeGeneration(self) :
         testPercentages = [0, 0.599, 0.6, 0.7, 0.8, 0.899, 0.9, 0.99, 0.999, 1]
         expectedFiles = [ "tests/0.svg",

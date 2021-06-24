@@ -131,7 +131,7 @@ def coverageTruncatedToString(coverage) :
         covStr = "{0:.1f}%".format(coverage)
     return covStr, coverage
 
-def badgeCoverageStringColorPair(coverage) :
+def badgeCoverageStringColorPair(coverage, cutoffs=[100, 90, 80, 70, 60]) :
     """Converts the coverage percentage to a formatted string,
     and determines the badge color.
     Returns: coveragePercentageAsString, colorAsString
@@ -140,10 +140,21 @@ def badgeCoverageStringColorPair(coverage) :
     coverage - The coverage percentage.
     """
     cov, coverage = coverageTruncatedToString(coverage)
-    c = math.ceil((100 - coverage) / 10)
-    if c >= len(colors) :
-        c = len(colors) - 1
+    c = computeColorIndex(coverage, cutoffs)
     return cov, colors[c]
+
+def computeColorIndex(coverage, cutoffs) :
+    """Computes index into color list from coverage.
+
+    Keyword arguments:
+    coverage - The coverage percentage.
+    cutoffs - The thresholds for each color.
+    """
+    numIntervals = min(len(colors), len(cutoffs)+1)
+    for c in range(numIntervals-1) :
+        if coverage >= cutoffs[c] :
+            return c
+    return numIntervals-1
 
 def createOutputDirectories(badgesDirectory) :
     """Creates the output directory if it doesn't already exist.
