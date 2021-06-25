@@ -56,7 +56,7 @@ textLength="{2}">{0}</text><text x="815" y="140" \
 transform="scale(.1)" fill="#fff" textLength="{2}">{0}</text>\
 </g></svg>'
 
-colors = [ "#4c1", "#97ca00", "#a4a61d", "#dfb317", "#fe7d37", "#e05d44" ]
+defaultColors = [ "#4c1", "#97ca00", "#a4a61d", "#dfb317", "#fe7d37", "#e05d44" ]
 
 def generateBadge(covStr, color, badgeType="coverage") :
     """Generates the badge as a string.
@@ -131,26 +131,30 @@ def coverageTruncatedToString(coverage) :
         covStr = "{0:.1f}%".format(coverage)
     return covStr, coverage
 
-def badgeCoverageStringColorPair(coverage, cutoffs=[100, 90, 80, 70, 60]) :
+def badgeCoverageStringColorPair(coverage, cutoffs=[100, 90, 80, 70, 60], colors=[]) :
     """Converts the coverage percentage to a formatted string,
     and determines the badge color.
     Returns: coveragePercentageAsString, colorAsString
 
     Keyword arguments:
     coverage - The coverage percentage.
+    cutoffs - List of percentages that begin begin each color interval.
+    colors - List of badge colors in decreasing order of coverage percentages.
     """
+    if len(colors) == 0 :
+        colors = defaultColors
     cov, coverage = coverageTruncatedToString(coverage)
-    c = computeColorIndex(coverage, cutoffs)
+    c = computeColorIndex(coverage, cutoffs, len(colors))
     return cov, colors[c]
 
-def computeColorIndex(coverage, cutoffs) :
+def computeColorIndex(coverage, cutoffs, numColors) :
     """Computes index into color list from coverage.
 
     Keyword arguments:
     coverage - The coverage percentage.
     cutoffs - The thresholds for each color.
     """
-    numIntervals = min(len(colors), len(cutoffs)+1)
+    numIntervals = min(numColors, len(cutoffs)+1)
     for c in range(numIntervals-1) :
         if coverage >= cutoffs[c] :
             return c
