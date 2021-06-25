@@ -247,7 +247,9 @@ quotes around the input if none of the colors are specified by hex.
 Although the default uses six colors and six coverage intervals, you can have
 as many or as few as you want. For example, if you want to use `green` regardless
 of percentage, you can set colors like this: `colors: green`. If you pass more
-colors than there are intervals, then the extra colors will be ignored.
+colors than there are intervals, then the extra colors will be ignored. If you 
+pass an empty list of colors, then the action will simply use the default colors.
+__The action does not do any validation of the colors that you pass.__
 
 ### `intervals`
 
