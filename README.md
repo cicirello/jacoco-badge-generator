@@ -209,42 +209,42 @@ created within the `badges-directory`
 directory. __The action doesn't commit the badge file. You will 
 need to have additional steps in your workflow to do that.__
 
-### `color-intervals`
+### `intervals`
 
 This input enables specifying the coverage intervals for the 
 different colors. It is a simple list of percentages. The default
-is `color-intervals: 100 90 80 70 60 0`, which corresponds to what is
+is `intervals: 100 90 80 70 60 0`, which corresponds to what is
 described in the section [Badge Style and Content](#badge-style-and-content)
 above.  That is, coverage of 100 percent is bright green, 90 or higher is
 green, 80 or higher is yellow green, and so forth. The action assumes that
 the percentages in this list are in decreasing order, and the behavior of the action
 is not defined if you violate that assumption. You can space separate or
-comma separate the percentages. For example, `color-intervals: 100 90 80 70 60 0`
-is equivalent to `color-intervals: 100, 90, 80, 70, 60, 0`. A mix of spaces and commas
+comma separate the percentages. For example, `intervals: 100 90 80 70 60 0`
+is equivalent to `intervals: 100, 90, 80, 70, 60, 0`. A mix of spaces and commas
 will also work.
 
 If you specify too many intervals, the extras will simply be ignored. The action
 uses a total of 6 colors. Only the first 5 percentages specified in this input
 are used, with the sixth color designated for coverages that are below that last
-cutoff.  For example, `color-intervals: 100 90 80 70 60` is equivalent to
-`color-intervals: 100 90 80 70 60 0`.
+cutoff.  For example, `intervals: 100 90 80 70 60` is equivalent to
+`intervals: 100 90 80 70 60 0`.
 
 Although these examples have integer percentages, the action supports floating-point
 values. For example, you can specify something 
-like `color-intervals: 99.5 90 80 70 60`.
+like `intervals: 99.5 90 80 70 60`.
 
 If you only want to use the first three colors (bright green, green, and yellow green),
-then you can use something like `color-intervals: 80 60`, which will assign
+then you can use something like `intervals: 80 60`, which will assign
 80 and above to bright green, 60 and above to green, and less than 60 to yellow
 green.
 
 If you want to skip colors, you can exploit the action's assumption of decreasing
 colors. For example, if you want to use bright green for 80 and above, 
 yellow for 60 and above, and red for less than 60, you might do something like the
-following: `color-intervals: 80 101 101 60 101 0`. The 101s in this example
+following: `intervals: 80 101 101 60 101 0`. The 101s in this example
 essentially disable the corresponding colors, and in fact any values in those
 spots inconsistent with the decreasing order will work as well, such as
-`color-intervals: 80 80 80 60 60 0`.  The 0 at the end is optional.  
+`intervals: 80 80 80 60 60 0`.  The 0 at the end is optional.  
 
 ### `on-missing-report`
 

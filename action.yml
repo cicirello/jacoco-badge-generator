@@ -75,7 +75,7 @@ inputs:
     description: 'Enables failing workflow if branches coverage is less than it was on previous run.'
     required: false
     default: false
-  color-intervals:
+  intervals:
     description: 'List of coverage percentages as cutoffs for each color.'
     required: false
     default: 100 90 80 70 60 0
@@ -99,4 +99,4 @@ runs:
     - ${{ inputs.fail-if-branches-less-than }}
     - ${{ inputs.fail-on-coverage-decrease }}
     - ${{ inputs.fail-on-branches-decrease }}
-    - ${{ inputs.color-intervals }}
+    - ${{ inputs.intervals }}
