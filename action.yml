@@ -79,6 +79,10 @@ inputs:
     description: 'List of coverage percentages as cutoffs for each color.'
     required: false
     default: 100 90 80 70 60 0
+  colors:
+    description: 'List of colors to use ordered by coverage interval, best coverage to worst.'
+    required: false
+    default: '#4c1 #97ca00 #a4a61d #dfb317 #fe7d37 #e05d44'
 outputs:
   coverage:
     description: 'The jacoco coverage percentage as computed from the data in the jacoco.csv file.'
@@ -100,3 +104,4 @@ runs:
     - ${{ inputs.fail-on-coverage-decrease }}
     - ${{ inputs.fail-on-branches-decrease }}
     - ${{ inputs.intervals }}
+    - ${{ inputs.colors }}

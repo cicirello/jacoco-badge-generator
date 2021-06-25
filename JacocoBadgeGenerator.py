@@ -352,6 +352,7 @@ if __name__ == "__main__" :
     failOnCoverageDecrease = sys.argv[10].lower() == "true"
     failOnBranchesDecrease = sys.argv[11].lower() == "true"
     colorCutoffs = colorCutoffsStringToNumberList(sys.argv[12])
+    colors = sys.argv[13].replace(',', ' ').split()
 
     if onMissingReport not in {"fail", "quiet", "badges"} :
         print("ERROR: Invalid value for on-missing-report.")
@@ -392,12 +393,12 @@ if __name__ == "__main__" :
             createOutputDirectories(badgesDirectory)
 
         if generateCoverageBadge :
-            covStr, color = badgeCoverageStringColorPair(cov, colorCutoffs)
+            covStr, color = badgeCoverageStringColorPair(cov, colorCutoffs, colors)
             with open(coverageBadgeWithPath, "w") as badge :
                 badge.write(generateBadge(covStr, color))
 
         if generateBranchesBadge :
-            covStr, color = badgeCoverageStringColorPair(branches, colorCutoffs)
+            covStr, color = badgeCoverageStringColorPair(branches, colorCutoffs, colors)
             with open(branchesBadgeWithPath, "w") as badge :
                 badge.write(generateBadge(covStr, color, "branches"))
 
