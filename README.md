@@ -516,6 +516,14 @@ what these inputs do.
         fail-on-branches-decrease: false
 ```
 
+Since the above shows all of the default values of the action inputs, 
+it is equivalent to:
+
+```yml
+    - name: Generate JaCoCo Badge
+      uses: cicirello/jacoco-badge-generator@v2
+```
+
 ### Example Workflow 1: Generate instructions (or C0) coverage badge only.
 
 This sample workflow runs on pushes to the main
