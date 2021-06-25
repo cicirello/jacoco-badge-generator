@@ -107,9 +107,14 @@ of C1 Coverage than is usually implied by branches coverage.
 ## Badge Style and Content
 
 The badges that are generated are inspired by the style of the badges 
-of [Shields.io](https://github.com/badges/shields), however, the badges are entirely generated
-within the jacoco-badge-generator GitHub Action, with no external calls.  Here are
-a few samples of what the badges look like:
+of [Shields.io](https://github.com/badges/shields), however, 
+the badges are entirely generated within the jacoco-badge-generator 
+GitHub Action, with no external calls.  
+
+### Default Color Scheme
+
+Here are a few samples of what the badges look like if you use
+the default colors:
 * ![Coverage 100%](tests/100.svg) We use bright green for 100% coverage.
 * ![Coverage 99.9%](tests/999.svg) We use green for coverage from 90% up through 99.9%.
 * ![Coverage 80%](tests/80.svg) We use yellow green for coverage from 80% up through 89.9%.
@@ -118,6 +123,19 @@ a few samples of what the badges look like:
 * ![Coverage 59.9%](tests/599.svg) We use red for coverage from 0% up through 59.9%.
 * ![Branches Coverage 99.9%](tests/999b.svg) A sample of a branch coverage badge.
 
+### Customizing Colors or Coverage Intervals
+
+The jacoco-badge-generator action provides two inputs that can be used
+to customize the colors used for the badges. The `colors` input enables you to
+pass a list of colors to the action. The `intervals` input enables you to pass
+a list of percentages used to determine color choice. If you like the default
+colors, but want to start the colors at different percentages, then you can use
+the `intervals` input to accomplish that. These two inputs can be used either
+individually or in combination depending upon what you want to do. See the
+[Inputs](#inputs) section for more details.
+
+### Displayed Percentages
+
 The coverage displayed in the badge is the result of truncating to one 
 decimal place.  If that decimal place is 0, then it is displayed as an 
 integer.  The rationale for truncating to one decimal place, rather than 
@@ -125,6 +143,8 @@ rounding is to avoid displaying a just failing coverage as passing. For
 example, if the user of the action considers 80% to be a passing level,
 then we wish to avoid the case of 79.9999% being rounded to 80% (it will
 instead be truncated to 79.9%). 
+
+### Adding the Badges to your README
 
 If you use the action's default badges directory and default badge filenames, then 
 you can add the coverage badge to your repository's readme with the following 
@@ -209,42 +229,63 @@ created within the `badges-directory`
 directory. __The action doesn't commit the badge file. You will 
 need to have additional steps in your workflow to do that.__
 
+### `colors`
+
+This input can be used to change the colors used for the badges.
+It defaults to `colors: '#4c1 #97ca00 #a4a61d #dfb317 #fe7d37 #e05d44'`,
+which are the hex color codes for the colors described previously in 
+section [Default Color Scheme](#default-color-scheme).
+Because `#` has special meaning to YAML (it is used for comments), you 
+must either put quotes around the input value as shown in this example, or
+you can escape each `#`. The list of colors that you pass here can either
+be space separated (as shown) or comma separated. The colors in this list
+can be specified either with hex (as in the example above), or with any
+named colors that are recognized by SVG, or some combination of the two.
+Here is an example with named 
+colors: `colors: green yellow orange red purple blue`. Notice that you don't need
+quotes around the input if none of the colors are specified by hex.
+Although the default uses six colors and six coverage intervals, you can have
+as many or as few as you want. For example, if you want to use `green` regardless
+of percentage, you can set colors like this: `colors: green`. If you pass more
+colors than there are intervals, then the extra colors will be ignored.
+
 ### `intervals`
 
 This input enables specifying the coverage intervals for the 
 different colors. It is a simple list of percentages. The default
 is `intervals: 100 90 80 70 60 0`, which corresponds to what is
-described in the section [Badge Style and Content](#badge-style-and-content)
-above.  That is, coverage of 100 percent is bright green, 90 or higher is
-green, 80 or higher is yellow green, and so forth. The action assumes that
-the percentages in this list are in decreasing order, and the behavior of the action
-is not defined if you violate that assumption. You can space separate or
+described in the section [Default Color Scheme](#default-color-scheme)
+earlier.  The action assumes that the percentages in this list are in 
+decreasing order. You can space separate or
 comma separate the percentages. For example, `intervals: 100 90 80 70 60 0`
 is equivalent to `intervals: 100, 90, 80, 70, 60, 0`. A mix of spaces and commas
 will also work.
 
-If you specify too many intervals, the extras will simply be ignored. The action
-uses a total of 6 colors. Only the first 5 percentages specified in this input
-are used, with the sixth color designated for coverages that are below that last
-cutoff.  For example, `intervals: 100 90 80 70 60` is equivalent to
-`intervals: 100 90 80 70 60 0`.
+If you specify too many intervals, the extras will simply be ignored. If there
+are C colors altogether, then only the first (C-1) percentages specified in 
+this input are used, with the last color designated for coverages that are below 
+that last cutoff.  For example, if you use the default set of 6 colors, then
+`intervals: 100 90 80 70 60` is equivalent to `intervals: 100 90 80 70 60 0`.
 
-Although these examples have integer percentages, the action supports floating-point
-values. For example, you can specify something 
+Although these examples have integer percentages, the action 
+supports floating-point values. For example, you can specify something 
 like `intervals: 99.5 90 80 70 60`.
 
-If you only want to use the first three colors (bright green, green, and yellow green),
+If you only want to use the first three default colors (bright green, green, 
+and yellow green), then you don't necessarily need to change the value
+of the `colors` input. You can keep the default colors, and
 then you can use something like `intervals: 80 60`, which will assign
 80 and above to bright green, 60 and above to green, and less than 60 to yellow
 green.
 
-If you want to skip colors, you can exploit the action's assumption of decreasing
-colors. For example, if you want to use bright green for 80 and above, 
+If you like some of the default colors, but want to skip over some of them,
+then you can either use a combination of the `colors` input and `intervals`
+input to accomplish this, or you can leave `colors` at the default and
+exploit the action's assumption of decreasing percentages in the `intervals`
+input to skip the ones you don't like. For example, if 
+you want to use bright green for 80 and above, 
 yellow for 60 and above, and red for less than 60, you might do something like the
-following: `intervals: 80 101 101 60 101 0`. The 101s in this example
-essentially disable the corresponding colors, and in fact any values in those
-spots inconsistent with the decreasing order will work as well, such as
-`intervals: 80 80 80 60 60 0`.  The 0 at the end is optional.  
+following: `intervals: 80 80 80 60 60 0`. The 0 at the end is optional.  
 
 ### `on-missing-report`
 
