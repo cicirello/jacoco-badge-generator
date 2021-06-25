@@ -288,83 +288,83 @@ class TestJacocoBadgeGenerator(unittest.TestCase) :
         
 
     def testColorIndex(self):
-        self.assertEquals(0, jbg.computeColorIndex(100, [100, 90, 80, 70, 60], 6));
-        self.assertEquals(0, jbg.computeColorIndex(100.0, [100, 90, 80, 70, 60], 6));
-        self.assertEquals(1, jbg.computeColorIndex(99.999, [100, 90, 80, 70, 60], 6));
-        self.assertEquals(1, jbg.computeColorIndex(90, [100, 90, 80, 70, 60], 6));
-        self.assertEquals(2, jbg.computeColorIndex(89.999, [100, 90, 80, 70, 60], 6));
-        self.assertEquals(2, jbg.computeColorIndex(80, [100, 90, 80, 70, 60], 6));
-        self.assertEquals(3, jbg.computeColorIndex(79.999, [100, 90, 80, 70, 60], 6));
-        self.assertEquals(3, jbg.computeColorIndex(70, [100, 90, 80, 70, 60], 6));
-        self.assertEquals(4, jbg.computeColorIndex(69.999, [100, 90, 80, 70, 60], 6));
-        self.assertEquals(4, jbg.computeColorIndex(60, [100, 90, 80, 70, 60], 6));
-        self.assertEquals(5, jbg.computeColorIndex(59.999, [100, 90, 80, 70, 60], 6));
-        self.assertEquals(5, jbg.computeColorIndex(50, [100, 90, 80, 70, 60], 6));
+        self.assertEqual(0, jbg.computeColorIndex(100, [100, 90, 80, 70, 60], 6));
+        self.assertEqual(0, jbg.computeColorIndex(100.0, [100, 90, 80, 70, 60], 6));
+        self.assertEqual(1, jbg.computeColorIndex(99.999, [100, 90, 80, 70, 60], 6));
+        self.assertEqual(1, jbg.computeColorIndex(90, [100, 90, 80, 70, 60], 6));
+        self.assertEqual(2, jbg.computeColorIndex(89.999, [100, 90, 80, 70, 60], 6));
+        self.assertEqual(2, jbg.computeColorIndex(80, [100, 90, 80, 70, 60], 6));
+        self.assertEqual(3, jbg.computeColorIndex(79.999, [100, 90, 80, 70, 60], 6));
+        self.assertEqual(3, jbg.computeColorIndex(70, [100, 90, 80, 70, 60], 6));
+        self.assertEqual(4, jbg.computeColorIndex(69.999, [100, 90, 80, 70, 60], 6));
+        self.assertEqual(4, jbg.computeColorIndex(60, [100, 90, 80, 70, 60], 6));
+        self.assertEqual(5, jbg.computeColorIndex(59.999, [100, 90, 80, 70, 60], 6));
+        self.assertEqual(5, jbg.computeColorIndex(50, [100, 90, 80, 70, 60], 6));
         # more cutoffs than necessary
-        self.assertEquals(0, jbg.computeColorIndex(100, [100, 90, 80, 70, 60, 50], 6));
-        self.assertEquals(0, jbg.computeColorIndex(100.0, [100, 90, 80, 70, 60, 50], 6));
-        self.assertEquals(1, jbg.computeColorIndex(99.999, [100, 90, 80, 70, 60, 50], 6));
-        self.assertEquals(1, jbg.computeColorIndex(90, [100, 90, 80, 70, 60, 50], 6));
-        self.assertEquals(2, jbg.computeColorIndex(89.999, [100, 90, 80, 70, 60, 50], 6));
-        self.assertEquals(2, jbg.computeColorIndex(80, [100, 90, 80, 70, 60, 50], 6));
-        self.assertEquals(3, jbg.computeColorIndex(79.999, [100, 90, 80, 70, 60, 50], 6));
-        self.assertEquals(3, jbg.computeColorIndex(70, [100, 90, 80, 70, 60, 50], 6));
-        self.assertEquals(4, jbg.computeColorIndex(69.999, [100, 90, 80, 70, 60, 50], 6));
-        self.assertEquals(4, jbg.computeColorIndex(60, [100, 90, 80, 70, 60, 50], 6));
-        self.assertEquals(5, jbg.computeColorIndex(59.999, [100, 90, 80, 70, 60, 50], 6));
-        self.assertEquals(5, jbg.computeColorIndex(50, [100, 90, 80, 70, 60, 50], 6));
+        self.assertEqual(0, jbg.computeColorIndex(100, [100, 90, 80, 70, 60, 50], 6));
+        self.assertEqual(0, jbg.computeColorIndex(100.0, [100, 90, 80, 70, 60, 50], 6));
+        self.assertEqual(1, jbg.computeColorIndex(99.999, [100, 90, 80, 70, 60, 50], 6));
+        self.assertEqual(1, jbg.computeColorIndex(90, [100, 90, 80, 70, 60, 50], 6));
+        self.assertEqual(2, jbg.computeColorIndex(89.999, [100, 90, 80, 70, 60, 50], 6));
+        self.assertEqual(2, jbg.computeColorIndex(80, [100, 90, 80, 70, 60, 50], 6));
+        self.assertEqual(3, jbg.computeColorIndex(79.999, [100, 90, 80, 70, 60, 50], 6));
+        self.assertEqual(3, jbg.computeColorIndex(70, [100, 90, 80, 70, 60, 50], 6));
+        self.assertEqual(4, jbg.computeColorIndex(69.999, [100, 90, 80, 70, 60, 50], 6));
+        self.assertEqual(4, jbg.computeColorIndex(60, [100, 90, 80, 70, 60, 50], 6));
+        self.assertEqual(5, jbg.computeColorIndex(59.999, [100, 90, 80, 70, 60, 50], 6));
+        self.assertEqual(5, jbg.computeColorIndex(50, [100, 90, 80, 70, 60, 50], 6));
         # even more cutoffs than necessary
-        self.assertEquals(0, jbg.computeColorIndex(100, [100, 90, 80, 70, 60, 50, 0], 6));
-        self.assertEquals(0, jbg.computeColorIndex(100.0, [100, 90, 80, 70, 60, 50, 0], 6));
-        self.assertEquals(1, jbg.computeColorIndex(99.999, [100, 90, 80, 70, 60, 50, 0], 6));
-        self.assertEquals(1, jbg.computeColorIndex(90, [100, 90, 80, 70, 60, 50, 0], 6));
-        self.assertEquals(2, jbg.computeColorIndex(89.999, [100, 90, 80, 70, 60, 50, 0], 6));
-        self.assertEquals(2, jbg.computeColorIndex(80, [100, 90, 80, 70, 60, 50, 0], 6));
-        self.assertEquals(3, jbg.computeColorIndex(79.999, [100, 90, 80, 70, 60, 50, 0], 6));
-        self.assertEquals(3, jbg.computeColorIndex(70, [100, 90, 80, 70, 60, 50, 0], 6));
-        self.assertEquals(4, jbg.computeColorIndex(69.999, [100, 90, 80, 70, 60, 50, 0], 6));
-        self.assertEquals(4, jbg.computeColorIndex(60, [100, 90, 80, 70, 60, 50, 0], 6));
-        self.assertEquals(5, jbg.computeColorIndex(59.999, [100, 90, 80, 70, 60, 50, 0], 6));
-        self.assertEquals(5, jbg.computeColorIndex(50, [100, 90, 80, 70, 60, 50, 0], 6));
+        self.assertEqual(0, jbg.computeColorIndex(100, [100, 90, 80, 70, 60, 50, 0], 6));
+        self.assertEqual(0, jbg.computeColorIndex(100.0, [100, 90, 80, 70, 60, 50, 0], 6));
+        self.assertEqual(1, jbg.computeColorIndex(99.999, [100, 90, 80, 70, 60, 50, 0], 6));
+        self.assertEqual(1, jbg.computeColorIndex(90, [100, 90, 80, 70, 60, 50, 0], 6));
+        self.assertEqual(2, jbg.computeColorIndex(89.999, [100, 90, 80, 70, 60, 50, 0], 6));
+        self.assertEqual(2, jbg.computeColorIndex(80, [100, 90, 80, 70, 60, 50, 0], 6));
+        self.assertEqual(3, jbg.computeColorIndex(79.999, [100, 90, 80, 70, 60, 50, 0], 6));
+        self.assertEqual(3, jbg.computeColorIndex(70, [100, 90, 80, 70, 60, 50, 0], 6));
+        self.assertEqual(4, jbg.computeColorIndex(69.999, [100, 90, 80, 70, 60, 50, 0], 6));
+        self.assertEqual(4, jbg.computeColorIndex(60, [100, 90, 80, 70, 60, 50, 0], 6));
+        self.assertEqual(5, jbg.computeColorIndex(59.999, [100, 90, 80, 70, 60, 50, 0], 6));
+        self.assertEqual(5, jbg.computeColorIndex(50, [100, 90, 80, 70, 60, 50, 0], 6));
         # too few cutoffs
-        self.assertEquals(0, jbg.computeColorIndex(100, [100, 90, 80, 70], 6));
-        self.assertEquals(0, jbg.computeColorIndex(100.0, [100, 90, 80, 70], 6));
-        self.assertEquals(1, jbg.computeColorIndex(99.999, [100, 90, 80, 70], 6));
-        self.assertEquals(1, jbg.computeColorIndex(90, [100, 90, 80, 70], 6));
-        self.assertEquals(2, jbg.computeColorIndex(89.999, [100, 90, 80, 70], 6));
-        self.assertEquals(2, jbg.computeColorIndex(80, [100, 90, 80, 70], 6));
-        self.assertEquals(3, jbg.computeColorIndex(79.999, [100, 90, 80, 70], 6));
-        self.assertEquals(3, jbg.computeColorIndex(70, [100, 90, 80, 70], 6));
-        self.assertEquals(4, jbg.computeColorIndex(69.999, [100, 90, 80, 70], 6));
-        self.assertEquals(4, jbg.computeColorIndex(60, [100, 90, 80, 70], 6));
-        self.assertEquals(4, jbg.computeColorIndex(59.999, [100, 90, 80, 70], 6));
-        self.assertEquals(4, jbg.computeColorIndex(50, [100, 90, 80, 70], 6));
+        self.assertEqual(0, jbg.computeColorIndex(100, [100, 90, 80, 70], 6));
+        self.assertEqual(0, jbg.computeColorIndex(100.0, [100, 90, 80, 70], 6));
+        self.assertEqual(1, jbg.computeColorIndex(99.999, [100, 90, 80, 70], 6));
+        self.assertEqual(1, jbg.computeColorIndex(90, [100, 90, 80, 70], 6));
+        self.assertEqual(2, jbg.computeColorIndex(89.999, [100, 90, 80, 70], 6));
+        self.assertEqual(2, jbg.computeColorIndex(80, [100, 90, 80, 70], 6));
+        self.assertEqual(3, jbg.computeColorIndex(79.999, [100, 90, 80, 70], 6));
+        self.assertEqual(3, jbg.computeColorIndex(70, [100, 90, 80, 70], 6));
+        self.assertEqual(4, jbg.computeColorIndex(69.999, [100, 90, 80, 70], 6));
+        self.assertEqual(4, jbg.computeColorIndex(60, [100, 90, 80, 70], 6));
+        self.assertEqual(4, jbg.computeColorIndex(59.999, [100, 90, 80, 70], 6));
+        self.assertEqual(4, jbg.computeColorIndex(50, [100, 90, 80, 70], 6));
         # only 1 cutoff
-        self.assertEquals(0, jbg.computeColorIndex(100, [100], 6));
-        self.assertEquals(0, jbg.computeColorIndex(100.0, [100], 6));
-        self.assertEquals(1, jbg.computeColorIndex(99.999, [100], 6));
-        self.assertEquals(1, jbg.computeColorIndex(90, [100], 6));
-        self.assertEquals(1, jbg.computeColorIndex(89.999, [100], 6));
-        self.assertEquals(1, jbg.computeColorIndex(80, [100], 6));
-        self.assertEquals(1, jbg.computeColorIndex(79.999, [100], 6));
-        self.assertEquals(1, jbg.computeColorIndex(70, [100], 6));
-        self.assertEquals(1, jbg.computeColorIndex(69.999, [100], 6));
-        self.assertEquals(1, jbg.computeColorIndex(60, [100], 6));
-        self.assertEquals(1, jbg.computeColorIndex(59.999, [100], 6));
-        self.assertEquals(1, jbg.computeColorIndex(50, [100], 6));
+        self.assertEqual(0, jbg.computeColorIndex(100, [100], 6));
+        self.assertEqual(0, jbg.computeColorIndex(100.0, [100], 6));
+        self.assertEqual(1, jbg.computeColorIndex(99.999, [100], 6));
+        self.assertEqual(1, jbg.computeColorIndex(90, [100], 6));
+        self.assertEqual(1, jbg.computeColorIndex(89.999, [100], 6));
+        self.assertEqual(1, jbg.computeColorIndex(80, [100], 6));
+        self.assertEqual(1, jbg.computeColorIndex(79.999, [100], 6));
+        self.assertEqual(1, jbg.computeColorIndex(70, [100], 6));
+        self.assertEqual(1, jbg.computeColorIndex(69.999, [100], 6));
+        self.assertEqual(1, jbg.computeColorIndex(60, [100], 6));
+        self.assertEqual(1, jbg.computeColorIndex(59.999, [100], 6));
+        self.assertEqual(1, jbg.computeColorIndex(50, [100], 6));
         # no cutoffs
-        self.assertEquals(0, jbg.computeColorIndex(100, [], 6));
-        self.assertEquals(0, jbg.computeColorIndex(100.0, [], 6));
-        self.assertEquals(0, jbg.computeColorIndex(99.999, [], 6));
-        self.assertEquals(0, jbg.computeColorIndex(90, [], 6));
-        self.assertEquals(0, jbg.computeColorIndex(89.999, [], 6));
-        self.assertEquals(0, jbg.computeColorIndex(80, [], 6));
-        self.assertEquals(0, jbg.computeColorIndex(79.999, [], 6));
-        self.assertEquals(0, jbg.computeColorIndex(70, [], 6));
-        self.assertEquals(0, jbg.computeColorIndex(69.999, [], 6));
-        self.assertEquals(0, jbg.computeColorIndex(60, [], 6));
-        self.assertEquals(0, jbg.computeColorIndex(59.999, [], 6));
-        self.assertEquals(0, jbg.computeColorIndex(50, [], 6));
+        self.assertEqual(0, jbg.computeColorIndex(100, [], 6));
+        self.assertEqual(0, jbg.computeColorIndex(100.0, [], 6));
+        self.assertEqual(0, jbg.computeColorIndex(99.999, [], 6));
+        self.assertEqual(0, jbg.computeColorIndex(90, [], 6));
+        self.assertEqual(0, jbg.computeColorIndex(89.999, [], 6));
+        self.assertEqual(0, jbg.computeColorIndex(80, [], 6));
+        self.assertEqual(0, jbg.computeColorIndex(79.999, [], 6));
+        self.assertEqual(0, jbg.computeColorIndex(70, [], 6));
+        self.assertEqual(0, jbg.computeColorIndex(69.999, [], 6));
+        self.assertEqual(0, jbg.computeColorIndex(60, [], 6));
+        self.assertEqual(0, jbg.computeColorIndex(59.999, [], 6));
+        self.assertEqual(0, jbg.computeColorIndex(50, [], 6));
         
     def testBadgeGeneration(self) :
         testPercentages = [0, 0.599, 0.6, 0.7, 0.8, 0.899, 0.9, 0.99, 0.999, 1]
@@ -446,8 +446,8 @@ class TestJacocoBadgeGenerator(unittest.TestCase) :
         self.assertEqual([100, 90, 80, 70, 60, 0], jbg.colorCutoffsStringToNumberList('100, 90, 80, 70, 60, 0'))
         self.assertEqual([100, 90, 80, 70, 60, 0], jbg.colorCutoffsStringToNumberList('100 90 80 70 60 0'))
         self.assertEqual([100, 90, 80, 70, 60, 0], jbg.colorCutoffsStringToNumberList('100,90,80,70,60,0'))
-        self.assertEquals([], jbg.colorCutoffsStringToNumberList(''))
-        self.assertEquals([], jbg.colorCutoffsStringToNumberList(','))
-        self.assertEquals([], jbg.colorCutoffsStringToNumberList('   '))
-        self.assertEquals([99.9], jbg.colorCutoffsStringToNumberList('99.9'))
-        self.assertEquals([99.9], jbg.colorCutoffsStringToNumberList('99.9,'))
+        self.assertEqual([], jbg.colorCutoffsStringToNumberList(''))
+        self.assertEqual([], jbg.colorCutoffsStringToNumberList(','))
+        self.assertEqual([], jbg.colorCutoffsStringToNumberList('   '))
+        self.assertEqual([99.9], jbg.colorCutoffsStringToNumberList('99.9'))
+        self.assertEqual([99.9], jbg.colorCutoffsStringToNumberList('99.9,'))
