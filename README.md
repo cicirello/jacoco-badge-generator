@@ -489,6 +489,41 @@ You can also use a specific release with:
         generate-branches-badge: true
 ```
 
+#### All Possible Action Inputs
+
+This shows a workflow step that uses all of the
+possible inputs of the `jacoco-badge-generator` action.
+It simply shows all of the inputs with their default values.
+See the [Inputs](#inputs) section for complete details of
+what these inputs do.
+
+```yml
+    - name: Generate JaCoCo Badge
+      uses: cicirello/jacoco-badge-generator@v2
+      with:
+        jacoco-csv-file: target/site/jacoco/jacoco.csv
+        badges-directory: .github/badges
+        generate-coverage-badge: true
+        coverage-badge-filename: jacoco.svg
+        generate-branches-badge: false
+        branches-badge-filename: branches.svg
+        colors: '#4c1 #97ca00 #a4a61d #dfb317 #fe7d37 #e05d44'
+        intervals: 100 90 80 70 60 0
+        on-missing-report: fail
+        fail-if-coverage-less-than: 0
+        fail-if-branches-less-than: 0
+        fail-on-coverage-decrease: false
+        fail-on-branches-decrease: false
+```
+
+Since the above shows all of the default values of the action inputs, 
+it is equivalent to:
+
+```yml
+    - name: Generate JaCoCo Badge
+      uses: cicirello/jacoco-badge-generator@v2
+```
+
 ### Example Workflow 1: Generate instructions (or C0) coverage badge only.
 
 This sample workflow runs on pushes to the main
