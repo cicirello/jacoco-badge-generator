@@ -3,6 +3,8 @@
 [<img alt="cicirello/jacoco-badge-generator - Coverage badges, and pull request coverage checks, from JaCoCo reports in GitHub Actions" 
      src="images/jacoco-badge-generator.png" width="640">](#jacoco-badge-generator)
 
+Check out all of our GitHub Actions: https://actions.cicirello.org/
+
 ## About
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/cicirello/jacoco-badge-generator?label=Marketplace&logo=GitHub)](https://github.com/marketplace/actions/jacoco-badge-generator)
