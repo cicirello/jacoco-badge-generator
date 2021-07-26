@@ -788,6 +788,21 @@ can instead be done in the `<build>` section if you'd rather not use a profile.
 | [ZigguratGaussian](https://github.com/cicirello/ZigguratGaussian) | [build.yml](https://github.com/cicirello/ZigguratGaussian/blob/master/.github/workflows/build.yml) | [pom.xml](https://github.com/cicirello/ZigguratGaussian/blob/master/pom.xml) |
 | [XpathQS](https://github.com/nachg/xpathqs) | [build.yml](https://github.com/nachg/xpathqs/blob/master/.github/workflows/build.yml) | [build.gradle.kts](https://github.com/nachg/xpathqs/blob/master/build.gradle.kts) |
 
+## Support the Project
+
+You can support the project in a number of ways:
+* __Starring__: If you find the `jacoco-badge-generator` action 
+  useful, consider starring the repository.
+* __Sharing with Others__: Consider sharing it with others who
+  you feel might find it useful.
+* __Reporting Issues__: If you find a bug or have a suggestion for
+  a new feature, please report it via 
+  the [Issue tracker](https://github.com/cicirello/jacoco-badge-generator/issues).
+* __Contributing Code__: If there is an open issue that you think
+  you can help with, submit a pull request.
+* __Sponsoring__: You can also consider 
+  [becoming a sponsor](https://github.com/sponsors/cicirello).
+
 ## License
 
 This GitHub action is released under
