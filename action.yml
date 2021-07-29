@@ -26,7 +26,7 @@
 
 
 name: 'jacoco-badge-generator'
-description: 'Github action for generating a jacoco coverage percentage badge.'
+description: 'JaCoCo coverage badges and pull request coverage checks in GitHub Actions'
 branding: 
   icon: 'book-open'
   color: 'green'
