@@ -29,6 +29,8 @@ _The developers of the jacoco-badge-generator GitHub Action are not affiliated
 with the developers of JaCoCo, although we are a fan and user of their excellent 
 test coverage tool._ 
 
+## Table of Contents
+
 The documentation is organized into the following sections:
 * [The Coverage Metrics](#the-coverage-metrics): Explains the JaCoCo 
   metrics that are supported by the badge generator, such as what 
@@ -48,6 +50,8 @@ The documentation is organized into the following sections:
 * [Examples in Other Projects](#examples-in-other-projects): Links to 
   a few repositories that are actively using the action, as well as 
   direct links to the relevant workflow files.
+* [Support the Project](#support-the-project): Information on various 
+  ways that you can support the project.
 
 
 ## The Coverage Metrics
