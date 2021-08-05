@@ -491,7 +491,7 @@ You can also use a specific release with:
 
 ```yml
     - name: Generate JaCoCo Badge
-      uses: cicirello/jacoco-badge-generator@v2.2.0
+      uses: cicirello/jacoco-badge-generator@v2.3.0
       with:
         generate-branches-badge: true
 ```
