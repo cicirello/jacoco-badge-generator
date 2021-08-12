@@ -91,6 +91,43 @@ class TestJacocoBadgeGenerator(unittest.TestCase) :
         self.assertEqual(-1, jbg.getPriorCoverage("tests/idontexist.svg", "branches"))
         self.assertEqual(-1, jbg.getPriorCoverage("tests/999.svg", "branches"))
 
+    def testGetPriorCoverageFromEndpoint(self):
+        jsonFiles = [
+            "tests/0.json",
+            "tests/599.json",
+            "tests/60.json",
+            "tests/70.json",
+            "tests/78.json",
+            "tests/80.json",
+            "tests/87.json",
+            "tests/899.json",
+            "tests/90.json",
+            "tests/99.json",
+            "tests/999.json",
+            "tests/100.json",
+            "tests/idontexist.json"
+            ]
+        jsonFilesB = [
+            "tests/0b.json",
+            "tests/599b.json",
+            "tests/60b.json",
+            "tests/70b.json",
+            "tests/78b.json",
+            "tests/80b.json",
+            "tests/87b.json",
+            "tests/899b.json",
+            "tests/90b.json",
+            "tests/99b.json",
+            "tests/999b.json",
+            "tests/100b.json",
+            "tests/idontexist.json"
+            ]
+        expected = [0, 0.599, 0.6, 0.7, 0.78, 0.8, 0.87, 0.899, 0.9, 0.99, 0.999, 1.0, -1 ]
+        for i, f in enumerate(jsonFiles) :
+            self.assertAlmostEqual(expected[i], jbg.getPriorCoverageFromEndpoint(f), msg="file:"+f)
+        for i, f in enumerate(jsonFilesB) :
+            self.assertAlmostEqual(expected[i], jbg.getPriorCoverageFromEndpoint(f), msg="file:"+f)
+
     def testCoverageIsFailing(self) :
         self.assertFalse(jbg.coverageIsFailing(0, 0, 0, 0))
         self.assertFalse(jbg.coverageIsFailing(0.5, 0.5, 0.5, 0.5))

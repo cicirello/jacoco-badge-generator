@@ -33,6 +33,7 @@ import math
 import pathlib
 import os
 import os.path
+import json
 
 badgeTemplate = '<svg xmlns="http://www.w3.org/2000/svg" width="104" \
 height="20" role="img" aria-label="{3}: {0}">\
@@ -320,6 +321,25 @@ def getPriorCoverage(badgeFilename, whichBadge) :
     if j < 0 :
         return -1
     return stringToPercentage(priorBadge[i:j+1].strip())
+
+def getPriorCoverageFromEndpoint(jsonFilename) :
+    """Parses an existing JSON endpoint (if one exists) returning
+    the coverage percentage stored there. Returns -1 if
+    file doesn't exist or if it isn't of the expected format.
+
+    Keyword arguments:
+    jsonFilename - the filename with path
+    """
+    if not os.path.isfile(jsonFilename) :
+        return -1
+    try :
+        with open(jsonFilename, "r") as f :
+            priorEndpoint = json.load(f)
+    except :
+        return -1
+    if "message" not in priorEndpoint :
+        return -1
+    return stringToPercentage(priorEndpoint["message"].strip())
 
 def coverageDecreased(coverage, badgeFilename, whichBadge) :
     """Checks if coverage decreased relative to previous run, and logs
