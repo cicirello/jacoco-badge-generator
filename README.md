@@ -297,10 +297,28 @@ need to have additional steps in your workflow to do that.__
 This input controls whether or not to generate a JSON endpoint 
 for coverage (Instructions Coverage), and defaults to `false`.
 
+### `coverage-endpoint-filename`
+
+This input is the filename for the coverage endpoint (Instructions or C0 
+Coverage) if you have opted to generate a JSON endpoint instead of the
+badge. The default filename is `jacoco.json`, and will be 
+created within the `badges-directory`
+directory. __The action doesn't commit the JSON file. You will 
+need to have additional steps in your workflow to do that.__
+
 ### `generate-branches-endpoint`
 
 This input controls whether or not to generate a JSON endpoint 
 for branches coverage, and defaults to `false`.
+
+### `branches-endpoint-filename`
+
+This input is the filename for the branches coverage endpoint (C1 
+Coverage) if you have opted to generate a JSON endpoint instead of the
+badge. The default filename is `branches.json`, and will be 
+created within the `badges-directory`
+directory. __The action doesn't commit the JSON file. You will 
+need to have additional steps in your workflow to do that.__
 
 ### `colors`
 
