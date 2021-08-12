@@ -1,4 +1,5 @@
-# jacoco-badge-generator: Github action for generating a jacoco coverage percentage badge
+# jacoco-badge-generator: Coverage badges, and pull request coverage checks, 
+# from JaCoCo reports in GitHub Actions
 # 
 # Copyright (c) 2020-2021 Vincent A Cicirello
 # https://www.cicirello.org/
