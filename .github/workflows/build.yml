@@ -56,5 +56,21 @@ jobs:
         echo "coverage = ${{ steps.integration2.outputs.coverage }}"
         echo "branch coverage = ${{ steps.integration2.outputs.branches }}"
 
+    - name: Integration endpoints test 
+      id: integration3
+      uses: ./
+      with:
+        jacoco-csv-file: tests/jacoco.csv
+        badges-directory: tests/endpoints
+        generate-coverage-badge: false
+        generate-branches-badge: false
+        generate-coverage-endpoint: true
+        generate-branches-endpoint: true
+
+    - name: Log integration endpoints test outputs
+      run: |
+        echo "coverage = ${{ steps.integration3.outputs.coverage }}"
+        echo "branch coverage = ${{ steps.integration3.outputs.branches }}"
+
     - name: Verify integration test results
       run: python3 -u -m unittest tests/integration.py
