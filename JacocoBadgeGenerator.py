@@ -419,6 +419,10 @@ if __name__ == "__main__" :
     failOnBranchesDecrease = sys.argv[11].lower() == "true"
     colorCutoffs = colorCutoffsStringToNumberList(sys.argv[12])
     colors = sys.argv[13].replace(',', ' ').split()
+    generateCoverageJSON = sys.argv[14].lower() == "true"
+    generateBranchesJSON = sys.argv[15].lower() == "true"
+    coverageJSON = sys.argv[16]
+    branchesJSON = sys.argv[17]
 
     if onMissingReport not in {"fail", "quiet", "badges"} :
         print("ERROR: Invalid value for on-missing-report.")

@@ -84,6 +84,22 @@ inputs:
     description: 'List of colors to use ordered by coverage interval, best coverage to worst.'
     required: false
     default: '#4c1 #97ca00 #a4a61d #dfb317 #fe7d37 #e05d44'
+  generate-coverage-endpoint:
+    description: 'Controls whether or not to generate the coverage JSON endpoint.'
+    required: false
+    default: false
+  generate-branches-endpoint:
+    description: 'Controls whether or not to generate the branches coverage JSON endpoint.'
+    required: false
+    default: false
+  coverage-endpoint-filename:
+    description: 'The filename of the coverage JSON endpoint.'
+    required: false
+    default: 'jacoco.json'
+  branches-endpoint-filename:
+    description: 'The filename of the branches coverage JSON endpoint.'
+    required: false
+    default: 'branches.json'
 outputs:
   coverage:
     description: 'The jacoco coverage percentage as computed from the data in the jacoco.csv file.'
@@ -106,3 +122,7 @@ runs:
     - ${{ inputs.fail-on-branches-decrease }}
     - ${{ inputs.intervals }}
     - ${{ inputs.colors }}
+    - ${{ inputs.generate-coverage-endpoint }}
+    - ${{ inputs.generate-branches-endpoint }}
+    - ${{ inputs.coverage-endpoint-filename }}
+    - ${{ inputs.branches-endpoint-filename }}
