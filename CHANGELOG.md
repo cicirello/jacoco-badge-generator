@@ -4,9 +4,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-6-25
+## [Unreleased] - 2021-08-12
 
 ### Added
+* Added an option to generate Shields.io JSON endpoints either in addition to, 
+  or instead of, directly generating badges. For most users, the existing direct 
+  generation of the badges is probably the preferred approach (e.g., probably 
+  faster serving when loading README, and much simpler insertion of badge into 
+  README). But for those who use one of Shields styles other than the default, 
+  and who would like to be able to match the coverage badges to the style of 
+  their project's other badges, then providing the ability to generate a 
+  Shields JSON endpoint gives them the ability to do so. The new feature is 
+  controlled by 4 new inputs: `generate-coverage-endpoint`, `generate-branches-endpoint`, 
+  `coverage-endpoint-filename`, and `branches-endpoint-filename`. All of these 
+  have default values and are optional. The current default behavior is retained, 
+  so by default the JSON endpoints are not generated.
 
 ### Changed
 
