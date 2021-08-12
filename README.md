@@ -17,7 +17,9 @@ Check out all of our GitHub Actions: https://actions.cicirello.org/
 The jacoco-badge-generator GitHub Action parses a `jacoco.csv` from a JaCoCo coverage report,
 computes coverage percentages from [JaCoCo's Instructions and Branches counters](https://www.jacoco.org/jacoco/trunk/doc/counters.html), and 
 generates badges for one or both of these (configurable with action inputs) to provide an easy 
-to read visual summary of the code coverage of your test cases. The action supports
+to read visual summary of the code coverage of your test cases. The default behavior directly
+generates the badges internally with no external calls, but the action also provides an option
+to instead generate [Shields JSON endpoints](https://shields.io/endpoint). The action supports
 both the basic case of a single `jacoco.csv`, as well as multi-module projects in which
 case the action can produce coverage badges from the combination of the JaCoCo reports
 from all modules, provided that the individual reports are independent.
@@ -113,11 +115,6 @@ of C1 Coverage than is usually implied by branches coverage.
 
 ## Badge Style and Content
 
-The badges that are generated are inspired by the style of the badges 
-of [Shields.io](https://github.com/badges/shields), however, 
-the badges are entirely generated within the jacoco-badge-generator 
-GitHub Action, with no external calls.  
-
 ### Default Color Scheme
 
 Here are a few samples of what the badges look like if you use
@@ -151,14 +148,39 @@ example, if the user of the action considers 80% to be a passing level,
 then we wish to avoid the case of 79.9999% being rounded to 80% (it will
 instead be truncated to 79.9%). 
 
+### Direct Badge Generation vs JSON Endpoint
+
+The default behavior generates badges that are inspired by the style of the badges 
+of [Shields.io](https://github.com/badges/shields), and generates the badges entirely
+within the jacoco-badge-generator GitHub Action, with no external calls.  
+However, the action now also supports an optional alternative to instead generate
+[Shields JSON endpoints](https://shields.io/endpoint). Most users will likely prefer
+the default behavior, for a variety of reasons, such as simpler insertion of
+badge into README and probable faster loading. The main reason to consider generating
+a JSON endpoint instead is if you are trying to match the style of the coverage badges
+to other badges in your README that use one of Shields's alternative styles. The default 
+internally generated badges match the default Shields style.
+See the [Inputs](#inputs) section for more details on how to generate JSON endpoints 
+instead of badges.
+
 ### Adding the Badges to your README
+
+#### If you generate the badges (default behavior)....
 
 If you use the action's default badges directory and default badge filenames, then 
 you can add the coverage badge to your repository's readme with the following 
-markdown: `![Coverage](.github/badges/jacoco.svg)`, and likewise for the
-branch coverage badge: `![Branches](.github/badges/branches.svg)`.
+markdown: 
+```markdown
+![Coverage](.github/badges/jacoco.svg)
+```
+
+And likewise for the branch coverage badge: 
+```markdown
+![Branches](.github/badges/branches.svg)
+```
+
 See the [Inputs](#inputs) section for how to change the directory and filenames of
-the badges.  You can of course also link these to the JaCoCo coverage report if you host it
+the badges. You can of course also link these to the JaCoCo coverage report if you host it
 online, or perhaps to the workflow that generated it, such as with (just replace 
 USERNAME and REPOSITORY with yours):
 ```markdown
@@ -166,6 +188,9 @@ USERNAME and REPOSITORY with yours):
 ```
 The above assumes that the relevant workflow is `build.yml` (replace as needed). This will
 link the badge to the runs of that specific workflow.
+
+#### If you generate JSON endpoints instead....
+
 
 
 ## Inputs
