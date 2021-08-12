@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-#
 # jacoco-badge-generator: Github action for generating a jacoco coverage
 # percentage badge.
 # 
@@ -28,6 +26,8 @@
 #
 
 import unittest
+import json
+import JacocoBadgeGenerator as jbg
 
 class IntegrationTest(unittest.TestCase) :
 
@@ -49,4 +49,19 @@ class IntegrationTest(unittest.TestCase) :
             with open("tests/badges/branchesMulti.svg","r") as generated :
                 self.assertEqual(expected.read(), generated.read())
 
+    def testIntegrationInstructionsJSON(self) :
+        with open("tests/endpoints/jacoco.json", "r") as f :
+            d = json.load(f)
+            self.assertEqual(1, d["schemaVersion"])
+            self.assertEqual("coverage", d["label"])
+            self.assertEqual("100%", d["message"])
+            self.assertEqual(jbg.defaultColors[0], d["color"])
+
+    def testIntegrationBranchesJSON(self) :
+        with open("tests/endpoints/branches.json", "r") as f :
+            d = json.load(f)
+            self.assertEqual(1, d["schemaVersion"])
+            self.assertEqual("branches", d["label"])
+            self.assertEqual("90%", d["message"])
+            self.assertEqual(jbg.defaultColors[1], d["color"])
     
