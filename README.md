@@ -292,6 +292,16 @@ created within the `badges-directory`
 directory. __The action doesn't commit the badge file. You will 
 need to have additional steps in your workflow to do that.__
 
+### `generate-coverage-endpoint`
+
+This input controls whether or not to generate a JSON endpoint 
+for coverage (Instructions Coverage), and defaults to `false`.
+
+### `generate-branches-endpoint`
+
+This input controls whether or not to generate a JSON endpoint 
+for branches coverage, and defaults to `false`.
+
 ### `colors`
 
 This input can be used to change the colors used for the badges.
