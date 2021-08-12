@@ -191,6 +191,32 @@ link the badge to the runs of that specific workflow.
 
 #### If you generate JSON endpoints instead....
 
+Inserting coverage badges into your README is more complex if you use
+the alternate behavior of generating JSON endpoints. It involves
+passing the URL of your coverage endpoint to Shields custom badge endpoint.
+Assuming that you use the default badge directory, you would then use
+the following markdown:
+```markdown
+![Coverage](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FUSERNAME%2FREPOSITORY%2FBRANCHNAME%2F.github%2Fbadges%2Fjacoco.json)
+```
+In the above, replace USERNAME, REPOSITORY, and BRANCHNAME with yours, and it is also important that
+you keep all of the URL encodings of colons `%3A` and backslashes `%2F`. This is necessary because we 
+are passing a URL as a parameter to the Shields badge endpoint. You can do
+something similar for the branches coverage badge, such as:
+```markdown
+![Branches](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FUSERNAME%2FREPOSITORY%2FBRANCHNAME%2F.github%2Fbadges%2Fbranches.json)
+```
+
+If you do have reason to prefer generating endpoints over generating the badges directly,
+then you might consider pushing the endpoints to a GitHub Pages site instead, such
+as a project site served from a docs directory of your default branch, or from a gh-pages
+branch. To do so, in addition to configuring GitHub Pages, you would need to use the
+`badges-directory` input to change the directory where the endpoints are stored
+(e.g., in "docs" or in a subdirectory of "docs"). Doing so would probably speed up Shields's
+access to your JSON endpoint, since you'd gain the benefit of the CDN that backs GitHub
+Pages; whereas passing Shields the URL to the JSON file on GitHub's raw server would not.
+
+This is not an issue if you use the default behavior of directly generating the badge.
 
 
 ## Inputs
