@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-#
 # jacoco-badge-generator: Github action for generating a jacoco coverage
 # percentage badge.
 # 
