@@ -322,13 +322,14 @@ def getPriorCoverage(badgeFilename, whichBadge) :
         return -1
     return stringToPercentage(priorBadge[i:j+1].strip())
 
-def getPriorCoverageFromEndpoint(jsonFilename) :
+def getPriorCoverageFromEndpoint(jsonFilename, whichBadge) :
     """Parses an existing JSON endpoint (if one exists) returning
     the coverage percentage stored there. Returns -1 if
     file doesn't exist or if it isn't of the expected format.
 
     Keyword arguments:
     jsonFilename - the filename with path
+    whichBadge - this input should be one of 'coverage' or 'branches'
     """
     if not os.path.isfile(jsonFilename) :
         return -1
@@ -338,6 +339,10 @@ def getPriorCoverageFromEndpoint(jsonFilename) :
     except :
         return -1
     if "message" not in priorEndpoint :
+        return -1
+    if "label" not in priorEndpoint :
+        return -1
+    if priorEndpoint["label"] != whichBadge :
         return -1
     return stringToPercentage(priorEndpoint["message"].strip())
 
@@ -351,6 +356,31 @@ def coverageDecreased(coverage, badgeFilename, whichBadge) :
     whichBadge - this input should be one of 'coverage' or 'branches'
     """
     previous = getPriorCoverage(badgeFilename, whichBadge)
+    # Badge only records 1 decimal place, and thus need
+    # to take care to avoid floating-point rounding error
+    # when old is converted to [0.0 to 1.0] range with div by
+    # 100 in getPriorCoverage.  e.g., 99.9 / 100 = 0.9990000000000001
+    # due to rounding error.
+    old = round(previous * 1000)
+    # Don't need to round with new since this is still as computed
+    # from coverage data at this point.
+    new = coverage * 1000
+    if new < old :
+        s = "Branches coverage" if whichBadge == "branches" else "Coverage"
+        print(s, "decreased from", coverageTruncatedToString(previous)[0], "to", coverageTruncatedToString(coverage)[0])
+        return True
+    return False
+
+def coverageDecreasedEndpoint(coverage, jsonFilename, whichBadge) :
+    """Checks if coverage decreased relative to previous run, and logs
+    a message if it did.
+
+    Keyword arguments:
+    coverage - The coverage in interval 0.0 to 1.0
+    jsonFilename - the filename with path
+    whichBadge - this input should be one of 'coverage' or 'branches'
+    """
+    previous = getPriorCoverageFromEndpoint(jsonFilename, whichBadge)
     # Badge only records 1 decimal place, and thus need
     # to take care to avoid floating-point rounding error
     # when old is converted to [0.0 to 1.0] range with div by

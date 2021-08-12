@@ -66,6 +66,49 @@ class TestJacocoBadgeGenerator(unittest.TestCase) :
             self.assertFalse(jbg.coverageDecreased(cov, "tests/idontexist.svg", "coverage"))
             self.assertFalse(jbg.coverageDecreased(cov, "tests/idontexist.svg", "branches"))
 
+    def testCoverageDecreasedEndpoint(self) :
+        jsonFiles = [ "tests/0.json",
+                          "tests/599.json",
+                          "tests/60.json",
+                          "tests/70.json",
+                          "tests/80.json",
+                          "tests/899.json",
+                          "tests/90.json",
+                          "tests/99.json",
+                          "tests/999.json",
+                          "tests/100.json"
+                          ]
+        prior = [0, 0.599, 0.6, 0.7, 0.8, 0.899, 0.9, 0.99, 0.999, 1.0 ]
+        for i, f in enumerate(jsonFiles) :
+            self.assertFalse(jbg.coverageDecreasedEndpoint(prior[i], f, "coverage"))
+            self.assertFalse(jbg.coverageDecreasedEndpoint(prior[i]+0.1, f, "coverage"))
+            self.assertTrue(jbg.coverageDecreasedEndpoint(prior[i]-0.1, f, "coverage"))
+            self.assertFalse(jbg.coverageDecreasedEndpoint(prior[i]+0.0001, f, "coverage"))
+            self.assertTrue(jbg.coverageDecreasedEndpoint(prior[i]-0.0001, f, "coverage"))
+
+        branchesJsonFiles = [ "tests/0b.json",
+                          "tests/599b.json",
+                          "tests/60b.json",
+                          "tests/70b.json",
+                          "tests/80b.json",
+                          "tests/899b.json",
+                          "tests/90b.json",
+                          "tests/99b.json",
+                          "tests/999b.json",
+                          "tests/100b.json"
+                          ]
+        for i, f in enumerate(branchesJsonFiles) :
+            self.assertFalse(jbg.coverageDecreasedEndpoint(prior[i], f, "branches"))
+            self.assertFalse(jbg.coverageDecreasedEndpoint(prior[i]+0.1, f, "branches"))
+            self.assertTrue(jbg.coverageDecreasedEndpoint(prior[i]-0.1, f, "branches"))
+            self.assertFalse(jbg.coverageDecreasedEndpoint(prior[i]+0.0001, f, "branches"))
+            self.assertTrue(jbg.coverageDecreasedEndpoint(prior[i]-0.0001, f, "branches"))
+
+        for i in range(0, 101, 5) :
+            cov = i / 100
+            self.assertFalse(jbg.coverageDecreasedEndpoint(cov, "tests/idontexist.svg", "coverage"))
+            self.assertFalse(jbg.coverageDecreasedEndpoint(cov, "tests/idontexist.svg", "branches"))
+
     def testGetPriorCoverage(self):
         badgeFiles = [ "tests/0.svg",
                           "tests/599.svg",
@@ -124,9 +167,9 @@ class TestJacocoBadgeGenerator(unittest.TestCase) :
             ]
         expected = [0, 0.599, 0.6, 0.7, 0.78, 0.8, 0.87, 0.899, 0.9, 0.99, 0.999, 1.0, -1 ]
         for i, f in enumerate(jsonFiles) :
-            self.assertAlmostEqual(expected[i], jbg.getPriorCoverageFromEndpoint(f), msg="file:"+f)
+            self.assertAlmostEqual(expected[i], jbg.getPriorCoverageFromEndpoint(f, "coverage"), msg="file:"+f)
         for i, f in enumerate(jsonFilesB) :
-            self.assertAlmostEqual(expected[i], jbg.getPriorCoverageFromEndpoint(f), msg="file:"+f)
+            self.assertAlmostEqual(expected[i], jbg.getPriorCoverageFromEndpoint(f, "branches"), msg="file:"+f)
 
     def testCoverageIsFailing(self) :
         self.assertFalse(jbg.coverageIsFailing(0, 0, 0, 0))
