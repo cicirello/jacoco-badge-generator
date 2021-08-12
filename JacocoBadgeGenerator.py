@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #
-# jacoco-badge-generator: Github action for generating a jacoco coverage
-# percentage badge.
+# jacoco-badge-generator: Coverage badges, and pull request coverage checks,
+# from JaCoCo reports in GitHub Actions.
 # 
 # Copyright (c) 2020-2021 Vincent A Cicirello
 # https://www.cicirello.org/
@@ -73,6 +73,22 @@ def generateBadge(covStr, color, badgeType="coverage") :
     else :
         textLength = "170"
     return badgeTemplate.format(covStr, color, textLength, badgeType)
+
+def generateDictionaryForEndpoint(covStr, color, badgeType) :
+    """Generated a Python dictionary containing all of the required
+    fields for a Shields.io JSON endpoint.
+
+    Keyword arguments:
+    covStr - The coverage as a string.
+    color - The color for the badge.
+    badgeType - The text string for a label on the badge.
+    """
+    return {
+        "schemaVersion" : 1,
+        "label" : badgeType,
+        "message" : covStr,
+        "color" : color
+        }
 
 def computeCoverage(fileList) :
     """Parses one or more jacoco.csv files and computes code coverage
