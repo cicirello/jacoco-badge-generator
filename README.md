@@ -598,6 +598,10 @@ what these inputs do.
         coverage-badge-filename: jacoco.svg
         generate-branches-badge: false
         branches-badge-filename: branches.svg
+        generate-coverage-endpoint: false
+        coverage-endpoint-filename: jacoco.json
+        generate-branches-endpoint: false
+        branches-endpoint-filename: branches.json
         colors: '#4c1 #97ca00 #a4a61d #dfb317 #fe7d37 #e05d44'
         intervals: 100 90 80 70 60 0
         on-missing-report: fail
