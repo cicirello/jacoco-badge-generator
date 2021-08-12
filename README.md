@@ -206,6 +206,10 @@ something similar for the branches coverage badge, such as:
 ```markdown
 ![Branches](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FUSERNAME%2FREPOSITORY%2FBRANCHNAME%2F.github%2Fbadges%2Fbranches.json)
 ```
+And of course, you can also link these to your workflow runs just as before with:
+```markdown
+[![Coverage](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FUSERNAME%2FREPOSITORY%2FBRANCHNAME%2F.github%2Fbadges%2Fjacoco.json)](https://github.com/USERNAME/REPOSITORY/actions/workflows/build.yml)
+```
 
 If you do have reason to prefer generating endpoints over generating the badges directly,
 then you might consider pushing the endpoints to a GitHub Pages site instead, such
@@ -214,7 +218,8 @@ branch. To do so, in addition to configuring GitHub Pages, you would need to use
 `badges-directory` input to change the directory where the endpoints are stored
 (e.g., in "docs" or in a subdirectory of "docs"). Doing so would probably speed up Shields's
 access to your JSON endpoint, since you'd gain the benefit of the CDN that backs GitHub
-Pages; whereas passing Shields the URL to the JSON file on GitHub's raw server would not.
+Pages; whereas passing Shields the URL to the JSON file on GitHub's raw server will probably
+be slower.
 
 This is not an issue if you use the default behavior of directly generating the badge.
 
