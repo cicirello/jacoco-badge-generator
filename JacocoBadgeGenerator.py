@@ -450,6 +450,8 @@ if __name__ == "__main__" :
 
         coverageBadgeWithPath = formFullPathToFile(badgesDirectory, coverageFilename)
         branchesBadgeWithPath = formFullPathToFile(badgesDirectory, branchesFilename)
+        coverageJSONWithPath = formFullPathToFile(badgesDirectory, coverageJSON)
+        branchesJSONWithPath = formFullPathToFile(badgesDirectory, branchesJSON)
 
         if failOnCoverageDecrease and generateCoverageBadge and coverageDecreased(cov, coverageBadgeWithPath, "coverage") :
             print("Failing the workflow run.")
@@ -459,18 +461,34 @@ if __name__ == "__main__" :
             print("Failing the workflow run.")
             sys.exit(1)
 
-        if (generateCoverageBadge or generateBranchesBadge) and badgesDirectory != "" :
+        if failOnCoverageDecrease and generateCoverageJSON and coverageDecreasedEndpoint(cov, coverageJSONWithPath, "coverage") :
+            print("Failing the workflow run.")
+            sys.exit(1)
+
+        if failOnBranchesDecrease and generateBranchesJSON and coverageDecreasedEndpoint(branches, branchesJSONWithPath, "branches") :
+            print("Failing the workflow run.")
+            sys.exit(1)
+            
+        if (generateCoverageBadge or generateBranchesBadge or generateCoverageJSON or generateBranchesJSON) and badgesDirectory != "" :
             createOutputDirectories(badgesDirectory)
 
-        if generateCoverageBadge :
+        if generateCoverageBadge or generateCoverageJSON :
             covStr, color = badgeCoverageStringColorPair(cov, colorCutoffs, colors)
-            with open(coverageBadgeWithPath, "w") as badge :
-                badge.write(generateBadge(covStr, color))
+            if generateCoverageBadge :
+                with open(coverageBadgeWithPath, "w") as badge :
+                    badge.write(generateBadge(covStr, color))
+            if generateCoverageJSON :
+                with open(coverageJSONWithPath, "w") as endpoint :
+                    json.dump(generateDictionaryForEndpoint(covStr, color, "coverage"), endpoint, sort_keys=True)
 
-        if generateBranchesBadge :
+        if generateBranchesBadge or generateBranchesJSON :
             covStr, color = badgeCoverageStringColorPair(branches, colorCutoffs, colors)
-            with open(branchesBadgeWithPath, "w") as badge :
-                badge.write(generateBadge(covStr, color, "branches"))
+            if generateBranchesBadge :
+                with open(branchesBadgeWithPath, "w") as badge :
+                    badge.write(generateBadge(covStr, color, "branches"))
+            if generateBranchesJSON :
+                with open(branchesJSONWithPath, "w") as endpoint :
+                    json.dump(generateDictionaryForEndpoint(covStr, color, "branches"), endpoint, sort_keys=True)
 
         print("::set-output name=coverage::" + str(cov))
         print("::set-output name=branches::" + str(branches))
