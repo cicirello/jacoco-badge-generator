@@ -197,18 +197,16 @@ passing the URL of your coverage endpoint to Shields custom badge endpoint.
 Assuming that you use the default badge directory, you would then use
 the following markdown:
 ```markdown
-![Coverage](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FUSERNAME%2FREPOSITORY%2FBRANCHNAME%2F.github%2Fbadges%2Fjacoco.json)
+![Coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/USERNAME/REPOSITORY/BRANCHNAME/.github/badges/jacoco.json)
 ```
-In the above, replace USERNAME, REPOSITORY, and BRANCHNAME with yours, and it is also important that
-you keep all of the URL encodings of colons `%3A` and backslashes `%2F`. This is necessary because we 
-are passing a URL as a parameter to the Shields badge endpoint. You can do
+In the above, replace USERNAME, REPOSITORY, and BRANCHNAME with yours. You can do
 something similar for the branches coverage badge, such as:
 ```markdown
-![Branches](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FUSERNAME%2FREPOSITORY%2FBRANCHNAME%2F.github%2Fbadges%2Fbranches.json)
+![Branches](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/USERNAME/REPOSITORY/BRANCHNAME/.github/badges/branches.json)
 ```
 And of course, you can also link these to your workflow runs just as before with:
 ```markdown
-[![Coverage](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FUSERNAME%2FREPOSITORY%2FBRANCHNAME%2F.github%2Fbadges%2Fjacoco.json)](https://github.com/USERNAME/REPOSITORY/actions/workflows/build.yml)
+[![Coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/USERNAME/REPOSITORY/BRANCHNAME/.github/badges/jacoco.json)](https://github.com/USERNAME/REPOSITORY/actions/workflows/build.yml)
 ```
 
 If you do have reason to prefer generating endpoints over generating the badges directly,
