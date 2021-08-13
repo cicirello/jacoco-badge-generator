@@ -17,7 +17,9 @@ Check out all of our GitHub Actions: https://actions.cicirello.org/
 The jacoco-badge-generator GitHub Action parses a `jacoco.csv` from a JaCoCo coverage report,
 computes coverage percentages from [JaCoCo's Instructions and Branches counters](https://www.jacoco.org/jacoco/trunk/doc/counters.html), and 
 generates badges for one or both of these (configurable with action inputs) to provide an easy 
-to read visual summary of the code coverage of your test cases. The action supports
+to read visual summary of the code coverage of your test cases. The default behavior directly
+generates the badges internally with no external calls, but the action also provides an option
+to instead generate [Shields JSON endpoints](#direct-badge-generation-vs-json-endpoint). The action supports
 both the basic case of a single `jacoco.csv`, as well as multi-module projects in which
 case the action can produce coverage badges from the combination of the JaCoCo reports
 from all modules, provided that the individual reports are independent.
@@ -113,11 +115,6 @@ of C1 Coverage than is usually implied by branches coverage.
 
 ## Badge Style and Content
 
-The badges that are generated are inspired by the style of the badges 
-of [Shields.io](https://github.com/badges/shields), however, 
-the badges are entirely generated within the jacoco-badge-generator 
-GitHub Action, with no external calls.  
-
 ### Default Color Scheme
 
 Here are a few samples of what the badges look like if you use
@@ -151,14 +148,39 @@ example, if the user of the action considers 80% to be a passing level,
 then we wish to avoid the case of 79.9999% being rounded to 80% (it will
 instead be truncated to 79.9%). 
 
+### Direct Badge Generation vs JSON Endpoint
+
+The default behavior generates badges that are inspired by the style of the badges 
+of [Shields.io](https://github.com/badges/shields), and generates the badges entirely
+within the jacoco-badge-generator GitHub Action, with no external calls.  
+However, the action now also supports an optional alternative to instead generate
+[Shields JSON endpoints](https://shields.io/endpoint). Most users will likely prefer
+the default behavior, for a variety of reasons, such as simpler insertion of
+badge into README and probable faster loading. The main reason to consider generating
+a JSON endpoint instead is if you are trying to match the style of the coverage badges
+to other badges in your README that use one of Shields's alternative styles. The default 
+internally generated badges match the default Shields style.
+See the [Inputs](#inputs) section for more details on how to generate JSON endpoints 
+instead of badges.
+
 ### Adding the Badges to your README
+
+#### If you generate the badges (default behavior)....
 
 If you use the action's default badges directory and default badge filenames, then 
 you can add the coverage badge to your repository's readme with the following 
-markdown: `![Coverage](.github/badges/jacoco.svg)`, and likewise for the
-branch coverage badge: `![Branches](.github/badges/branches.svg)`.
+markdown: 
+```markdown
+![Coverage](.github/badges/jacoco.svg)
+```
+
+And likewise for the branch coverage badge: 
+```markdown
+![Branches](.github/badges/branches.svg)
+```
+
 See the [Inputs](#inputs) section for how to change the directory and filenames of
-the badges.  You can of course also link these to the JaCoCo coverage report if you host it
+the badges. You can of course also link these to the JaCoCo coverage report if you host it
 online, or perhaps to the workflow that generated it, such as with (just replace 
 USERNAME and REPOSITORY with yours):
 ```markdown
@@ -166,6 +188,40 @@ USERNAME and REPOSITORY with yours):
 ```
 The above assumes that the relevant workflow is `build.yml` (replace as needed). This will
 link the badge to the runs of that specific workflow.
+
+#### If you generate JSON endpoints instead....
+
+Inserting coverage badges into your README is more complex if you use
+the alternate behavior of generating JSON endpoints. It involves
+passing the URL of your coverage endpoint to Shields custom badge endpoint.
+Assuming that you use the default badge directory, you would then use
+the following markdown:
+```markdown
+![Coverage](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FUSERNAME%2FREPOSITORY%2FBRANCHNAME%2F.github%2Fbadges%2Fjacoco.json)
+```
+In the above, replace USERNAME, REPOSITORY, and BRANCHNAME with yours, and it is also important that
+you keep all of the URL encodings of colons `%3A` and backslashes `%2F`. This is necessary because we 
+are passing a URL as a parameter to the Shields badge endpoint. You can do
+something similar for the branches coverage badge, such as:
+```markdown
+![Branches](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FUSERNAME%2FREPOSITORY%2FBRANCHNAME%2F.github%2Fbadges%2Fbranches.json)
+```
+And of course, you can also link these to your workflow runs just as before with:
+```markdown
+[![Coverage](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FUSERNAME%2FREPOSITORY%2FBRANCHNAME%2F.github%2Fbadges%2Fjacoco.json)](https://github.com/USERNAME/REPOSITORY/actions/workflows/build.yml)
+```
+
+If you do have reason to prefer generating endpoints over generating the badges directly,
+then you might consider pushing the endpoints to a GitHub Pages site instead, such
+as a project site served from a docs directory of your default branch, or from a gh-pages
+branch. To do so, in addition to configuring GitHub Pages, you would need to use the
+`badges-directory` input to change the directory where the endpoints are stored
+(e.g., in "docs" or in a subdirectory of "docs"). Doing so would probably speed up Shields's
+access to your JSON endpoint, since you'd gain the benefit of the CDN that backs GitHub
+Pages; whereas passing Shields the URL to the JSON file on GitHub's raw server will probably
+be slower.
+
+This is not an issue if you use the default behavior of directly generating the badge.
 
 
 ## Inputs
@@ -234,6 +290,34 @@ Coverage). The default filename
 is `branches.svg`. The file format is an `svg`. The badge file will be 
 created within the `badges-directory`
 directory. __The action doesn't commit the badge file. You will 
+need to have additional steps in your workflow to do that.__
+
+### `generate-coverage-endpoint`
+
+This input controls whether or not to generate a JSON endpoint 
+for coverage (Instructions Coverage), and defaults to `false`.
+
+### `coverage-endpoint-filename`
+
+This input is the filename for the coverage endpoint (Instructions or C0 
+Coverage) if you have opted to generate a JSON endpoint instead of the
+badge. The default filename is `jacoco.json`, and will be 
+created within the `badges-directory`
+directory. __The action doesn't commit the JSON file. You will 
+need to have additional steps in your workflow to do that.__
+
+### `generate-branches-endpoint`
+
+This input controls whether or not to generate a JSON endpoint 
+for branches coverage, and defaults to `false`.
+
+### `branches-endpoint-filename`
+
+This input is the filename for the branches coverage endpoint (C1 
+Coverage) if you have opted to generate a JSON endpoint instead of the
+badge. The default filename is `branches.json`, and will be 
+created within the `badges-directory`
+directory. __The action doesn't commit the JSON file. You will 
 need to have additional steps in your workflow to do that.__
 
 ### `colors`
@@ -514,6 +598,10 @@ what these inputs do.
         coverage-badge-filename: jacoco.svg
         generate-branches-badge: false
         branches-badge-filename: branches.svg
+        generate-coverage-endpoint: false
+        coverage-endpoint-filename: jacoco.json
+        generate-branches-endpoint: false
+        branches-endpoint-filename: branches.json
         colors: '#4c1 #97ca00 #a4a61d #dfb317 #fe7d37 #e05d44'
         intervals: 100 90 80 70 60 0
         on-missing-report: fail

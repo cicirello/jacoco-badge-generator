@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #
-# jacoco-badge-generator: Github action for generating a jacoco coverage
-# percentage badge.
+# jacoco-badge-generator: Coverage badges, and pull request coverage checks,
+# from JaCoCo reports in GitHub Actions.
 # 
 # Copyright (c) 2020-2021 Vincent A Cicirello
 # https://www.cicirello.org/
@@ -33,6 +33,7 @@ import math
 import pathlib
 import os
 import os.path
+import json
 
 badgeTemplate = '<svg xmlns="http://www.w3.org/2000/svg" width="104" \
 height="20" role="img" aria-label="{3}: {0}">\
@@ -73,6 +74,22 @@ def generateBadge(covStr, color, badgeType="coverage") :
     else :
         textLength = "170"
     return badgeTemplate.format(covStr, color, textLength, badgeType)
+
+def generateDictionaryForEndpoint(covStr, color, badgeType) :
+    """Generated a Python dictionary containing all of the required
+    fields for a Shields.io JSON endpoint.
+
+    Keyword arguments:
+    covStr - The coverage as a string.
+    color - The color for the badge.
+    badgeType - The text string for a label on the badge.
+    """
+    return {
+        "schemaVersion" : 1,
+        "label" : badgeType,
+        "message" : covStr,
+        "color" : color
+        }
 
 def computeCoverage(fileList) :
     """Parses one or more jacoco.csv files and computes code coverage
@@ -305,6 +322,30 @@ def getPriorCoverage(badgeFilename, whichBadge) :
         return -1
     return stringToPercentage(priorBadge[i:j+1].strip())
 
+def getPriorCoverageFromEndpoint(jsonFilename, whichBadge) :
+    """Parses an existing JSON endpoint (if one exists) returning
+    the coverage percentage stored there. Returns -1 if
+    file doesn't exist or if it isn't of the expected format.
+
+    Keyword arguments:
+    jsonFilename - the filename with path
+    whichBadge - this input should be one of 'coverage' or 'branches'
+    """
+    if not os.path.isfile(jsonFilename) :
+        return -1
+    try :
+        with open(jsonFilename, "r") as f :
+            priorEndpoint = json.load(f)
+    except :
+        return -1
+    if "message" not in priorEndpoint :
+        return -1
+    if "label" not in priorEndpoint :
+        return -1
+    if priorEndpoint["label"] != whichBadge :
+        return -1
+    return stringToPercentage(priorEndpoint["message"].strip())
+
 def coverageDecreased(coverage, badgeFilename, whichBadge) :
     """Checks if coverage decreased relative to previous run, and logs
     a message if it did.
@@ -315,6 +356,31 @@ def coverageDecreased(coverage, badgeFilename, whichBadge) :
     whichBadge - this input should be one of 'coverage' or 'branches'
     """
     previous = getPriorCoverage(badgeFilename, whichBadge)
+    # Badge only records 1 decimal place, and thus need
+    # to take care to avoid floating-point rounding error
+    # when old is converted to [0.0 to 1.0] range with div by
+    # 100 in getPriorCoverage.  e.g., 99.9 / 100 = 0.9990000000000001
+    # due to rounding error.
+    old = round(previous * 1000)
+    # Don't need to round with new since this is still as computed
+    # from coverage data at this point.
+    new = coverage * 1000
+    if new < old :
+        s = "Branches coverage" if whichBadge == "branches" else "Coverage"
+        print(s, "decreased from", coverageTruncatedToString(previous)[0], "to", coverageTruncatedToString(coverage)[0])
+        return True
+    return False
+
+def coverageDecreasedEndpoint(coverage, jsonFilename, whichBadge) :
+    """Checks if coverage decreased relative to previous run, and logs
+    a message if it did.
+
+    Keyword arguments:
+    coverage - The coverage in interval 0.0 to 1.0
+    jsonFilename - the filename with path
+    whichBadge - this input should be one of 'coverage' or 'branches'
+    """
+    previous = getPriorCoverageFromEndpoint(jsonFilename, whichBadge)
     # Badge only records 1 decimal place, and thus need
     # to take care to avoid floating-point rounding error
     # when old is converted to [0.0 to 1.0] range with div by
@@ -353,6 +419,10 @@ if __name__ == "__main__" :
     failOnBranchesDecrease = sys.argv[11].lower() == "true"
     colorCutoffs = colorCutoffsStringToNumberList(sys.argv[12])
     colors = sys.argv[13].replace(',', ' ').split()
+    generateCoverageJSON = sys.argv[14].lower() == "true"
+    generateBranchesJSON = sys.argv[15].lower() == "true"
+    coverageJSON = sys.argv[16]
+    branchesJSON = sys.argv[17]
 
     if onMissingReport not in {"fail", "quiet", "badges"} :
         print("ERROR: Invalid value for on-missing-report.")
@@ -380,6 +450,8 @@ if __name__ == "__main__" :
 
         coverageBadgeWithPath = formFullPathToFile(badgesDirectory, coverageFilename)
         branchesBadgeWithPath = formFullPathToFile(badgesDirectory, branchesFilename)
+        coverageJSONWithPath = formFullPathToFile(badgesDirectory, coverageJSON)
+        branchesJSONWithPath = formFullPathToFile(badgesDirectory, branchesJSON)
 
         if failOnCoverageDecrease and generateCoverageBadge and coverageDecreased(cov, coverageBadgeWithPath, "coverage") :
             print("Failing the workflow run.")
@@ -389,18 +461,34 @@ if __name__ == "__main__" :
             print("Failing the workflow run.")
             sys.exit(1)
 
-        if (generateCoverageBadge or generateBranchesBadge) and badgesDirectory != "" :
+        if failOnCoverageDecrease and generateCoverageJSON and coverageDecreasedEndpoint(cov, coverageJSONWithPath, "coverage") :
+            print("Failing the workflow run.")
+            sys.exit(1)
+
+        if failOnBranchesDecrease and generateBranchesJSON and coverageDecreasedEndpoint(branches, branchesJSONWithPath, "branches") :
+            print("Failing the workflow run.")
+            sys.exit(1)
+            
+        if (generateCoverageBadge or generateBranchesBadge or generateCoverageJSON or generateBranchesJSON) and badgesDirectory != "" :
             createOutputDirectories(badgesDirectory)
 
-        if generateCoverageBadge :
+        if generateCoverageBadge or generateCoverageJSON :
             covStr, color = badgeCoverageStringColorPair(cov, colorCutoffs, colors)
-            with open(coverageBadgeWithPath, "w") as badge :
-                badge.write(generateBadge(covStr, color))
+            if generateCoverageBadge :
+                with open(coverageBadgeWithPath, "w") as badge :
+                    badge.write(generateBadge(covStr, color))
+            if generateCoverageJSON :
+                with open(coverageJSONWithPath, "w") as endpoint :
+                    json.dump(generateDictionaryForEndpoint(covStr, color, "coverage"), endpoint, sort_keys=True)
 
-        if generateBranchesBadge :
+        if generateBranchesBadge or generateBranchesJSON :
             covStr, color = badgeCoverageStringColorPair(branches, colorCutoffs, colors)
-            with open(branchesBadgeWithPath, "w") as badge :
-                badge.write(generateBadge(covStr, color, "branches"))
+            if generateBranchesBadge :
+                with open(branchesBadgeWithPath, "w") as badge :
+                    badge.write(generateBadge(covStr, color, "branches"))
+            if generateBranchesJSON :
+                with open(branchesJSONWithPath, "w") as endpoint :
+                    json.dump(generateDictionaryForEndpoint(covStr, color, "branches"), endpoint, sort_keys=True)
 
         print("::set-output name=coverage::" + str(cov))
         print("::set-output name=branches::" + str(branches))
