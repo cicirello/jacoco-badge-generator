@@ -19,7 +19,7 @@ computes coverage percentages from [JaCoCo's Instructions and Branches counters]
 generates badges for one or both of these (configurable with action inputs) to provide an easy 
 to read visual summary of the code coverage of your test cases. The default behavior directly
 generates the badges internally with no external calls, but the action also provides an option
-to instead generate [Shields JSON endpoints](https://shields.io/endpoint). The action supports
+to instead generate [Shields JSON endpoints](#direct-badge-generation-vs-json-endpoint). The action supports
 both the basic case of a single `jacoco.csv`, as well as multi-module projects in which
 case the action can produce coverage badges from the combination of the JaCoCo reports
 from all modules, provided that the individual reports are independent.
