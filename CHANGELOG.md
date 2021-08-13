@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2021-08-12
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### CI/CD
+
+
+## [2.4.0] - 2021-08-13
+
+### Added
 * Added an option to generate Shields.io JSON endpoints either in addition to, 
   or instead of, directly generating badges. For most users, the existing direct 
   generation of the badges is probably the preferred approach (e.g., probably 
@@ -19,16 +34,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `coverage-endpoint-filename`, and `branches-endpoint-filename`. All of these 
   have default values and are optional. The current default behavior is retained, 
   so by default the JSON endpoints are not generated.
-
-### Changed
-
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### CI/CD
 
 
 ## [2.3.0] - 2021-6-25
