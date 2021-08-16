@@ -128,12 +128,7 @@ the default colors:
 | Yellow for 70% through 79.9% coverage | ![Coverage 70%](tests/70.svg) | ![Coverage 70%](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/cicirello/jacoco-badge-generator/main/tests/70.json) |
 | Orange for 60% through 69.9% coverage | ![Coverage 60%](tests/60.svg) | ![Coverage 60%](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/cicirello/jacoco-badge-generator/main/tests/60.json) |
 | Red for 0% through 59.9% coverage | ![Coverage 59.9%](tests/599.svg) | ![Coverage 59.9%](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/cicirello/jacoco-badge-generator/main/tests/599.json) |
-
-
-* A sample of a branch coverage badge.
-  | Directly generating badge | Passing endpoint to Shields |
-  | :--- | :--- | 
-  | ![Branches Coverage 99.9%](tests/999b.svg) | ![Branches Coverage 99.9%](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/cicirello/jacoco-badge-generator/main/tests/999b.json) |
+| Sample of a branch coverage badge | ![Branches Coverage 99.9%](tests/999b.svg) | ![Branches Coverage 99.9%](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/cicirello/jacoco-badge-generator/main/tests/999b.json) |
 
 ### Customizing Colors or Coverage Intervals
 
