@@ -155,8 +155,8 @@ instead be truncated to 79.9%).
 
 The default behavior generates badges that are inspired by the style of the badges 
 of [Shields.io](https://github.com/badges/shields), and generates the badges entirely
-within the jacoco-badge-generator GitHub Action, with no external calls.  
-However, the action now also supports an optional alternative to instead generate
+within the jacoco-badge-generator GitHub Action, with no external calls. However, 
+the action now also supports an optional alternative to instead generate
 [Shields JSON endpoints](https://shields.io/endpoint). Most users will likely prefer
 the default behavior, for a variety of reasons, such as simpler insertion of
 badge into README and probable faster loading. The main reason to consider generating
