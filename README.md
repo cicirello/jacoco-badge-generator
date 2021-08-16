@@ -120,17 +120,12 @@ of C1 Coverage than is usually implied by branches coverage.
 Here are a few samples of what the badges look like if you use
 the default colors:
 
-| Case | Directly generating badge | Passing endpoint to Shields |
+| Coverage range | Directly generating badge | Passing endpoint to Shields |
 | :---  | :--- | :--- | 
 | Bright green for 100% coverage  | ![Coverage 100%](tests/100.svg) | ![Coverage 100%](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/cicirello/jacoco-badge-generator/main/tests/100.json) |
-* We use green for coverage from 90% up through 99.9%.
-  | Directly generating badge | Passing endpoint to Shields |
-  | :--- | :--- | 
-  | ![Coverage 99.9%](tests/999.svg) | ![Coverage 99.9%](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/cicirello/jacoco-badge-generator/main/tests/999.json) |
-* We use yellow green for coverage from 80% up through 89.9%.
-  | Directly generating badge | Passing endpoint to Shields |
-  | :--- | :--- | 
-  | ![Coverage 80%](tests/80.svg) | ![Coverage 80%](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/cicirello/jacoco-badge-generator/main/tests/80.json) |
+| Green for coverage from 90% up through 99.9% | ![Coverage 99.9%](tests/999.svg) | ![Coverage 99.9%](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/cicirello/jacoco-badge-generator/main/tests/999.json) |
+| Yellow green for coverage from 80% up through 89.9% | ![Coverage 80%](tests/80.svg) | ![Coverage 80%](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/cicirello/jacoco-badge-generator/main/tests/80.json) |
+
 * We use yellow for coverage from 70% up through 79.9%.
   | Directly generating badge | Passing endpoint to Shields |
   | :--- | :--- | 
