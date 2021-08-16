@@ -119,13 +119,27 @@ of C1 Coverage than is usually implied by branches coverage.
 
 Here are a few samples of what the badges look like if you use
 the default colors:
-* ![Coverage 100%](tests/100.svg) We use bright green for 100% coverage.
-* ![Coverage 99.9%](tests/999.svg) We use green for coverage from 90% up through 99.9%.
-* ![Coverage 80%](tests/80.svg) We use yellow green for coverage from 80% up through 89.9%.
-* ![Coverage 70%](tests/70.svg) We use yellow for coverage from 70% up through 79.9%.
-* ![Coverage 60%](tests/60.svg) We use orange for coverage from 60% up through 69.9%.
-* ![Coverage 59.9%](tests/599.svg) We use red for coverage from 0% up through 59.9%.
-* ![Branches Coverage 99.9%](tests/999b.svg) A sample of a branch coverage badge.
+* We use bright green for 100% coverage.
+  * Direct generation: ![Coverage 100%](tests/100.svg)
+  * Passing endpoint to Shields:
+* We use green for coverage from 90% up through 99.9%.
+  * Direct generation: ![Coverage 99.9%](tests/999.svg) 
+  * Passing endpoint to Shields:
+* We use yellow green for coverage from 80% up through 89.9%.
+  * Direct generation: ![Coverage 80%](tests/80.svg) 
+  * Passing endpoint to Shields:
+* We use yellow for coverage from 70% up through 79.9%.
+  * Direct generation: ![Coverage 70%](tests/70.svg)
+  * Passing endpoint to Shields:
+* We use orange for coverage from 60% up through 69.9%.
+  * Direct generation: ![Coverage 60%](tests/60.svg)
+  * Passing endpoint to Shields:
+* We use red for coverage from 0% up through 59.9%.
+  * Direct generation: ![Coverage 59.9%](tests/599.svg)
+  * Passing endpoint to Shields:
+* A sample of a branch coverage badge.
+  * Direct generation: ![Branches Coverage 99.9%](tests/999b.svg)
+  * Passing endpoint to Shields:
 
 ### Customizing Colors or Coverage Intervals
 
