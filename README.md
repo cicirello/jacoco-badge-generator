@@ -119,13 +119,16 @@ of C1 Coverage than is usually implied by branches coverage.
 
 Here are a few samples of what the badges look like if you use
 the default colors:
-* ![Coverage 100%](tests/100.svg) We use bright green for 100% coverage.
-* ![Coverage 99.9%](tests/999.svg) We use green for coverage from 90% up through 99.9%.
-* ![Coverage 80%](tests/80.svg) We use yellow green for coverage from 80% up through 89.9%.
-* ![Coverage 70%](tests/70.svg) We use yellow for coverage from 70% up through 79.9%.
-* ![Coverage 60%](tests/60.svg) We use orange for coverage from 60% up through 69.9%.
-* ![Coverage 59.9%](tests/599.svg) We use red for coverage from 0% up through 59.9%.
-* ![Branches Coverage 99.9%](tests/999b.svg) A sample of a branch coverage badge.
+
+| Coverage range | Direct badge generation | Badge generation from endpoint |
+| :---  | :--- | :--- | 
+| Bright green for 100% coverage  | ![Coverage 100%](tests/100.svg) | ![Coverage 100%](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/cicirello/jacoco-badge-generator/main/tests/100.json) |
+| Green for 90% through 99.9% coverage | ![Coverage 99.9%](tests/999.svg) | ![Coverage 99.9%](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/cicirello/jacoco-badge-generator/main/tests/999.json) |
+| Yellow green for 80% through 89.9% coverage | ![Coverage 80%](tests/80.svg) | ![Coverage 80%](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/cicirello/jacoco-badge-generator/main/tests/80.json) |
+| Yellow for 70% through 79.9% coverage | ![Coverage 70%](tests/70.svg) | ![Coverage 70%](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/cicirello/jacoco-badge-generator/main/tests/70.json) |
+| Orange for 60% through 69.9% coverage | ![Coverage 60%](tests/60.svg) | ![Coverage 60%](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/cicirello/jacoco-badge-generator/main/tests/60.json) |
+| Red for 0% through 59.9% coverage | ![Coverage 59.9%](tests/599.svg) | ![Coverage 59.9%](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/cicirello/jacoco-badge-generator/main/tests/599.json) |
+| Sample of a branch coverage badge | ![Branches Coverage 99.9%](tests/999b.svg) | ![Branches Coverage 99.9%](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/cicirello/jacoco-badge-generator/main/tests/999b.json) |
 
 ### Customizing Colors or Coverage Intervals
 
@@ -152,8 +155,8 @@ instead be truncated to 79.9%).
 
 The default behavior generates badges that are inspired by the style of the badges 
 of [Shields.io](https://github.com/badges/shields), and generates the badges entirely
-within the jacoco-badge-generator GitHub Action, with no external calls.  
-However, the action now also supports an optional alternative to instead generate
+within the jacoco-badge-generator GitHub Action, with no external calls. However, 
+the action now also supports an optional alternative to instead generate
 [Shields JSON endpoints](https://shields.io/endpoint). Most users will likely prefer
 the default behavior, for a variety of reasons, such as simpler insertion of
 badge into README and probable faster loading. The main reason to consider generating
@@ -217,9 +220,15 @@ branch. To do so, in addition to configuring GitHub Pages, you would need to use
 (e.g., in "docs" or in a subdirectory of "docs"). Doing so would probably speed up Shields's
 access to your JSON endpoint, since you'd gain the benefit of the CDN that backs GitHub
 Pages; whereas passing Shields the URL to the JSON file on GitHub's raw server will probably
-be slower.
+be slower. Note that the potential benefit is probably small, so if doing so would complicate
+your workflow, you can simply pass the URL of the endpoint from GitHub's raw server
+(e.g., the examples of generating badges from an endpoint in the rightmost column
+of the table in section [Default Color Scheme](#default-color-scheme) were done that way,
+without the use of GitHub Pages).
 
-This is not an issue if you use the default behavior of directly generating the badge.
+This is not an issue if you use the default behavior of directly generating the badge
+within the action, since in that case the image is served directly to the viewer 
+from the repository whose README is being viewed.
 
 
 ## Inputs

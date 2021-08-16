@@ -461,7 +461,7 @@ class TestJacocoBadgeGenerator(unittest.TestCase) :
             covStr, color = jbg.badgeCoverageStringColorPair(cov)
             badge = jbg.generateBadge(covStr, color)
             with open(expectedFiles[i],"r") as f :
-                self.assertEqual(f.read(), badge)
+                self.assertEqual(f.read(), badge, msg=expectedFiles[i])
         covStr, color = jbg.badgeCoverageStringColorPair(0.999)
         badge = jbg.generateBadge(covStr, color, "branches")
         with open("tests/999b.svg","r") as f :

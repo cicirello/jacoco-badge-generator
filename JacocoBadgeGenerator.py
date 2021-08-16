@@ -35,25 +35,25 @@ import os
 import os.path
 import json
 
-badgeTemplate = '<svg xmlns="http://www.w3.org/2000/svg" width="104" \
+badgeTemplate = '<svg xmlns="http://www.w3.org/2000/svg" width="{6}" \
 height="20" role="img" aria-label="{3}: {0}">\
 <linearGradient id="s" x2="0" y2="100%">\
 <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>\
 <stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="r">\
-<rect width="104" height="20" rx="3" fill="#fff"/></clipPath>\
+<rect width="{6}" height="20" rx="3" fill="#fff"/></clipPath>\
 <g clip-path="url(#r)"><rect width="61" height="20" fill="#555"/>\
-<rect x="61" width="43" height="20" fill="{1}"/>\
-<rect width="104" height="20" fill="url(#s)"/></g>\
+<rect x="61" width="{5}" height="20" fill="{1}"/>\
+<rect width="{6}" height="20" fill="url(#s)"/></g>\
 <g fill="#fff" text-anchor="middle" \
 font-family="Verdana,Geneva,DejaVu Sans,sans-serif" \
 text-rendering="geometricPrecision" font-size="110">\
 <text aria-hidden="true" x="315" y="150" fill="#010101" \
-fill-opacity=".3" transform="scale(.1)" textLength="510">{3}</text>\
+fill-opacity=".3" transform="scale(.1)" textLength="{4}">{3}</text>\
 <text x="315" y="140" transform="scale(.1)" fill="#fff" \
-textLength="510">{3}</text>\
-<text aria-hidden="true" x="815" y="150" \
+textLength="{4}">{3}</text>\
+<text aria-hidden="true" x="{7}" y="150" \
 fill="#010101" fill-opacity=".3" transform="scale(.1)" \
-textLength="{2}">{0}</text><text x="815" y="140" \
+textLength="{2}">{0}</text><text x="{7}" y="140" \
 transform="scale(.1)" fill="#fff" textLength="{2}">{0}</text>\
 </g></svg>'
 
@@ -67,13 +67,30 @@ def generateBadge(covStr, color, badgeType="coverage") :
     color - The color for the badge.
     badgeType - The text string for a label on the badge.
     """
-    if len(covStr) >= 4 :
-        textLength = "330"
-    elif len(covStr) >= 3 :
-        textLength = "250" 
+    # textLength for coverage percentage string computed as follows:
+    # Assuming DejaVu Sans, 110pt font, width of % is 105,
+    # width of . is 35, width of any digit is 70.
+    textLength = 105
+    if covStr.find(".") >= 0 :
+        textLength += (70 * (len(covStr) - 2)) + 35
     else :
-        textLength = "170"
-    return badgeTemplate.format(covStr, color, textLength, badgeType)
+        textLength += (70 * (len(covStr) - 1))
+    # length of "coverage" assuming DejaVu Sans, 110pt font is 510
+    # but length of "branches" is 507
+    labelTextLength = 510 if badgeType=="coverage" else 507
+    rightWidth = math.ceil(textLength / 10) + 10
+    badgeWidth = 61 + rightWidth
+    rightCenter = 600 + rightWidth * 5
+    return badgeTemplate.format(
+        covStr,
+        color,
+        textLength,
+        badgeType,
+        labelTextLength,
+        rightWidth,
+        badgeWidth,
+        rightCenter
+        )
 
 def generateDictionaryForEndpoint(covStr, color, badgeType) :
     """Generated a Python dictionary containing all of the required
