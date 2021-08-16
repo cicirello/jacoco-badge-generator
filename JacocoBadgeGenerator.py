@@ -48,9 +48,9 @@ height="20" role="img" aria-label="{3}: {0}">\
 font-family="Verdana,Geneva,DejaVu Sans,sans-serif" \
 text-rendering="geometricPrecision" font-size="110">\
 <text aria-hidden="true" x="315" y="150" fill="#010101" \
-fill-opacity=".3" transform="scale(.1)" textLength="510">{3}</text>\
+fill-opacity=".3" transform="scale(.1)" textLength="{4}">{3}</text>\
 <text x="315" y="140" transform="scale(.1)" fill="#fff" \
-textLength="510">{3}</text>\
+textLength="{4}">{3}</text>\
 <text aria-hidden="true" x="825" y="150" \
 fill="#010101" fill-opacity=".3" transform="scale(.1)" \
 textLength="{2}">{0}</text><text x="825" y="140" \
@@ -75,7 +75,10 @@ def generateBadge(covStr, color, badgeType="coverage") :
         textLength += (70 * (len(covStr) - 2)) + 35
     else :
         textLength += (70 * (len(covStr) - 1))
-    return badgeTemplate.format(covStr, color, textLength, badgeType)
+    # length of "coverage" assuming DejaVu Sans, 110pt font is 510
+    # but length of "branches" is 507
+    labelTextLength = 510 if badgeType=="coverage" else 507
+    return badgeTemplate.format(covStr, color, textLength, badgeType, labelTextLength)
 
 def generateDictionaryForEndpoint(covStr, color, badgeType) :
     """Generated a Python dictionary containing all of the required
