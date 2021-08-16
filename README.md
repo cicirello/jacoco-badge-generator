@@ -220,9 +220,15 @@ branch. To do so, in addition to configuring GitHub Pages, you would need to use
 (e.g., in "docs" or in a subdirectory of "docs"). Doing so would probably speed up Shields's
 access to your JSON endpoint, since you'd gain the benefit of the CDN that backs GitHub
 Pages; whereas passing Shields the URL to the JSON file on GitHub's raw server will probably
-be slower.
+be slower. Note that the potential benefit is probably small, so if doing so would complicate
+your workflow, you can simply pass the URL of the endpoint from GitHub's raw server
+(e.g., the examples of generating badges from an endpoint in the rightmost column
+of the table in section [Default Color Scheme](#default-color-scheme) were done that way,
+without the use of GitHub Pages).
 
-This is not an issue if you use the default behavior of directly generating the badge.
+This is not an issue if you use the default behavior of directly generating the badge
+within the action, since in that case the image is served directly to the viewer 
+from the repository whose README is being viewed.
 
 
 ## Inputs
