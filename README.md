@@ -120,7 +120,7 @@ of C1 Coverage than is usually implied by branches coverage.
 Here are a few samples of what the badges look like if you use
 the default colors:
 
-| Coverage range | Directly generating badge | Passing endpoint to Shields |
+| Coverage range | Direct badge generation | Badge generation from endpoint |
 | :---  | :--- | :--- | 
 | Bright green for 100% coverage  | ![Coverage 100%](tests/100.svg) | ![Coverage 100%](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/cicirello/jacoco-badge-generator/main/tests/100.json) |
 | Green for 90% through 99.9% coverage | ![Coverage 99.9%](tests/999.svg) | ![Coverage 99.9%](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/cicirello/jacoco-badge-generator/main/tests/999.json) |
