@@ -15,8 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 ### Fixed
-* Adjusted calculation of text lengths for right side of badges
-  for improved character spacing.
+* Visual improvements to right side of badges:
+  * Adjusted calculation of text lengths for right side of badges
+    for improved character spacing.
+  * Badge width now also adjusted by the right side text lengths.
 
 ### CI/CD
 
