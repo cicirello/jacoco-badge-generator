@@ -50,9 +50,10 @@ The documentation is organized into the following sections:
 * [Multi-Module Example Workflows](#multi-module-example-workflows): Example 
   GitHub workflows demonstrating usage of the jacoco-badge-generator 
   action with multi-module projects.
-* [Examples in Other Projects](#examples-in-other-projects): Links to 
-  a few repositories that are actively using the action, as well as 
-  direct links to the relevant workflow files.
+* [Examples in Other Projects](#examples-in-other-projects): Info and a link
+  to a template repository that we have setup to provide live runnable workflows
+  to get you started; as well as links to a few repositories that are actively
+  using the action, as well as direct links to the relevant workflow files.
 * [Support the Project](#support-the-project): Information on various 
   ways that you can support the project.
 
@@ -587,7 +588,7 @@ You can also use a specific release with:
         generate-branches-badge: true
 ```
 
-#### All Possible Action Inputs
+### All Possible Action Inputs
 
 This shows a workflow step that uses all of the
 possible inputs of the `jacoco-badge-generator` action.
@@ -870,6 +871,20 @@ jobs:
 ```
 
 ## Examples in Other Projects
+
+### Template Repository with Runnable Workflow Examples 
+We now have
+a [template repository](https://github.com/cicirello/examples-jacoco-badge-generator) 
+with a simple Maven Java project, using the `jacoco-maven-plugin`,
+along with several live, runnable workflows to demonstrate a variety of use-cases
+for the `jacoco-badge-generator` action. That repository,
+[cicirello/examples-jacoco-badge-generator](https://github.com/cicirello/examples-jacoco-badge-generator),
+is a template so that you can potentially use it as a project starter. You can of course
+fork it instead. Its README
+explains the contents of that repository, especially the details of the various 
+workflows it contains, and includes examples inserting the badges into its README.
+
+### Live Real Examples
 
 If you would like to see examples where the action is actively used, here 
 are a few repositories that are actively using the `jacoco-badge-generator` action.
