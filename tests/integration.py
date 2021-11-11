@@ -49,6 +49,12 @@ class IntegrationTest(unittest.TestCase) :
             with open("tests/badges/branchesMulti.svg","r") as generated :
                 self.assertEqual(expected.read(), generated.read())
 
+    def testIntegrationSummaryReport(self) :
+        with open("tests/summary/coverage-summary.json", "r") as f :
+            d = json.load(f)
+            self.assertAlmostEqual(72.72727272727272, d["coverage"])
+            self.assertAlmostEqual(77.77777777777777, d["branches"])
+
     def testIntegrationInstructionsJSON(self) :
         with open("tests/endpoints/jacoco.json", "r") as f :
             d = json.load(f)
