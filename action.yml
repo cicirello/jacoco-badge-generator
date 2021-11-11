@@ -100,6 +100,14 @@ inputs:
     description: 'The filename of the branches coverage JSON endpoint.'
     required: false
     default: 'branches.json'
+  generate-summary:
+    description: 'Controls whether or not to generate a JSON file containing the coverage percentages as floating-point values.'
+    required: false
+    default: false
+  summary-filename:
+    description: 'The filename of the summary file.'
+    required: false
+    default: 'coverage-summary.json'
 outputs:
   coverage:
     description: 'The jacoco coverage percentage as computed from the data in the jacoco.csv file.'
@@ -126,3 +134,5 @@ runs:
     - ${{ inputs.generate-branches-endpoint }}
     - ${{ inputs.coverage-endpoint-filename }}
     - ${{ inputs.branches-endpoint-filename }}
+    - ${{ inputs.generate-summary }}
+    - ${{ inputs.summary-filename }}

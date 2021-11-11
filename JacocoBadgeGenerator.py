@@ -422,6 +422,18 @@ def colorCutoffsStringToNumberList(strCutoffs) :
     """
     return list(map(float, strCutoffs.replace(',', ' ').split()))
 
+def coverageDictionary(cov, branches) :
+    """Creates a dictionary with the coverage and branches coverage
+    as double-precision floating-point values, specifically the raw
+    computed values prior to truncation. Enables more accurate implementation
+    of fail on decrease. Coverages are reported in interval [0.0, 100.0].
+
+    Keyword arguments:
+    cov - Instruction coverage in interval [0.0, 1.0]
+    branches - Branches coverage in interval [0.0, 1.0]
+    """
+    return { "coverage" : 100 * cov, "branches" : 100 * branches }
+
 if __name__ == "__main__" :
     jacocoCsvFile = sys.argv[1]
     badgesDirectory = sys.argv[2]
@@ -440,6 +452,8 @@ if __name__ == "__main__" :
     generateBranchesJSON = sys.argv[15].lower() == "true"
     coverageJSON = sys.argv[16]
     branchesJSON = sys.argv[17]
+    generateSummary = sys.argv[18].lower() == "true"
+    summaryFilename = sys.argv[19]
 
     if onMissingReport not in {"fail", "quiet", "badges"} :
         print("ERROR: Invalid value for on-missing-report.")
@@ -469,6 +483,7 @@ if __name__ == "__main__" :
         branchesBadgeWithPath = formFullPathToFile(badgesDirectory, branchesFilename)
         coverageJSONWithPath = formFullPathToFile(badgesDirectory, coverageJSON)
         branchesJSONWithPath = formFullPathToFile(badgesDirectory, branchesJSON)
+        summaryFilenameWithPath = formFullPathToFile(badgesDirectory, summaryFilename)
 
         if failOnCoverageDecrease and generateCoverageBadge and coverageDecreased(cov, coverageBadgeWithPath, "coverage") :
             print("Failing the workflow run.")
@@ -486,7 +501,7 @@ if __name__ == "__main__" :
             print("Failing the workflow run.")
             sys.exit(1)
             
-        if (generateCoverageBadge or generateBranchesBadge or generateCoverageJSON or generateBranchesJSON) and badgesDirectory != "" :
+        if (generateSummary or generateCoverageBadge or generateBranchesBadge or generateCoverageJSON or generateBranchesJSON) and badgesDirectory != "" :
             createOutputDirectories(badgesDirectory)
 
         if generateCoverageBadge or generateCoverageJSON :
@@ -506,6 +521,10 @@ if __name__ == "__main__" :
             if generateBranchesJSON :
                 with open(branchesJSONWithPath, "w") as endpoint :
                     json.dump(generateDictionaryForEndpoint(covStr, color, "branches"), endpoint, sort_keys=True)
+
+        if generateSummary :
+            with open(summaryFilenameWithPath, "w") as summaryFile :
+                json.dump(coverageDictionary(cov, branches), summaryFile, sort_keys=True)
 
         print("::set-output name=coverage::" + str(cov))
         print("::set-output name=branches::" + str(branches))

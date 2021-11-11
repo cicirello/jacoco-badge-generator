@@ -30,6 +30,20 @@ import JacocoBadgeGenerator as jbg
 
 class TestJacocoBadgeGenerator(unittest.TestCase) :
 
+    def testCoverageDictionary(self) :
+        cov = 8 / 9
+        branches = 8 / 11
+        d = jbg.coverageDictionary(cov, branches)
+        expected = { "coverage" : 800 / 9, "branches" : 800 / 11 }
+        self.assertAlmostEqual(expected["coverage"], d["coverage"])
+        self.assertAlmostEqual(expected["branches"], d["branches"])
+        d = jbg.coverageDictionary(0, 1)
+        self.assertAlmostEqual(0.0, d["coverage"])
+        self.assertAlmostEqual(100.0, d["branches"])
+        d = jbg.coverageDictionary(1, 0)
+        self.assertAlmostEqual(100.0, d["coverage"])
+        self.assertAlmostEqual(0.0, d["branches"])
+        
     def testCoverageDecreased(self) :
         badgeFiles = [ "tests/0.svg",
                           "tests/599.svg",
