@@ -26,7 +26,10 @@ from all modules, provided that the individual reports are independent.
 
 The jacoco-badge-generator can also optionally be used as part of a pull-request check. Specifically, you can
 configure it to fail the workflow run if coverage decreased relative to prior run, and/or if coverage is below
-a target threshold. See the [Inputs](#inputs) section for details of how to configure it for this purpose.
+a target threshold. See the [Inputs](#inputs) section for details of how to configure it for this purpose. The
+action can also be configured to generate a simple JSON file containing the coverages as double-precision 
+floating-point values, either instead of or in addition to generating the badges, which may be useful as input
+to other tools.
 
 _The developers of the jacoco-badge-generator GitHub Action are not affiliated 
 with the developers of JaCoCo, although we are a fan and user of their excellent 
@@ -328,6 +331,26 @@ created within the `badges-directory`
 directory. __The action doesn't commit the JSON file. You will 
 need to have additional steps in your workflow to do that.__
 
+### `generate-summary`
+
+This input controls whether or not to generate a simple JSON
+summary report of the following form:
+
+```JSON
+{"branches": 77.77777777777779, "coverage": 72.72727272727273}
+```
+
+The default is `generate-summary: false`. To enable, use
+`generate-summary: true`.
+
+### `summary-filename`
+
+This input is the filename for the summary report (see above). The
+default is `summary-filename: coverage-summary.json`, and will be
+created within the `badges-directory`
+directory. __The action doesn't commit the JSON file. You will 
+need to have additional steps in your workflow to do that.__
+
 ### `colors`
 
 This input can be used to change the colors used for the badges.
@@ -439,20 +462,34 @@ Values greater than 1 are assumed percents.
 ### `fail-on-coverage-decrease`
 
 This input enables directing the action to fail the workflow run if
-the computed coverage is less than it was on the previous run as recorded in the
-existing coverage badge, if one exists. The default is `false`. 
-Use `fail-on-coverage-decrease: true` to enable. The `generate-coverage-badge`
-input must also be `true` (the default), as the action will otherwise assume
-that there is no existing badge from which to get the prior coverage.
+the computed coverage is less than it was on the previous run as recorded in either the
+existing coverage badge, the existing coverage Shields endpoint, or the JSON summary 
+report (see the `generate-summary` input), if one of these exists. The default 
+is `false`.  Use `fail-on-coverage-decrease: true` to enable. 
+
+Additionally, at least one of the `generate-summary`, `generate-coverage-badge`, 
+or `generate-coverage-endpoint` inputs must also be `true`, as the action will otherwise assume
+that there is no existing badge or summary report from which to get the prior coverage.
+If more than one of these exist, this feature will use the summary report to determine if coverage
+decreased since it is more precise than the truncated coverage percentage stored in 
+the badge or Shields endpoint. __Therefore, when using this feature, it is recommended that
+you also set `generate-summary: true` and commit the summary report JSON file to the repository.__
 
 ### `fail-on-branches-decrease`
 
 This input enables directing the action to fail the workflow run if
-the computed branches coverage is less than it was on the previous run as recorded in the
-existing branches badge, if one exists. The default is `false`. 
-Use `fail-on-branches-decrease: true` to enable. The `generate-branches-badge`
-input must also be `true`, as the action will otherwise assume
-that there is no existing badge from which to get the prior branches coverage.
+the computed branches coverage is less than it was on the previous run as recorded in either the
+existing branches coverage badge, the existing branches coverage Shields endpoint, or the JSON summary 
+report (see the `generate-summary` input), if one of these exists. The default is `false`. 
+Use `fail-on-branches-decrease: true` to enable. 
+
+Additionally, at least one of the `generate-summary`, `generate-branches-badge`, 
+or `generate-branches-endpoint` inputs must also be `true`, as the action will otherwise assume
+that there is no existing badge or summary report from which to get the prior coverage.
+If more than one of these exist, this feature will use the summary report to determine if branches coverage
+decreased since it is more precise than the truncated coverage percentage stored in 
+the badge or Shields endpoint. __Therefore, when using this feature, it is recommended that
+you also set `generate-summary: true` and commit the summary report JSON file to the repository.__
 
 
 ## Outputs
@@ -583,7 +620,7 @@ You can also use a specific release with:
 
 ```yml
     - name: Generate JaCoCo Badge
-      uses: cicirello/jacoco-badge-generator@v2.3.0
+      uses: cicirello/jacoco-badge-generator@v2.5.0
       with:
         generate-branches-badge: true
 ```
@@ -610,6 +647,8 @@ what these inputs do.
         coverage-endpoint-filename: jacoco.json
         generate-branches-endpoint: false
         branches-endpoint-filename: branches.json
+        generate-summary: false
+        summary-filename: coverage-summary.json
         colors: '#4c1 #97ca00 #a4a61d #dfb317 #fe7d37 #e05d44'
         intervals: 100 90 80 70 60 0
         on-missing-report: fail

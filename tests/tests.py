@@ -26,10 +26,175 @@
 #
 
 import unittest
+import json
 import JacocoBadgeGenerator as jbg
 
 class TestJacocoBadgeGenerator(unittest.TestCase) :
 
+    def testCoverageDecreasedSummary(self) :
+        # Same coverages
+        self.assertFalse(
+            jbg.coverageDecreasedSummary(
+                True,
+                True,
+                "tests/reportTest.json",
+                0.7272727272727272,
+                0.7777777777777777
+            )
+        )
+        self.assertFalse(
+            jbg.coverageDecreasedSummary(
+                False,
+                True,
+                "tests/reportTest.json",
+                0.7272727272727272,
+                0.7777777777777777
+            )
+        )
+        self.assertFalse(
+            jbg.coverageDecreasedSummary(
+                True,
+                False,
+                "tests/reportTest.json",
+                0.7272727272727272,
+                0.7777777777777777
+            )
+        )
+        self.assertFalse(
+            jbg.coverageDecreasedSummary(
+                False,
+                False,
+                "tests/reportTest.json",
+                0.7272727272727272,
+                0.7777777777777777
+            )
+        )
+        # Decreased coverage
+        self.assertTrue(
+            jbg.coverageDecreasedSummary(
+                True,
+                True,
+                "tests/reportTest.json",
+                0.7272727172727272,
+                0.7777777777777777
+            )
+        )
+        self.assertTrue(
+            jbg.coverageDecreasedSummary(
+                True,
+                False,
+                "tests/reportTest.json",
+                0.7272727172727272,
+                0.7777777777777777
+            )
+        )
+        self.assertFalse(
+            jbg.coverageDecreasedSummary(
+                False,
+                True,
+                "tests/reportTest.json",
+                0.7272727172727272,
+                0.7777777777777777
+            )
+        )
+        self.assertFalse(
+            jbg.coverageDecreasedSummary(
+                False,
+                False,
+                "tests/reportTest.json",
+                0.7272727172727272,
+                0.7777777777777777
+            )
+        )
+        # Decreased branches
+        self.assertTrue(
+            jbg.coverageDecreasedSummary(
+                True,
+                True,
+                "tests/reportTest.json",
+                0.7272727272727272,
+                0.7777777677777777
+            )
+        )
+        self.assertTrue(
+            jbg.coverageDecreasedSummary(
+                False,
+                True,
+                "tests/reportTest.json",
+                0.7272727272727272,
+                0.7777777677777777
+            )
+        )
+        self.assertFalse(
+            jbg.coverageDecreasedSummary(
+                True,
+                False,
+                "tests/reportTest.json",
+                0.7272727272727272,
+                0.7777777677777777
+            )
+        )
+        self.assertFalse(
+            jbg.coverageDecreasedSummary(
+                False,
+                False,
+                "tests/reportTest.json",
+                0.7272727272727272,
+                0.7777777677777777
+            )
+        )
+        # Both decreased
+        self.assertTrue(
+            jbg.coverageDecreasedSummary(
+                True,
+                True,
+                "tests/reportTest.json",
+                0.7272727172727272,
+                0.7777777677777777
+            )
+        )
+        self.assertTrue(
+            jbg.coverageDecreasedSummary(
+                True,
+                False,
+                "tests/reportTest.json",
+                0.7272727172727272,
+                0.7777777677777777
+            )
+        )
+        self.assertTrue(
+            jbg.coverageDecreasedSummary(
+                False,
+                True,
+                "tests/reportTest.json",
+                0.7272727172727272,
+                0.7777777677777777
+            )
+        )
+        self.assertFalse(
+            jbg.coverageDecreasedSummary(
+                False,
+                False,
+                "tests/reportTest.json",
+                0.7272727172727272,
+                0.7777777677777777
+            )
+        )
+
+    def testCoverageDictionary(self) :
+        cov = 8 / 9
+        branches = 8 / 11
+        d = jbg.coverageDictionary(cov, branches)
+        expected = { "coverage" : 800 / 9, "branches" : 800 / 11 }
+        self.assertAlmostEqual(expected["coverage"], d["coverage"])
+        self.assertAlmostEqual(expected["branches"], d["branches"])
+        d = jbg.coverageDictionary(0, 1)
+        self.assertAlmostEqual(0.0, d["coverage"])
+        self.assertAlmostEqual(100.0, d["branches"])
+        d = jbg.coverageDictionary(1, 0)
+        self.assertAlmostEqual(100.0, d["coverage"])
+        self.assertAlmostEqual(0.0, d["branches"])
+        
     def testCoverageDecreased(self) :
         badgeFiles = [ "tests/0.svg",
                           "tests/599.svg",

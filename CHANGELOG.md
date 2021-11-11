@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-08-16
+## [Unreleased] - 2021-11-11
 
 ### Added
 
@@ -17,6 +17,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 ### CI/CD
+
+
+## [2.5.0] - 2021-11-11
+
+### Added
+* Option to generate a simple JSON summary report containing the coverage
+  and branches coverage values as double-precision floating-point values.
+  This may be useful as input to other tools. Additionally, if used in
+  combination with the existing `fail-on-coverage-decrease` and/or 
+  `fail-on-branches-decrease` features, those checks will be more accurate.
+  This new feature is controlled by a pair of new inputs `generate-summary`
+  and `summary-filename`. This feature is disabled by default.
 
 
 ## [2.4.1] - 2021-08-16
