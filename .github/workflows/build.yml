@@ -103,6 +103,6 @@ jobs:
         generate-coverage-endpoint: false
         generate-branches-endpoint: false
         generate-summary: true
-        summary-filename: reportTestFail.json
+        summary-filename: reportTestFail2.json
         fail-on-coverage-decrease: true
         fail-on-branches-decrease: true
