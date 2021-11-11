@@ -84,7 +84,7 @@ jobs:
         generate-branches-endpoint: false
         generate-summary: true
 
-    - name: Log integration endpoints test outputs
+    - name: Log integration summary report test outputs
       run: |
         echo "coverage = ${{ steps.integration4.outputs.coverage }}"
         echo "branch coverage = ${{ steps.integration4.outputs.branches }}"
