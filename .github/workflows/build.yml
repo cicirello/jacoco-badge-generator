@@ -91,3 +91,17 @@ jobs:
 
     - name: Verify integration test results
       run: python3 -u -m unittest tests/integration.py
+
+    - name: Integration test for fail on decrease 
+      id: integrationFailures
+      uses: ./
+      with:
+        jacoco-csv-file: reportTest.csv
+        badges-directory: tests
+        generate-coverage-badge: false
+        generate-branches-badge: false
+        generate-coverage-endpoint: false
+        generate-branches-endpoint: false
+        generate-summary: true
+        fail-on-coverage-decrease: false
+        fail-on-branches-decrease: false
