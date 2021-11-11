@@ -413,6 +413,33 @@ def coverageDecreasedEndpoint(coverage, jsonFilename, whichBadge) :
         return True
     return False
 
+def coverageDecreasedSummary(checkCoverage, checkBranches, jsonFile, coverage, branches) :
+    """Uses a summary report JSON file for the decreased coverage checks.
+    Returns true if workflow should fail, and also logs appropriate message.
+
+    Keyword arguments:
+    checkCoverage - If true, check if coverage decreased.
+    checkBranches - If true, check if branches coverage decreased.
+    jsonFile - The summary report including full path.
+    coverage - The instructions coverage in interval [0.0, 1.0].
+    branches - The branches coverage in interval [0.0, 1.0].
+    """
+    if not os.path.isfile(jsonFile) :
+        return False
+    try :
+        with open(jsonFile, "r") as f :
+            priorCoverage = json.load(f)
+    except :
+        return False
+    result = False
+    if checkCoverage and "coverage" in priorCoverage and 100*coverage < priorCoverage["coverage"] :
+        print("Coverage decreased from", priorCoverage["coverage"], "to", 100*coverage)
+        result = True
+    if checkBranches and "branches" in priorCoverage and 100*branches < priorCoverage["branches"] :
+        print("Branches coverage decreased from", priorCoverage["branches"], "to", 100*branches)
+        result = True
+    return result
+
 def colorCutoffsStringToNumberList(strCutoffs) :
     """Converts a string of space or comma separated percentages
     to a list of floats.
@@ -485,21 +512,25 @@ if __name__ == "__main__" :
         branchesJSONWithPath = formFullPathToFile(badgesDirectory, branchesJSON)
         summaryFilenameWithPath = formFullPathToFile(badgesDirectory, summaryFilename)
 
-        if failOnCoverageDecrease and generateCoverageBadge and coverageDecreased(cov, coverageBadgeWithPath, "coverage") :
-            print("Failing the workflow run.")
-            sys.exit(1)
-
-        if failOnBranchesDecrease and generateBranchesBadge and coverageDecreased(branches, branchesBadgeWithPath, "branches") :
-            print("Failing the workflow run.")
-            sys.exit(1)
-
-        if failOnCoverageDecrease and generateCoverageJSON and coverageDecreasedEndpoint(cov, coverageJSONWithPath, "coverage") :
-            print("Failing the workflow run.")
-            sys.exit(1)
-
-        if failOnBranchesDecrease and generateBranchesJSON and coverageDecreasedEndpoint(branches, branchesJSONWithPath, "branches") :
-            print("Failing the workflow run.")
-            sys.exit(1)
+        # If using the fail on decrease options, in combination with the summary report, use summary
+        # report for the check since it is more accurate.
+        if (failOnCoverageDecrease or failOnBranchesDecrease) and generateSummary and os.path.isfile(summaryFilenameWithPath) :
+            if coverageDecreasedSummary(failOnCoverageDecrease, failOnBranchesDecrease, summaryFilenameWithPath, cov, branches) :
+                print("Failing the workflow run.")
+                sys.exit(1)
+        else : # Otherwise use the prior coverages as stored in badges / JSON.
+            if failOnCoverageDecrease and generateCoverageBadge and coverageDecreased(cov, coverageBadgeWithPath, "coverage") :
+                print("Failing the workflow run.")
+                sys.exit(1)
+            if failOnBranchesDecrease and generateBranchesBadge and coverageDecreased(branches, branchesBadgeWithPath, "branches") :
+                print("Failing the workflow run.")
+                sys.exit(1)
+            if failOnCoverageDecrease and generateCoverageJSON and coverageDecreasedEndpoint(cov, coverageJSONWithPath, "coverage") :
+                print("Failing the workflow run.")
+                sys.exit(1)
+            if failOnBranchesDecrease and generateBranchesJSON and coverageDecreasedEndpoint(branches, branchesJSONWithPath, "branches") :
+                print("Failing the workflow run.")
+                sys.exit(1)
             
         if (generateSummary or generateCoverageBadge or generateBranchesBadge or generateCoverageJSON or generateBranchesJSON) and badgesDirectory != "" :
             createOutputDirectories(badgesDirectory)
