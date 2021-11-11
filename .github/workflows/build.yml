@@ -96,12 +96,13 @@ jobs:
       id: integrationFailures
       uses: ./
       with:
-        jacoco-csv-file: reportTest.csv
+        jacoco-csv-file: tests/summaryReportTest.csv
         badges-directory: tests
         generate-coverage-badge: false
         generate-branches-badge: false
         generate-coverage-endpoint: false
         generate-branches-endpoint: false
         generate-summary: true
+        summary-filename: reportTestFail.json
         fail-on-coverage-decrease: false
         fail-on-branches-decrease: false
