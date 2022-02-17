@@ -56,6 +56,14 @@ inputs:
     description: 'Controls whether or not to generate the branches coverage badge.'
     required: false
     default: false
+  coverage-label:
+    description: 'Text for the left-side of the coverage badge.'
+    required: false
+    default: coverage
+  branches-label:
+    description: 'Text for the left-side of the branches coverage badge.'
+    required: false
+    default: branches
   on-missing-report:
     description: 'Controls what happens if one or more jacoco.csv files do not exist.'
     required: false
@@ -136,3 +144,5 @@ runs:
     - ${{ inputs.branches-endpoint-filename }}
     - ${{ inputs.generate-summary }}
     - ${{ inputs.summary-filename }}
+    - ${{ inputs.coverage-label }}
+    - ${{ inputs.branches-label }}

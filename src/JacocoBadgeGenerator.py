@@ -325,7 +325,7 @@ def getPriorCoverage(badgeFilename, whichBadge) :
 
     Keyword arguments:
     badgeFilename - the filename with path
-    whichBadge - this input should be one of 'coverage' or 'branches'
+    whichBadge - the badge label such as 'coverage' or 'branches' or some custom label
     """
     if not os.path.isfile(badgeFilename) :
         return -1
@@ -347,7 +347,7 @@ def getPriorCoverageFromEndpoint(jsonFilename, whichBadge) :
 
     Keyword arguments:
     jsonFilename - the filename with path
-    whichBadge - this input should be one of 'coverage' or 'branches'
+    whichBadge - the badge label such as 'coverage' or 'branches' or some custom label
     """
     if not os.path.isfile(jsonFilename) :
         return -1
@@ -371,7 +371,7 @@ def coverageDecreased(coverage, badgeFilename, whichBadge) :
     Keyword arguments:
     coverage - The coverage in interval 0.0 to 1.0
     badgeFilename - the filename with path
-    whichBadge - this input should be one of 'coverage' or 'branches'
+    whichBadge - the badge label
     """
     previous = getPriorCoverage(badgeFilename, whichBadge)
     # Badge only records 1 decimal place, and thus need
@@ -384,8 +384,7 @@ def coverageDecreased(coverage, badgeFilename, whichBadge) :
     # from coverage data at this point.
     new = coverage * 1000
     if new < old :
-        s = "Branches coverage" if whichBadge == "branches" else "Coverage"
-        print(s, "decreased from", coverageTruncatedToString(previous)[0], "to", coverageTruncatedToString(coverage)[0])
+        print(whichBadge, "decreased from", coverageTruncatedToString(previous)[0], "to", coverageTruncatedToString(coverage)[0])
         return True
     return False
 
@@ -396,7 +395,7 @@ def coverageDecreasedEndpoint(coverage, jsonFilename, whichBadge) :
     Keyword arguments:
     coverage - The coverage in interval 0.0 to 1.0
     jsonFilename - the filename with path
-    whichBadge - this input should be one of 'coverage' or 'branches'
+    whichBadge - the badge label
     """
     previous = getPriorCoverageFromEndpoint(jsonFilename, whichBadge)
     # Badge only records 1 decimal place, and thus need
@@ -409,8 +408,7 @@ def coverageDecreasedEndpoint(coverage, jsonFilename, whichBadge) :
     # from coverage data at this point.
     new = coverage * 1000
     if new < old :
-        s = "Branches coverage" if whichBadge == "branches" else "Coverage"
-        print(s, "decreased from", coverageTruncatedToString(previous)[0], "to", coverageTruncatedToString(coverage)[0])
+        print(whichBadge, "decreased from", coverageTruncatedToString(previous)[0], "to", coverageTruncatedToString(coverage)[0])
         return True
     return False
 
@@ -482,6 +480,8 @@ if __name__ == "__main__" :
     branchesJSON = sys.argv[17]
     generateSummary = sys.argv[18].lower() == "true"
     summaryFilename = sys.argv[19]
+    coverageLabel = sys.argv[20]
+    branchesLabel = sys.argv[21]
 
     if onMissingReport not in {"fail", "quiet", "badges"} :
         print("ERROR: Invalid value for on-missing-report.")
@@ -520,16 +520,16 @@ if __name__ == "__main__" :
                 print("Failing the workflow run.")
                 sys.exit(1)
         else : # Otherwise use the prior coverages as stored in badges / JSON.
-            if failOnCoverageDecrease and generateCoverageBadge and coverageDecreased(cov, coverageBadgeWithPath, "coverage") :
+            if failOnCoverageDecrease and generateCoverageBadge and coverageDecreased(cov, coverageBadgeWithPath, coverageLabel) :
                 print("Failing the workflow run.")
                 sys.exit(1)
-            if failOnBranchesDecrease and generateBranchesBadge and coverageDecreased(branches, branchesBadgeWithPath, "branches") :
+            if failOnBranchesDecrease and generateBranchesBadge and coverageDecreased(branches, branchesBadgeWithPath, branchesLabel) :
                 print("Failing the workflow run.")
                 sys.exit(1)
-            if failOnCoverageDecrease and generateCoverageJSON and coverageDecreasedEndpoint(cov, coverageJSONWithPath, "coverage") :
+            if failOnCoverageDecrease and generateCoverageJSON and coverageDecreasedEndpoint(cov, coverageJSONWithPath, coverageLabel) :
                 print("Failing the workflow run.")
                 sys.exit(1)
-            if failOnBranchesDecrease and generateBranchesJSON and coverageDecreasedEndpoint(branches, branchesJSONWithPath, "branches") :
+            if failOnBranchesDecrease and generateBranchesJSON and coverageDecreasedEndpoint(branches, branchesJSONWithPath, branchesLabel) :
                 print("Failing the workflow run.")
                 sys.exit(1)
             
@@ -540,19 +540,19 @@ if __name__ == "__main__" :
             covStr, color = badgeCoverageStringColorPair(cov, colorCutoffs, colors)
             if generateCoverageBadge :
                 with open(coverageBadgeWithPath, "w") as badge :
-                    badge.write(generateBadge(covStr, color))
+                    badge.write(generateBadge(covStr, color, coverageLabel))
             if generateCoverageJSON :
                 with open(coverageJSONWithPath, "w") as endpoint :
-                    json.dump(generateDictionaryForEndpoint(covStr, color, "coverage"), endpoint, sort_keys=True)
+                    json.dump(generateDictionaryForEndpoint(covStr, color, coverageLabel), endpoint, sort_keys=True)
 
         if generateBranchesBadge or generateBranchesJSON :
             covStr, color = badgeCoverageStringColorPair(branches, colorCutoffs, colors)
             if generateBranchesBadge :
                 with open(branchesBadgeWithPath, "w") as badge :
-                    badge.write(generateBadge(covStr, color, "branches"))
+                    badge.write(generateBadge(covStr, color, branchesLabel))
             if generateBranchesJSON :
                 with open(branchesJSONWithPath, "w") as endpoint :
-                    json.dump(generateDictionaryForEndpoint(covStr, color, "branches"), endpoint, sort_keys=True)
+                    json.dump(generateDictionaryForEndpoint(covStr, color, branchesLabel), endpoint, sort_keys=True)
 
         if generateSummary :
             with open(summaryFilenameWithPath, "w") as summaryFile :
