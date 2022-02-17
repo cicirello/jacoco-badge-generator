@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   width of "coverage" and "branches".
 * Changed Dockerfile to pull base image from GitHub Container Registry, assuming
   within GitHub Actions likely faster to pull from GitHub rather than Docker Hub.
+* Repository reorganized to move Python source code to a new src directory.
 
 ### Deprecated
 
