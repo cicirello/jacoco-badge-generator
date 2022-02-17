@@ -652,6 +652,16 @@ class TestJacocoBadgeGenerator(unittest.TestCase) :
         with open("tests/999b.svg","r") as f :
             self.assertEqual(f.read(), badge)
 
+    def testCustomBadgeLabels(self) :
+        covStr, color = jbg.badgeCoverageStringColorPair(1.0)
+        badge = jbg.generateBadge(covStr, color, "custom coverage label one")
+        with open("tests/custom1.svg","r") as f :
+            self.assertEqual(f.read(), badge)
+        covStr, color = jbg.badgeCoverageStringColorPair(0.9)
+        badge = jbg.generateBadge(covStr, color, "custom coverage label two")
+        with open("tests/custom2.svg","r") as f :
+            self.assertEqual(f.read(), badge)
+
     def testGenerateDictionaryForEndpoint(self) :
         testPercentages = [0, 0.599, 0.6, 0.7, 0.8, 0.899, 0.9, 0.99, 0.999, 1]
         expectedMsg = ["0%", "59.9%", "60%", "70%", "80%", "89.9%", "90%", "99%", "99.9%", "100%"]
