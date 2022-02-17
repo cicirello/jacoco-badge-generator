@@ -3,7 +3,7 @@
 # jacoco-badge-generator: Coverage badges, and pull request coverage checks,
 # from JaCoCo reports in GitHub Actions.
 # 
-# Copyright (c) 2020-2021 Vincent A Cicirello
+# Copyright (c) 2020-2022 Vincent A Cicirello
 # https://www.cicirello.org/
 #
 # MIT License
@@ -61,7 +61,8 @@ transform="scale(.1)" fill="#fff" textLength="{2}">{0}</text>\
 defaultColors = [ "#4c1", "#97ca00", "#a4a61d", "#dfb317", "#fe7d37", "#e05d44" ]
 
 def generateBadge(covStr, color, badgeType="coverage") :
-    """Generates the badge as a string.
+    """Generates the badge as a string. This includes calculating
+    label width, etc, to support custom labels.
 
     Keyword arguments:
     covStr - The coverage as a string.
