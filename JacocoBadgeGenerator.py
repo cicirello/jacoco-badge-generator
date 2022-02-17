@@ -34,32 +34,12 @@ import pathlib
 import os
 import os.path
 import json
+from pybadges import badge
 
-badgeTemplate = '<svg xmlns="http://www.w3.org/2000/svg" width="{6}" \
-height="20" role="img" aria-label="{3}: {0}">\
-<linearGradient id="s" x2="0" y2="100%">\
-<stop offset="0" stop-color="#bbb" stop-opacity=".1"/>\
-<stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="r">\
-<rect width="{6}" height="20" rx="3" fill="#fff"/></clipPath>\
-<g clip-path="url(#r)"><rect width="61" height="20" fill="#555"/>\
-<rect x="61" width="{5}" height="20" fill="{1}"/>\
-<rect width="{6}" height="20" fill="url(#s)"/></g>\
-<g fill="#fff" text-anchor="middle" \
-font-family="Verdana,Geneva,DejaVu Sans,sans-serif" \
-text-rendering="geometricPrecision" font-size="110">\
-<text aria-hidden="true" x="315" y="150" fill="#010101" \
-fill-opacity=".3" transform="scale(.1)" textLength="{4}">{3}</text>\
-<text x="315" y="140" transform="scale(.1)" fill="#fff" \
-textLength="{4}">{3}</text>\
-<text aria-hidden="true" x="{7}" y="150" \
-fill="#010101" fill-opacity=".3" transform="scale(.1)" \
-textLength="{2}">{0}</text><text x="{7}" y="140" \
-transform="scale(.1)" fill="#fff" textLength="{2}">{0}</text>\
-</g></svg>'
 
 defaultColors = [ "#4c1", "#97ca00", "#a4a61d", "#dfb317", "#fe7d37", "#e05d44" ]
 
-def generateBadge(covStr, color, badgeType="coverage") :
+def generateBadge(covStr, color, badgeType) :
     """Generates the badge as a string.
 
     Keyword arguments:
@@ -67,30 +47,7 @@ def generateBadge(covStr, color, badgeType="coverage") :
     color - The color for the badge.
     badgeType - The text string for a label on the badge.
     """
-    # textLength for coverage percentage string computed as follows:
-    # Assuming DejaVu Sans, 110pt font, width of % is 105,
-    # width of . is 35, width of any digit is 70.
-    textLength = 105
-    if covStr.find(".") >= 0 :
-        textLength += (70 * (len(covStr) - 2)) + 35
-    else :
-        textLength += (70 * (len(covStr) - 1))
-    # length of "coverage" assuming DejaVu Sans, 110pt font is 510
-    # but length of "branches" is 507
-    labelTextLength = 510 if badgeType=="coverage" else 507
-    rightWidth = math.ceil(textLength / 10) + 10
-    badgeWidth = 61 + rightWidth
-    rightCenter = 600 + rightWidth * 5
-    return badgeTemplate.format(
-        covStr,
-        color,
-        textLength,
-        badgeType,
-        labelTextLength,
-        rightWidth,
-        badgeWidth,
-        rightCenter
-        )
+    return badge(left_text=badgeType, right_text=covStr, right_color=color)
 
 def generateDictionaryForEndpoint(covStr, color, badgeType) :
     """Generated a Python dictionary containing all of the required
@@ -482,6 +439,11 @@ if __name__ == "__main__" :
     generateSummary = sys.argv[18].lower() == "true"
     summaryFilename = sys.argv[19]
 
+    if len(sys.argv) > 19:
+        badgeText = sys.argv[20]
+    else:
+        badgeText = "coverage"
+
     if onMissingReport not in {"fail", "quiet", "badges"} :
         print("ERROR: Invalid value for on-missing-report.")
         sys.exit(1)
@@ -495,7 +457,7 @@ if __name__ == "__main__" :
 
     jacocoFileList = jacocoCsvFile.split()
     filteredFileList = filterMissingReports(jacocoFileList, onMissingReport=="fail")
-    
+
     noReportsMissing = len(jacocoFileList)==len(filteredFileList)
 
     if len(filteredFileList) > 0 and (noReportsMissing or onMissingReport!="quiet") :  
@@ -531,7 +493,7 @@ if __name__ == "__main__" :
             if failOnBranchesDecrease and generateBranchesJSON and coverageDecreasedEndpoint(branches, branchesJSONWithPath, "branches") :
                 print("Failing the workflow run.")
                 sys.exit(1)
-            
+
         if (generateSummary or generateCoverageBadge or generateBranchesBadge or generateCoverageJSON or generateBranchesJSON) and badgesDirectory != "" :
             createOutputDirectories(badgesDirectory)
 
@@ -539,7 +501,7 @@ if __name__ == "__main__" :
             covStr, color = badgeCoverageStringColorPair(cov, colorCutoffs, colors)
             if generateCoverageBadge :
                 with open(coverageBadgeWithPath, "w") as badge :
-                    badge.write(generateBadge(covStr, color))
+                    badge.write(generateBadge(covStr, color, badgeText))
             if generateCoverageJSON :
                 with open(coverageJSONWithPath, "w") as endpoint :
                     json.dump(generateDictionaryForEndpoint(covStr, color, "coverage"), endpoint, sort_keys=True)
@@ -559,8 +521,4 @@ if __name__ == "__main__" :
 
         print("::set-output name=coverage::" + str(cov))
         print("::set-output name=branches::" + str(branches))
-    
 
-
-                
-            

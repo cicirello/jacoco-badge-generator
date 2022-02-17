@@ -624,7 +624,7 @@ class TestJacocoBadgeGenerator(unittest.TestCase) :
                           ]
         for i, cov in enumerate(testPercentages) :
             covStr, color = jbg.badgeCoverageStringColorPair(cov)
-            badge = jbg.generateBadge(covStr, color)
+            badge = jbg.generateBadge(covStr, color, "coverage")
             with open(expectedFiles[i],"r") as f :
                 self.assertEqual(f.read(), badge, msg=expectedFiles[i])
         covStr, color = jbg.badgeCoverageStringColorPair(0.999)
@@ -722,3 +722,8 @@ class TestJacocoBadgeGenerator(unittest.TestCase) :
         self.assertEqual([], jbg.colorCutoffsStringToNumberList('   '))
         self.assertEqual([99.9], jbg.colorCutoffsStringToNumberList('99.9'))
         self.assertEqual([99.9], jbg.colorCutoffsStringToNumberList('99.9,'))
+
+
+
+if __name__ == '__main__':
+    unittest.main()
