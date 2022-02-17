@@ -500,8 +500,8 @@ if __name__ == "__main__" :
         if generateCoverageBadge or generateCoverageJSON :
             covStr, color = badgeCoverageStringColorPair(cov, colorCutoffs, colors)
             if generateCoverageBadge :
-                with open(coverageBadgeWithPath, "w") as badge :
-                    badge.write(generateBadge(covStr, color, badgeText))
+                with open(coverageBadgeWithPath, "w") as fbadge :
+                    fbadge.write(generateBadge(covStr, color, badgeText))
             if generateCoverageJSON :
                 with open(coverageJSONWithPath, "w") as endpoint :
                     json.dump(generateDictionaryForEndpoint(covStr, color, "coverage"), endpoint, sort_keys=True)
@@ -509,8 +509,8 @@ if __name__ == "__main__" :
         if generateBranchesBadge or generateBranchesJSON :
             covStr, color = badgeCoverageStringColorPair(branches, colorCutoffs, colors)
             if generateBranchesBadge :
-                with open(branchesBadgeWithPath, "w") as badge :
-                    badge.write(generateBadge(covStr, color, "branches"))
+                with open(branchesBadgeWithPath, "w") as fbadge :
+                    fbadge.write(generateBadge(covStr, color, "branches"))
             if generateBranchesJSON :
                 with open(branchesJSONWithPath, "w") as endpoint :
                     json.dump(generateDictionaryForEndpoint(covStr, color, "branches"), endpoint, sort_keys=True)
