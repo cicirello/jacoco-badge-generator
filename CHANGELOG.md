@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 * Left-side text width and position calculated rather than hard-coded to
   width of "coverage" and "branches".
+* Changed Dockerfile to pull base image from GitHub Container Registry, assuming
+  within GitHub Actions likely faster to pull from GitHub rather than Docker Hub.
 
 ### Deprecated
 
