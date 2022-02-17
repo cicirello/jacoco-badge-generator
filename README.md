@@ -351,6 +351,16 @@ created within the `badges-directory`
 directory. __The action doesn't commit the JSON file. You will 
 need to have additional steps in your workflow to do that.__
 
+### `coverage-label`
+
+This input is the text for the label on the left side of the coverage badge, which
+defaults to `coverage`.
+
+### `branches-label`
+
+This input is the text for the label on the left side of the branches coverage badge, which
+defaults to `branches`.
+
 ### `colors`
 
 This input can be used to change the colors used for the badges.
@@ -649,6 +659,8 @@ what these inputs do.
         branches-endpoint-filename: branches.json
         generate-summary: false
         summary-filename: coverage-summary.json
+        coverage-label: coverage
+        branches-label: branches
         colors: '#4c1 #97ca00 #a4a61d #dfb317 #fe7d37 #e05d44'
         intervals: 100 90 80 70 60 0
         on-missing-report: fail

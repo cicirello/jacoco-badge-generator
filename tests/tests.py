@@ -249,6 +249,21 @@ class TestJacocoBadgeGenerator(unittest.TestCase) :
             self.assertFalse(jbg.coverageDecreased(cov, "tests/idontexist.svg", "coverage"))
             self.assertFalse(jbg.coverageDecreased(cov, "tests/idontexist.svg", "branches"))
 
+    def testCoverageDecreasedCustomLabelCase(self) :
+        self.assertFalse(jbg.coverageDecreased(1.0, "tests/custom1.svg", "custom coverage label one"))
+        self.assertFalse(jbg.coverageDecreased(1.0001, "tests/custom1.svg", "custom coverage label one"))
+        self.assertTrue(jbg.coverageDecreased(0.9999, "tests/custom1.svg", "custom coverage label one"))
+        self.assertFalse(jbg.coverageDecreased(0.9, "tests/custom2.svg", "custom coverage label two"))
+        self.assertFalse(jbg.coverageDecreased(0.9001, "tests/custom2.svg", "custom coverage label two"))
+        self.assertTrue(jbg.coverageDecreased(0.8999, "tests/custom2.svg", "custom coverage label two"))
+
+        self.assertFalse(jbg.coverageDecreasedEndpoint(1.0, "tests/custom1.json", "custom coverage label one"))
+        self.assertFalse(jbg.coverageDecreasedEndpoint(1.0001, "tests/custom1.json", "custom coverage label one"))
+        self.assertTrue(jbg.coverageDecreasedEndpoint(0.9999, "tests/custom1.json", "custom coverage label one"))
+        self.assertFalse(jbg.coverageDecreasedEndpoint(0.9, "tests/custom2.json", "custom coverage label two"))
+        self.assertFalse(jbg.coverageDecreasedEndpoint(0.9001, "tests/custom2.json", "custom coverage label two"))
+        self.assertTrue(jbg.coverageDecreasedEndpoint(0.8999, "tests/custom2.json", "custom coverage label two"))
+
     def testCoverageDecreasedEndpoint(self) :
         jsonFiles = [ "tests/0.json",
                           "tests/599.json",
@@ -316,6 +331,12 @@ class TestJacocoBadgeGenerator(unittest.TestCase) :
             self.assertAlmostEqual(expected[i], jbg.getPriorCoverage(f, "branches"))
         self.assertEqual(-1, jbg.getPriorCoverage("tests/idontexist.svg", "branches"))
         self.assertEqual(-1, jbg.getPriorCoverage("tests/999.svg", "branches"))
+
+    def testGetPriorCoverageCustomBadgeLabelCase(self):
+        self.assertAlmostEqual(1.0, jbg.getPriorCoverage("tests/custom1.svg", "custom coverage label one"))
+        self.assertAlmostEqual(0.9, jbg.getPriorCoverage("tests/custom2.svg", "custom coverage label two"))
+        self.assertAlmostEqual(1.0, jbg.getPriorCoverageFromEndpoint("tests/custom1.json", "custom coverage label one"))
+        self.assertAlmostEqual(0.9, jbg.getPriorCoverageFromEndpoint("tests/custom2.json", "custom coverage label two"))
 
     def testGetPriorCoverageFromEndpoint(self):
         jsonFiles = [
@@ -650,6 +671,16 @@ class TestJacocoBadgeGenerator(unittest.TestCase) :
         covStr, color = jbg.badgeCoverageStringColorPair(0.999)
         badge = jbg.generateBadge(covStr, color, "branches")
         with open("tests/999b.svg","r") as f :
+            self.assertEqual(f.read(), badge)
+
+    def testCustomBadgeLabels(self) :
+        covStr, color = jbg.badgeCoverageStringColorPair(1.0)
+        badge = jbg.generateBadge(covStr, color, "custom coverage label one")
+        with open("tests/custom1.svg","r") as f :
+            self.assertEqual(f.read(), badge)
+        covStr, color = jbg.badgeCoverageStringColorPair(0.9)
+        badge = jbg.generateBadge(covStr, color, "custom coverage label two")
+        with open("tests/custom2.svg","r") as f :
             self.assertEqual(f.read(), badge)
 
     def testGenerateDictionaryForEndpoint(self) :

@@ -89,6 +89,27 @@ jobs:
         echo "coverage = ${{ steps.integration4.outputs.coverage }}"
         echo "branch coverage = ${{ steps.integration4.outputs.branches }}"
 
+    - name: Integration test with custom labels
+      id: integration5
+      uses: ./
+      with:
+        jacoco-csv-file: tests/jacoco.csv
+        badges-directory: tests/badges
+        generate-branches-badge: true
+        generate-coverage-endpoint: true
+        generate-branches-endpoint: true
+        coverage-badge-filename: customCoverage.svg
+        branches-badge-filename: customBranches.svg
+        coverage-endpoint-filename: customCoverage.json
+        branches-endpoint-filename: customBranches.json
+        coverage-label: custom coverage label one
+        branches-label: custom coverage label two
+
+    - name: Log integration test outputs with a single jacoco.csv
+      run: |
+        echo "coverage = ${{ steps.integration5.outputs.coverage }}"
+        echo "branch coverage = ${{ steps.integration5.outputs.branches }}"
+
     - name: Verify integration test results
       run: python3 -u -m unittest tests/integration.py
 

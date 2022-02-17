@@ -34,6 +34,26 @@ import JacocoBadgeGenerator as jbg
 
 class IntegrationTest(unittest.TestCase) :
 
+    def testIntegrationCustomCoverageLabel(self) :
+        with open("tests/custom1.svg","r") as expected :
+            with open("tests/badges/customCoverage.svg","r") as generated :
+                self.assertEqual(expected.read(), generated.read())
+
+    def testIntegrationCustomBranchesLabel(self) :
+        with open("tests/custom2.svg","r") as expected :
+            with open("tests/badges/customBranches.svg","r") as generated :
+                self.assertEqual(expected.read(), generated.read())
+
+    def testIntegrationCustomCoverageLabelJSON(self) :
+        with open("tests/custom1.json","r") as expected :
+            with open("tests/badges/customCoverage.json","r") as generated :
+                self.assertEqual(expected.read(), generated.read())
+
+    def testIntegrationCustomBranchesLabelJSON(self) :
+        with open("tests/custom2.json","r") as expected :
+            with open("tests/badges/customBranches.json","r") as generated :
+                self.assertEqual(expected.read(), generated.read())
+                
     def testIntegrationInstructionsBadge(self) :
         with open("tests/100.svg","r") as expected :
             with open("tests/badges/jacoco.svg","r") as generated :
