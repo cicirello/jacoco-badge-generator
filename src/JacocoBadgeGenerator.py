@@ -34,6 +34,7 @@ import pathlib
 import os
 import os.path
 import json
+from TextLength import calculateTextLength110
 
 badgeTemplate = '<svg xmlns="http://www.w3.org/2000/svg" width="{6}" \
 height="20" role="img" aria-label="{3}: {0}">\
@@ -41,15 +42,15 @@ height="20" role="img" aria-label="{3}: {0}">\
 <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>\
 <stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="r">\
 <rect width="{6}" height="20" rx="3" fill="#fff"/></clipPath>\
-<g clip-path="url(#r)"><rect width="61" height="20" fill="#555"/>\
-<rect x="61" width="{5}" height="20" fill="{1}"/>\
+<g clip-path="url(#r)"><rect width="{8}" height="20" fill="#555"/>\
+<rect x="{8}" width="{5}" height="20" fill="{1}"/>\
 <rect width="{6}" height="20" fill="url(#s)"/></g>\
 <g fill="#fff" text-anchor="middle" \
 font-family="Verdana,Geneva,DejaVu Sans,sans-serif" \
 text-rendering="geometricPrecision" font-size="110">\
-<text aria-hidden="true" x="315" y="150" fill="#010101" \
+<text aria-hidden="true" x="{9}" y="150" fill="#010101" \
 fill-opacity=".3" transform="scale(.1)" textLength="{4}">{3}</text>\
-<text x="315" y="140" transform="scale(.1)" fill="#fff" \
+<text x="{9}" y="140" transform="scale(.1)" fill="#fff" \
 textLength="{4}">{3}</text>\
 <text aria-hidden="true" x="{7}" y="150" \
 fill="#010101" fill-opacity=".3" transform="scale(.1)" \
@@ -67,29 +68,28 @@ def generateBadge(covStr, color, badgeType="coverage") :
     color - The color for the badge.
     badgeType - The text string for a label on the badge.
     """
-    # textLength for coverage percentage string computed as follows:
-    # Assuming DejaVu Sans, 110pt font, width of % is 105,
-    # width of . is 35, width of any digit is 70.
-    textLength = 105
-    if covStr.find(".") >= 0 :
-        textLength += (70 * (len(covStr) - 2)) + 35
-    else :
-        textLength += (70 * (len(covStr) - 1))
-    # length of "coverage" assuming DejaVu Sans, 110pt font is 510
-    # but length of "branches" is 507
-    labelTextLength = 510 if badgeType=="coverage" else 507
+    # textLength for coverage percentage string computed
+    # assuming DejaVu Sans, 110pt font.
+    textLength = calculateTextLength110(covStr)
+    labelTextLength = calculateTextLength110(badgeType)
     rightWidth = math.ceil(textLength / 10) + 10
-    badgeWidth = 61 + rightWidth
-    rightCenter = 600 + rightWidth * 5
+    leftWidth = math.ceil(labelTextLength / 10) + 10
+    badgeWidth = leftWidth + rightWidth
+    # The -10 below is for an exta buffer on right end of badge
+    rightCenter = 10 * leftWidth + rightWidth * 5 - 10
+    # The +10 below is for an extra buffer on left end of badge
+    leftCenter = 10 + leftWidth * 5
     return badgeTemplate.format(
-        covStr,
-        color,
-        textLength,
-        badgeType,
-        labelTextLength,
-        rightWidth,
-        badgeWidth,
-        rightCenter
+        covStr,          #0
+        color,           #1
+        textLength,      #2
+        badgeType,       #3 
+        labelTextLength, #4
+        rightWidth,      #5
+        badgeWidth,      #6
+        rightCenter,     #7
+        leftWidth,       #8
+        leftCenter       #9
         )
 
 def generateDictionaryForEndpoint(covStr, color, badgeType) :
