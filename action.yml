@@ -108,6 +108,10 @@ inputs:
     description: 'The filename of the summary file.'
     required: false
     default: 'coverage-summary.json'
+  badge-left-text:
+    description: 'Text embedded in the left side of the badge.'
+    required: false
+    default: 'coverage'
 outputs:
   coverage:
     description: 'The jacoco coverage percentage as computed from the data in the jacoco.csv file.'
@@ -136,3 +140,4 @@ runs:
     - ${{ inputs.branches-endpoint-filename }}
     - ${{ inputs.generate-summary }}
     - ${{ inputs.summary-filename }}
+    - ${{ inputs.badge-left-text }}
