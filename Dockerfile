@@ -1,6 +1,6 @@
-# Copyright (c) 2020-2021 Vincent A. Cicirello
+# Copyright (c) 2020-2022 Vincent A. Cicirello
 # https://www.cicirello.org/
 # Licensed under the MIT License
-FROM cicirello/pyaction-lite:3
-COPY JacocoBadgeGenerator.py /JacocoBadgeGenerator.py
+FROM ghcr.io/cicirello/pyaction:4.1.0
+COPY src /
 ENTRYPOINT ["/JacocoBadgeGenerator.py"]

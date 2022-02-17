@@ -1,7 +1,7 @@
 # jacoco-badge-generator: Github action for generating a jacoco coverage
 # percentage badge.
 # 
-# Copyright (c) 2020-2021 Vincent A Cicirello
+# Copyright (c) 2020-2022 Vincent A Cicirello
 # https://www.cicirello.org/
 #
 # MIT License
@@ -27,6 +27,9 @@
 
 import unittest
 import json
+
+import sys
+sys.path.insert(0,'src')
 import JacocoBadgeGenerator as jbg
 
 class IntegrationTest(unittest.TestCase) :

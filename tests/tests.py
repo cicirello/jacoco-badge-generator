@@ -1,7 +1,7 @@
 # jacoco-badge-generator: Github action for generating a jacoco coverage
 # percentage badge.
 # 
-# Copyright (c) 2020-2021 Vincent A Cicirello
+# Copyright (c) 2020-2022 Vincent A Cicirello
 # https://www.cicirello.org/
 #
 # MIT License
@@ -27,9 +27,29 @@
 
 import unittest
 import json
+
+import sys
+sys.path.insert(0,'src')
 import JacocoBadgeGenerator as jbg
+import TextLength as textLength 
 
 class TestJacocoBadgeGenerator(unittest.TestCase) :
+
+    def testTextLength(self) :
+        self.assertEqual(510, textLength.calculateTextLength110("coverage"))
+        self.assertEqual(507, textLength.calculateTextLength110("branches"))
+        self.assertAlmostEqual(51.0, textLength.calculateTextLength("coverage", 11, False, 400))
+        self.assertAlmostEqual(50.7, textLength.calculateTextLength("branches", 11, False, 400))
+        self.assertAlmostEqual(510, textLength.calculateTextLength("coverage", 146 + 2/3, True, 400))
+        self.assertAlmostEqual(507, textLength.calculateTextLength("branches", 146 + 2/3, True, 400))
+        self.assertAlmostEqual(51.0, textLength.calculateTextLength("coverage", 14 + 2/3, True, 400))
+        self.assertAlmostEqual(50.7, textLength.calculateTextLength("branches", 14 + 2/3, True, 400))
+        self.assertAlmostEqual(76.5, textLength.calculateTextLength("coverage", 11, False, 600))
+        self.assertAlmostEqual(76.05, textLength.calculateTextLength("branches", 11, False, 600))
+        self.assertAlmostEqual(765, textLength.calculateTextLength("coverage", 146 + 2/3, True, 600))
+        self.assertAlmostEqual(760.5, textLength.calculateTextLength("branches", 146 + 2/3, True, 600))
+        self.assertAlmostEqual(76.5, textLength.calculateTextLength("coverage", 14 + 2/3, True, 600))
+        self.assertAlmostEqual(76.05, textLength.calculateTextLength("branches", 14 + 2/3, True, 600))
 
     def testCoverageDecreasedSummary(self) :
         # Same coverages

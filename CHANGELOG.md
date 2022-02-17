@@ -4,11 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2021-11-11
+## [Unreleased] - 2022-02-17
 
 ### Added
 
 ### Changed
+* Left-side text width and position calculated rather than hard-coded to
+  width of "coverage" and "branches".
+* Changed Dockerfile to pull base image from GitHub Container Registry, assuming
+  within GitHub Actions likely faster to pull from GitHub rather than Docker Hub.
 
 ### Deprecated
 
