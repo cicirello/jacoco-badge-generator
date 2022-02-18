@@ -19,6 +19,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### CI/CD
 
 
+## [2.6.1] - 2022-02-18
+
+### Fixed
+* Suppressed Python's pycache on imports (fixes Issue #46).
+
+
 ## [2.6.0] - 2022-02-17
 
 ### Added
