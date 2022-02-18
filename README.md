@@ -867,7 +867,10 @@ modules of a multi-module project, then just include multiple steps of the
 `jacoco-badge-generator` in your workflow, such as in this example. Be sure to use
 the inputs to specify names for the badge files, otherwise with the defaults
 the subsequent steps will overwrite the previous. This example assumes that there
-are two modules.
+are two modules. You also will likely want to use the `coverage-label` and `branches-label`
+inputs to change the text on the left side of the badges if you are displaying badges
+for multiple modules in the README of the same repository. This example demonstrates that
+as well.
 
 ```yml
 name: build
@@ -900,6 +903,8 @@ jobs:
         jacoco-csv-file: module1/target/site/jacoco/jacoco.csv
         coverage-badge-filename: jacoco1.svg
         branches-badge-filename: branches1.svg
+        coverage-label: coverage (module 1)
+        branches-label: branches (module 1)
 
     - name: Generate JaCoCo Badges for Module 2
       id: jacocoMod2
@@ -909,6 +914,8 @@ jobs:
         jacoco-csv-file: module2/target/site/jacoco/jacoco.csv
         coverage-badge-filename: jacoco2.svg
         branches-badge-filename: branches2.svg
+        coverage-label: coverage (module 2)
+        branches-label: branches (module 2)
 
     - name: Commit the badge (if it changed)
       run: |
