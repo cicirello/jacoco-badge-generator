@@ -460,29 +460,67 @@ def coverageDictionary(cov, branches) :
     """
     return { "coverage" : 100 * cov, "branches" : 100 * branches }
 
-if __name__ == "__main__" :
-    jacocoCsvFile = sys.argv[1]
-    badgesDirectory = sys.argv[2]
-    coverageFilename = sys.argv[3]
-    branchesFilename = sys.argv[4]
-    generateCoverageBadge = sys.argv[5].lower() == "true"
-    generateBranchesBadge = sys.argv[6].lower() == "true"
-    onMissingReport = sys.argv[7].lower()
-    minCoverage = stringToPercentage(sys.argv[8])
-    minBranches = stringToPercentage(sys.argv[9])
-    failOnCoverageDecrease = sys.argv[10].lower() == "true"
-    failOnBranchesDecrease = sys.argv[11].lower() == "true"
-    colorCutoffs = colorCutoffsStringToNumberList(sys.argv[12])
-    colors = sys.argv[13].replace(',', ' ').split()
-    generateCoverageJSON = sys.argv[14].lower() == "true"
-    generateBranchesJSON = sys.argv[15].lower() == "true"
-    coverageJSON = sys.argv[16]
-    branchesJSON = sys.argv[17]
-    generateSummary = sys.argv[18].lower() == "true"
-    summaryFilename = sys.argv[19]
-    coverageLabel = sys.argv[20]
-    branchesLabel = sys.argv[21]
+def main(jacocoCsvFile,
+    badgesDirectory,
+    coverageFilename,
+    branchesFilename,
+    generateCoverageBadge,
+    generateBranchesBadge,
+    onMissingReport,
+    minCoverage,
+    minBranches,
+    failOnCoverageDecrease,
+    failOnBranchesDecrease,
+    colorCutoffs,
+    colors,
+    generateCoverageJSON,
+    generateBranchesJSON,
+    coverageJSON,
+    branchesJSON,
+    generateSummary,
+    summaryFilename,
+    coverageLabel,
+    branchesLabel) :
+    """Main function.
 
+    Keyword arguments:
+    jacocoCsvFile - Full path(s), relative to the root of the
+        repository, to the jacoco csv file(s), including filename(s),
+        delimited by whitespace if more than one.
+    badgesDirectory - The directory for storing badges, relative to the root
+        of the repository.
+    coverageFilename - The filename of the coverage badge.
+    branchesFilename - The filename of the branches coverage badge.
+    generateCoverageBadge - Boolean to control whether or not to generate the
+        coverage badge.
+    generateBranchesBadge - Boolean to control whether or not to generate the
+        branches coverage badge.
+    onMissingReport - One of "fail", "quiet", or "badges" to controls what happens
+        if one or more jacoco.csv files do not exist.
+    minCoverage - Fails run if coverage is less than this percentage, specified as a
+        floating-point value in the interval [0.0, 1.0].
+    minBranches - Fails run if branches coverage is less than this percentage,
+        specified as a floating-point value in the interval [0.0, 1.0].
+    failOnCoverageDecrease - Boolean used to control whether or not to fail the
+        run if coverage decreased relative to prior run.
+    failOnBranchesDecrease - Boolean used to control whether or not to fail the
+        run if branches coverage decreased relative to prior run.
+    colorCutoffs - A list in descending order of coverage percents (as floats) for
+        start of each color range.
+    colors - A list of colors (each as a string), with position in list corresponding
+        to percentages in above list of coverage percents.
+    generateCoverageJSON - Boolean to control whether or not to generate the
+        coverage JSON endpoint.
+    generateBranchesJSON - Boolean to control whether or not to generate the
+        branches coverage JSON endpoint.
+    coverageJSON - The filename of the coverage JSON endpoint.
+    branchesJSON - The filename of the branches coverage JSON endpoint.
+    generateSummary - Boolean to control whether or not to generate a JSON file
+        containing the coverage percentages as floating-point values.
+    summaryFilename - The filename of the summary file.
+    coverageLabel - Text for the left-side of the coverage badge.
+    branchesLabel - Text for the left-side of the branches coverage badge.
+    """
     if onMissingReport not in {"fail", "quiet", "badges"} :
         print("ERROR: Invalid value for on-missing-report.")
         sys.exit(1)
@@ -560,8 +598,29 @@ if __name__ == "__main__" :
 
         print("::set-output name=coverage::" + str(cov))
         print("::set-output name=branches::" + str(branches))
-    
 
 
-                
-            
+if __name__ == "__main__" :
+    main(
+        jacocoCsvFile = sys.argv[1],
+        badgesDirectory = sys.argv[2],
+        coverageFilename = sys.argv[3],
+        branchesFilename = sys.argv[4],
+        generateCoverageBadge = sys.argv[5].lower() == "true",
+        generateBranchesBadge = sys.argv[6].lower() == "true",
+        onMissingReport = sys.argv[7].lower(),
+        minCoverage = stringToPercentage(sys.argv[8]),
+        minBranches = stringToPercentage(sys.argv[9]),
+        failOnCoverageDecrease = sys.argv[10].lower() == "true",
+        failOnBranchesDecrease = sys.argv[11].lower() == "true",
+        colorCutoffs = colorCutoffsStringToNumberList(sys.argv[12]),
+        colors = sys.argv[13].replace(',', ' ').split(),
+        generateCoverageJSON = sys.argv[14].lower() == "true",
+        generateBranchesJSON = sys.argv[15].lower() == "true",
+        coverageJSON = sys.argv[16],
+        branchesJSON = sys.argv[17],
+        generateSummary = sys.argv[18].lower() == "true",
+        summaryFilename = sys.argv[19],
+        coverageLabel = sys.argv[20],
+        branchesLabel = sys.argv[21]
+    )
