@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 ### Changed
-* Refactored main control block to improve maintainability and ease planned future functionality.
+* Refactored main control block to improve maintainability and ease planned future functionality (#62).
 * Bumped base Docker image cicirello/pyaction from 4.1.0 to 4.5.0.
 
 ### Deprecated
