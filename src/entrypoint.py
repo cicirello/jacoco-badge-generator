@@ -28,6 +28,8 @@
 #
 
 from jacoco_badge_generator import main
+from jacoco_badge_generator.coverage_badges import stringToPercentage
+from jacoco_badge_generator.coverage_badges import colorCutoffsStringToNumberList
 import sys
 
 if __name__ == "__main__" :
