@@ -4,12 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2022-06-23
+## [Unreleased] - 2022-06-24
 
 ### Added
 
 ### Changed
-* Refactored main control block to improve maintainability and ease planned future functionality (#62).
+* Refactored main control block to improve maintainability and ease planned future functionality (#63).
+* Refactored organization of source files (#64).
 * Bumped base Docker image cicirello/pyaction from 4.1.0 to 4.5.0.
 
 ### Deprecated

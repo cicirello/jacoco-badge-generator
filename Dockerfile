@@ -3,4 +3,4 @@
 # Licensed under the MIT License
 FROM ghcr.io/cicirello/pyaction:4.5.0
 COPY src /
-ENTRYPOINT ["/JacocoBadgeGenerator.py"]
+ENTRYPOINT ["/entrypoint.py"]
