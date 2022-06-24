@@ -30,8 +30,8 @@ import json
 
 import sys
 sys.path.insert(0,'src')
-import JacocoBadgeGenerator as jbg
-import TextLength as textLength 
+import jacoco_badge_generator.coverage_badges as jbg
+import jacoco_badge_generator.text_length as textLength 
 
 class TestJacocoBadgeGenerator(unittest.TestCase) :
 

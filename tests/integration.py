@@ -30,7 +30,7 @@ import json
 
 import sys
 sys.path.insert(0,'src')
-import JacocoBadgeGenerator as jbg
+import jacoco_badge_generator.coverage_badges as jbg
 
 class IntegrationTest(unittest.TestCase) :
 

@@ -1,5 +1,3 @@
-#!/usr/bin/env -S python3 -B
-#
 # jacoco-badge-generator: Coverage badges, and pull request coverage checks,
 # from JaCoCo reports in GitHub Actions.
 # 
@@ -34,7 +32,7 @@ import pathlib
 import os
 import os.path
 import json
-from TextLength import calculateTextLength110
+from .text_length import calculateTextLength110
 
 badgeTemplate = '<svg xmlns="http://www.w3.org/2000/svg" width="{6}" \
 height="20" role="img" aria-label="{3}: {0}">\
@@ -598,29 +596,3 @@ def main(jacocoCsvFile,
 
         print("::set-output name=coverage::" + str(cov))
         print("::set-output name=branches::" + str(branches))
-
-
-if __name__ == "__main__" :
-    main(
-        jacocoCsvFile = sys.argv[1],
-        badgesDirectory = sys.argv[2],
-        coverageFilename = sys.argv[3],
-        branchesFilename = sys.argv[4],
-        generateCoverageBadge = sys.argv[5].lower() == "true",
-        generateBranchesBadge = sys.argv[6].lower() == "true",
-        onMissingReport = sys.argv[7].lower(),
-        minCoverage = stringToPercentage(sys.argv[8]),
-        minBranches = stringToPercentage(sys.argv[9]),
-        failOnCoverageDecrease = sys.argv[10].lower() == "true",
-        failOnBranchesDecrease = sys.argv[11].lower() == "true",
-        colorCutoffs = colorCutoffsStringToNumberList(sys.argv[12]),
-        colors = sys.argv[13].replace(',', ' ').split(),
-        generateCoverageJSON = sys.argv[14].lower() == "true",
-        generateBranchesJSON = sys.argv[15].lower() == "true",
-        coverageJSON = sys.argv[16],
-        branchesJSON = sys.argv[17],
-        generateSummary = sys.argv[18].lower() == "true",
-        summaryFilename = sys.argv[19],
-        coverageLabel = sys.argv[20],
-        branchesLabel = sys.argv[21]
-    )
