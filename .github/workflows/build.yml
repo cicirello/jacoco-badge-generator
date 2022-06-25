@@ -105,7 +105,7 @@ jobs:
         coverage-label: custom coverage label one
         branches-label: custom coverage label two
 
-    - name: Log integration test outputs with a single jacoco.csv
+    - name: Log integration test outputs with custom labels
       run: |
         echo "coverage = ${{ steps.integration5.outputs.coverage }}"
         echo "branch coverage = ${{ steps.integration5.outputs.branches }}"
