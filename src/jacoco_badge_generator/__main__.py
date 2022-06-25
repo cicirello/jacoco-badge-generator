@@ -30,7 +30,10 @@ from .coverage_badges import stringToPercentage
 from .coverage_badges import main
 
 if __name__ == "__main__" :
-    # Note: This is the entry point when using the
+    # IMPORTANT: This is the entrypoint for the use-case of
+    # running as a command-line utility only.
+    #
+    # This is the entry point when using the
     # jacoco-badge-generator as a command-line tool,
     # such as via a build script, locally (and not via
     # GitHub Actions). The source code for the entry
