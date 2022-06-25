@@ -4,9 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2022-06-24
+## [Unreleased] - 2022-06-25
 
 ### Added
+* Ability to run as a command-line utility outside of GitHub Actions, such as part of a local build script, etc.
 
 ### Changed
 * Refactored main control block to improve maintainability and ease planned future functionality (#63).
