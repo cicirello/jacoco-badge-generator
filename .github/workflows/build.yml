@@ -110,6 +110,12 @@ jobs:
         echo "coverage = ${{ steps.integration5.outputs.coverage }}"
         echo "branch coverage = ${{ steps.integration5.outputs.branches }}"
 
+    - name: Integration test of CLI use-case
+      id: integrationCLI
+      run: |
+        export PYTHONPATH=$PYTHONPATH:$PWD/src
+        echo $PYTHONPATH
+
     - name: Verify integration test results
       run: python3 -u -m unittest tests/integration.py
 
