@@ -204,3 +204,27 @@ if __name__ == "__main__" :
         choices=['true', 'false']
     )
     args = parser.parse_args()
+
+    main(
+        jacocoCsvFile = " ".join(args.csvReports),
+        badgesDirectory = args.badgesDirectory,
+        coverageFilename = args.coverageFilename,
+        branchesFilename = args.branchesFilename,
+        generateCoverageBadge = args.generateCoverageBadge == "true",
+        generateBranchesBadge = args.generateBranchesBadge == "true",
+        onMissingReport = args.onMissingReport,
+        minCoverage = args.minCoverage,
+        minBranches = args.minBranches,
+        failOnCoverageDecrease = args.failOnCoverageDecrease == "true",
+        failOnBranchesDecrease = args.failOnBranchesDecrease == "true",
+        colorCutoffs = args.colorCutoffs,
+        colors = args.colors,
+        generateCoverageJSON = args.generateCoverageJSON == "true",
+        generateBranchesJSON = args.generateBranchesJSON == "true",
+        coverageJSON = args.coverageJSON,
+        branchesJSON = args.branchesJSON,
+        generateSummary = args.generateSummary == "true",
+        summaryFilename = args.summaryFilename,
+        coverageLabel = args.coverageLabel,
+        branchesLabel = args.branchesLabel
+    )
