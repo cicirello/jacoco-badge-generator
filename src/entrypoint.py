@@ -33,6 +33,14 @@ from jacoco_badge_generator.coverage_badges import colorCutoffsStringToNumberLis
 import sys
 
 if __name__ == "__main__" :
+    # IMPORTANT: This is the entrypoint for the GitHub Action only.
+    #
+    # This is the entry point when using the
+    # jacoco-badge-generator as a GitHub Action
+    # (its primary use-case). The source code for the entry
+    # point for use locally as a command-line utility is found
+    # at src/jacoco_badge_generator/__main__.py,
+    
     main(
         jacocoCsvFile = sys.argv[1],
         badgesDirectory = sys.argv[2],
