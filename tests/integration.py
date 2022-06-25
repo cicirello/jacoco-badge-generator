@@ -53,6 +53,24 @@ class IntegrationTest(unittest.TestCase) :
         with open("tests/custom2.json","r") as expected :
             with open("tests/badges/customBranches.json","r") as generated :
                 self.assertEqual(expected.read(), generated.read())
+
+    def testCLIIntegrationInstructionsBadge(self) :
+        with open("tests/100.svg","r") as expected :
+            with open("tests/cli/badges/jacoco.svg","r") as generated :
+                self.assertEqual(expected.read(), generated.read())
+
+    def testCLIIntegrationBranchesBadge(self) :
+        with open("tests/90b.svg","r") as expected :
+            with open("tests/cli/badges/branches.svg","r") as generated :
+                self.assertEqual(expected.read(), generated.read())
+
+    def testCLIIntegrationMultiJacocoReportsCase(self) :
+        with open("tests/78.svg","r") as expected :
+            with open("tests/cli/badges/coverageMulti.svg","r") as generated :
+                self.assertEqual(expected.read(), generated.read())
+        with open("tests/87b.svg","r") as expected :
+            with open("tests/cli/badges/branchesMulti.svg","r") as generated :
+                self.assertEqual(expected.read(), generated.read())
                 
     def testIntegrationInstructionsBadge(self) :
         with open("tests/100.svg","r") as expected :
