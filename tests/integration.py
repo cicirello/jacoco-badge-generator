@@ -95,6 +95,12 @@ class IntegrationTest(unittest.TestCase) :
             d = json.load(f)
             self.assertAlmostEqual(72.72727272727272, d["coverage"])
             self.assertAlmostEqual(77.77777777777777, d["branches"])
+    
+    def testCLIIntegrationSummaryReport(self) :
+        with open("tests/cli/summary/coverage-summary.json", "r") as f :
+            d = json.load(f)
+            self.assertAlmostEqual(72.72727272727272, d["coverage"])
+            self.assertAlmostEqual(77.77777777777777, d["branches"])
 
     def testIntegrationInstructionsJSON(self) :
         with open("tests/endpoints/jacoco.json", "r") as f :

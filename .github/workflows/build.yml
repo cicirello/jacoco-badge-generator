@@ -118,6 +118,7 @@ jobs:
         python3 -B -m jacoco_badge_generator --jacoco-csv-file tests/jacoco.csv --badges-directory tests/cli/badges --generate-branches-badge true
         python3 -B -m jacoco_badge_generator --jacoco-csv-file tests/multi1.csv tests/multi2.csv --badges-directory tests/cli/badges --generate-branches-badge true --coverage-badge-filename coverageMulti.svg --branches-badge-filename branchesMulti.svg
         python3 -B -m jacoco_badge_generator --jacoco-csv-file tests/jacoco.csv --badges-directory tests/cli/badgesJSON --generate-coverage-badge false --generate-coverage-endpoint true --generate-branches-endpoint true
+        python3 -B -m jacoco_badge_generator --jacoco-csv-file tests/summaryReportTest.csv --badges-directory tests/cli/summary --generate-coverage-badge false --generate-summary true
 
     - name: Verify integration test results
       run: python3 -u -m unittest tests/integration.py
