@@ -111,4 +111,20 @@ class IntegrationTest(unittest.TestCase) :
             self.assertEqual("branches", d["label"])
             self.assertEqual("90%", d["message"])
             self.assertEqual(jbg.defaultColors[1], d["color"])
+
+    def testCLIIntegrationInstructionsJSON(self) :
+        with open("tests/cli/badgesJSON/jacoco.json", "r") as f :
+            d = json.load(f)
+            self.assertEqual(1, d["schemaVersion"])
+            self.assertEqual("coverage", d["label"])
+            self.assertEqual("100%", d["message"])
+            self.assertEqual(jbg.defaultColors[0], d["color"])
+
+    def testCLIIntegrationBranchesJSON(self) :
+        with open("tests/cli/badgesJSON/branches.json", "r") as f :
+            d = json.load(f)
+            self.assertEqual(1, d["schemaVersion"])
+            self.assertEqual("branches", d["label"])
+            self.assertEqual("90%", d["message"])
+            self.assertEqual(jbg.defaultColors[1], d["color"])
     
