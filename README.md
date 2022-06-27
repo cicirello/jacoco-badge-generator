@@ -6,33 +6,32 @@ Check out all of our GitHub Actions: https://actions.cicirello.org/
 
 ## About
 
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/cicirello/jacoco-badge-generator?label=Marketplace&logo=GitHub)](https://github.com/marketplace/actions/jacoco-badge-generator)
-[![Count of Action Users](https://img.shields.io/endpoint?url=https://www.cicirello.org/endpoints/jacoco-badge-generator.json)](https://github.com/search?q=cicirello+jacoco-badge-generator+path:.github/workflows+language:YAML&type=Code)
-[![build](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/build.yml/badge.svg)](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/build.yml)
-[![CodeQL](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/codeql-analysis.yml)
-[![License](https://img.shields.io/github/license/cicirello/jacoco-badge-generator)](https://github.com/cicirello/jacoco-badge-generator/blob/main/LICENSE)
-![GitHub top language](https://img.shields.io/github/languages/top/cicirello/jacoco-badge-generator)
+| __GitHub Actions__ | [![GitHub release (latest by date)](https://img.shields.io/github/v/release/cicirello/jacoco-badge-generator?label=Marketplace&logo=GitHub)](https://github.com/marketplace/actions/jacoco-badge-generator) [![Count of Action Users](https://img.shields.io/endpoint?url=https://www.cicirello.org/endpoints/jacoco-badge-generator.json)](https://github.com/search?q=cicirello+jacoco-badge-generator+path:.github/workflows+language:YAML&type=Code) |
+| --- | --- |
+| __PyPI__ | [![PyPI](https://img.shields.io/pypi/v/jacoco-badge-generator?logo=pypi)](https://pypi.org/project/jacoco-badge-generator/) |
+| __Build__ | [![build](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/build.yml/badge.svg)](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/build.yml) [![CodeQL](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/codeql-analysis.yml) |
+| __Source Info__ | [![License](https://img.shields.io/github/license/cicirello/jacoco-badge-generator)](https://github.com/cicirello/jacoco-badge-generator/blob/main/LICENSE) ![GitHub top language](https://img.shields.io/github/languages/top/cicirello/jacoco-badge-generator) |
 
-The jacoco-badge-generator GitHub Action parses a `jacoco.csv` from a JaCoCo coverage report,
+The jacoco-badge-generator can be used in one of two ways: as a GitHub Action or as a command-line 
+utility. The jacoco-badge-generator parses a `jacoco.csv` from a JaCoCo coverage report,
 computes coverage percentages from [JaCoCo's Instructions and Branches counters](https://www.jacoco.org/jacoco/trunk/doc/counters.html), and 
-generates badges for one or both of these (configurable with action inputs) to provide an easy 
+generates badges for one or both of these (user configurable) to provide an easy 
 to read visual summary of the code coverage of your test cases. The default behavior directly
 generates the badges internally with no external calls, but the action also provides an option
-to instead generate [Shields JSON endpoints](#direct-badge-generation-vs-json-endpoint). The action supports
+to instead generate [Shields JSON endpoints](#direct-badge-generation-vs-json-endpoint). It supports
 both the basic case of a single `jacoco.csv`, as well as multi-module projects in which
 case the action can produce coverage badges from the combination of the JaCoCo reports
-from all modules, provided that the individual reports are independent.
+from all modules, provided that the individual reports are independent. It can also be configured to 
+generate a simple JSON file containing the coverages as double-precision floating-point values, either 
+instead of or in addition to generating the badges, which may be useful as input to other tools.
 
-The jacoco-badge-generator can also optionally be used as part of a pull-request check. Specifically, you can
-configure it to fail the workflow run if coverage decreased relative to prior run, and/or if coverage is below
-a target threshold. See the [Inputs](#inputs) section for details of how to configure it for this purpose. The
-action can also be configured to generate a simple JSON file containing the coverages as double-precision 
-floating-point values, either instead of or in addition to generating the badges, which may be useful as input
-to other tools.
+When used as a GitHub Action, the jacoco-badge-generator can also optionally be used as part of a pull-request 
+check. Specifically, you can configure it to fail the workflow run if coverage decreased relative to prior run, 
+and/or if coverage is below a target threshold. See the [Inputs](#inputs) section for details of how to configure 
+it for this purpose. 
 
-_The developers of the jacoco-badge-generator GitHub Action are not affiliated 
-with the developers of JaCoCo, although we are a fan and user of their excellent 
-test coverage tool._ 
+_The developers of the jacoco-badge-generator are not affiliated with the developers of JaCoCo, although we are a 
+fan and user of their excellent test coverage tool._ 
 
 ## Table of Contents
 
@@ -40,7 +39,7 @@ The documentation is organized into the following sections:
 * [The Coverage Metrics](#the-coverage-metrics): Explains the JaCoCo 
   metrics that are supported by the badge generator, such as what 
   they measure, and why they were chosen for inclusion for 
-  the jacoco-badge-generator GitHub Action.
+  the jacoco-badge-generator.
 * [Badge Style and Content](#badge-style-and-content): Provides 
   examples of the appearance of the badges that are generated, 
   including a description of the color scheme used, and the 
@@ -62,7 +61,7 @@ The documentation is organized into the following sections:
 
 ## The Coverage Metrics
 
-The jacoco-badge-generator GitHub Action currently supports generating badges for 
+The jacoco-badge-generator currently supports generating badges for 
 the two primary coverage metrics generated by JaCoCo: Instructions (C0 Coverage), and 
 Branches (C1 Coverage). Here is a summary of what these compute and why they were chosen
 for inclusion by this badge generator.
@@ -135,12 +134,12 @@ the default colors:
 
 ### Customizing Colors or Coverage Intervals
 
-The jacoco-badge-generator action provides two inputs that can be used
-to customize the colors used for the badges. The `colors` input enables you to
-pass a list of colors to the action. The `intervals` input enables you to pass
-a list of percentages used to determine color choice. If you like the default
-colors, but want to start the colors at different percentages, then you can use
-the `intervals` input to accomplish that. These two inputs can be used either
+The jacoco-badge-generator provides two inputs that can be used to customize 
+the colors used for the badges. The `colors` input enables you to pass a list 
+of colors to the action. The `intervals` input enables you to pass a list of 
+percentages used to determine color choice. If you like the default colors, 
+but want to start the colors at different percentages, then you can use the 
+`intervals` input to accomplish that. These two inputs can be used either
 individually or in combination depending upon what you want to do. See the
 [Inputs](#inputs) section for more details.
 
@@ -158,22 +157,21 @@ instead be truncated to 79.9%).
 
 The default behavior generates badges that are inspired by the style of the badges 
 of [Shields.io](https://github.com/badges/shields), and generates the badges entirely
-within the jacoco-badge-generator GitHub Action, with no external calls. However, 
-the action now also supports an optional alternative to instead generate
-[Shields JSON endpoints](https://shields.io/endpoint). Most users will likely prefer
-the default behavior, for a variety of reasons, such as simpler insertion of
-badge into README and probable faster loading. The main reason to consider generating
-a JSON endpoint instead is if you are trying to match the style of the coverage badges
-to other badges in your README that use one of Shields's alternative styles. The default 
-internally generated badges match the default Shields style.
-See the [Inputs](#inputs) section for more details on how to generate JSON endpoints 
-instead of badges.
+within the jacoco-badge-generator, with no external calls. However, it also supports 
+an optional alternative to instead generate [Shields JSON endpoints](https://shields.io/endpoint). 
+Most users will likely prefer the default behavior, for a variety of reasons, such as 
+simpler insertion of badge into README and probable faster loading. The main reason to 
+consider generating a JSON endpoint instead is if you are trying to match the style of 
+the coverage badges to other badges in your README that use one of Shields's alternative 
+styles. The default internally generated badges match the default Shields style. See 
+the [Inputs](#inputs) section for more details on how to generate JSON endpoints instead 
+of badges.
 
 ### Adding the Badges to your README
 
 #### If you generate the badges (default behavior)....
 
-If you use the action's default badges directory and default badge filenames, then 
+If you use the default badges directory and default badge filenames, then 
 you can add the coverage badge to your repository's readme with the following 
 markdown: 
 ```markdown
@@ -229,9 +227,9 @@ your workflow, you can simply pass the URL of the endpoint from GitHub's raw ser
 of the table in section [Default Color Scheme](#default-color-scheme) were done that way,
 without the use of GitHub Pages).
 
-This is not an issue if you use the default behavior of directly generating the badge
-within the action, since in that case the image is served directly to the viewer 
-from the repository whose README is being viewed.
+This is not an issue if you use the default behavior of directly generating the badge,
+since in that case the image is served directly to the viewer from the repository whose 
+README is being viewed.
 
 
 ## Inputs
