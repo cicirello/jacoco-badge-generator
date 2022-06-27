@@ -973,13 +973,13 @@ The jacoco-badge-generator requires Python 3 (and has been tested with 3.8 and a
 
 To install from PyPi (Unix and MacOS):
 
-```shell
+```Shell
 python3 -m pip install jacoco-badge-generator
 ```
 
 To install from PyPi (Windows):
 
-```shell
+```Shell
 py -m pip install jacoco-badge-generator
 ```
 
@@ -990,13 +990,13 @@ to see the details of all of the available command-line options.
 
 On Unix or MacOS:
 
-```shell
+```Shell
 python3 -m jacoco_badge_generator --help
 ```
 
 On Windows:
 
-```shell
+```Shell
 py -m jacoco_badge_generator --help
 ```
 
@@ -1020,8 +1020,25 @@ instructions coverage badge, and will place it in a `badges` directory (creating
 doesn't exist). Note that the default directory for the generated badges is one of the differences
 between the defaults in CLI mode vs GitHub Actions mode.
 
-```shell
+```Shell
 python3 -m jacoco_badge_generator
+```
+
+#### Changing the Badges Directory
+
+```Shell
+python3 -m jacoco_badge_generator --badges-directory put/badges/here
+```
+
+#### Gradle Location of JaCoCo Report
+
+The utility by default assumes that the JaCoCo report is the Maven default 
+of `target/site/jacoco/jacoco.csv`. If it is somewhere else, there is an option
+to specify its location. Here is an example with Gradle's standard location
+and name of the JaCoCo csv report.
+
+```Shell
+python3 -m jacoco_badge_generator --jacoco-csv-file build/reports/jacoco/test/jacocoTestReport.csv
 ```
 
 
