@@ -39,3 +39,13 @@ keywords = [
 "Information Page" = "https://actions.cicirello.org/jacoco-badge-generator/"
 "GitHub Repository" = "https://github.com/cicirello/jacoco-badge-generator"
 "Bug Tracker" = "https://github.com/cicirello/jacoco-badge-generator/issues"
+
+[tool.hatch.build]
+exclude = [
+    "/.github",
+    "/images",
+    "/src/entrypoint.py",
+    "/.dockerignore",
+    "/action.yml",
+    "/Dockerfile",
+]
