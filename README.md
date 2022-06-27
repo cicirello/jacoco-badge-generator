@@ -1024,6 +1024,21 @@ between the defaults in CLI mode vs GitHub Actions mode.
 python3 -m jacoco_badge_generator
 ```
 
+#### Generating Instructions Coverage and Branches Coverage Badges
+
+```Shell
+python3 -m jacoco_badge_generator --generate-branches-badge true
+```
+
+#### Generating Shields JSON Endpoints Instead of Badges
+
+If you want to generate Shields JSON endpoints instead of badges, you need
+to disable generating the coverage badge, and enable the JSON endpoints:
+
+```Shell
+python3 -m jacoco_badge_generator --generate-coverage-badge false --generate-coverage-endpoint true --generate-branches-endpoint true
+```
+
 #### Changing the Badges Directory
 
 ```Shell
@@ -1041,6 +1056,15 @@ and name of the JaCoCo csv report.
 python3 -m jacoco_badge_generator --jacoco-csv-file build/reports/jacoco/test/jacocoTestReport.csv
 ```
 
+#### Multi-Module Example
+
+If you have a multi-module project with multiple coverage reports that you want to combine (provided
+they are independent), then you can specify the locations and names of all of the report files with
+something like:
+
+```Shell
+python3 -m jacoco_badge_generator --jacoco-csv-file reports/report1.csv reports/report2.csv
+```
 
 
 
