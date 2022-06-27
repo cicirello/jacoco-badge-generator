@@ -956,7 +956,7 @@ can instead be done in the `<build>` section if you'd rather not use a profile.
 | :----- | :----- | :-----|
 | [Chips-n-Salsa](https://github.com/cicirello/Chips-n-Salsa) | [build.yml](https://github.com/cicirello/Chips-n-Salsa/blob/master/.github/workflows/build.yml) | [pom.xml](https://github.com/cicirello/Chips-n-Salsa/blob/master/pom.xml) |
 | [JavaPermutationTools](https://github.com/cicirello/JavaPermutationTools) | [build.yml](https://github.com/cicirello/JavaPermutationTools/blob/master/.github/workflows/build.yml) | [pom.xml](https://github.com/cicirello/JavaPermutationTools/blob/master/pom.xml) |
-| [ZigguratGaussian](https://github.com/cicirello/ZigguratGaussian) | [build.yml](https://github.com/cicirello/ZigguratGaussian/blob/master/.github/workflows/build.yml) | [pom.xml](https://github.com/cicirello/ZigguratGaussian/blob/master/pom.xml) |
+| [&rho;&mu;](https://github.com/cicirello/rho-mu) | [build.yml](https://github.com/cicirello/rho-mu/blob/main/.github/workflows/build.yml) | [pom.xml](https://github.com/cicirello/rho-mu/blob/main/pom.xml) |
 | [XpathQS](https://github.com/nachg/xpathqs) | [build.yml](https://github.com/nachg/xpathqs/blob/master/.github/workflows/build.yml) | [build.gradle.kts](https://github.com/nachg/xpathqs/blob/master/build.gradle.kts) |
 
 ## Support the Project
