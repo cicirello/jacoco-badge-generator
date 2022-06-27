@@ -13,8 +13,9 @@ Check out all of our GitHub Actions: https://actions.cicirello.org/
 | __Source Info__ | [![License](https://img.shields.io/github/license/cicirello/jacoco-badge-generator)](https://github.com/cicirello/jacoco-badge-generator/blob/main/LICENSE) ![GitHub top language](https://img.shields.io/github/languages/top/cicirello/jacoco-badge-generator) |
 
 The jacoco-badge-generator can be used in one of two ways: as a GitHub Action or as a command-line 
-utility. The jacoco-badge-generator parses a `jacoco.csv` from a JaCoCo coverage report,
-computes coverage percentages from [JaCoCo's Instructions and Branches counters](https://www.jacoco.org/jacoco/trunk/doc/counters.html), and 
+utility (e.g., such as part of a local build script). The jacoco-badge-generator parses a `jacoco.csv` 
+from a JaCoCo coverage report, computes coverage percentages 
+from [JaCoCo's Instructions and Branches counters](https://www.jacoco.org/jacoco/trunk/doc/counters.html), and 
 generates badges for one or both of these (user configurable) to provide an easy 
 to read visual summary of the code coverage of your test cases. The default behavior directly
 generates the badges internally with no external calls, but the action also provides an option
@@ -56,6 +57,8 @@ The documentation is organized into the following sections:
     to a template repository that we have setup to provide live runnable workflows
     to get you started; as well as links to a few repositories that are actively
     using the action, as well as direct links to the relevant workflow files.
+* [Command-Line Usage](#command-line-usage): Details on how to install and run
+  the jacoco-badge-generator as a command-line utility outside of GitHub Actions.
 * [Support the Project](#support-the-project): Information on various 
   ways that you can support the project.
 
@@ -958,6 +961,8 @@ can instead be done in the `<build>` section if you'd rather not use a profile.
 | [JavaPermutationTools](https://github.com/cicirello/JavaPermutationTools) | [build.yml](https://github.com/cicirello/JavaPermutationTools/blob/master/.github/workflows/build.yml) | [pom.xml](https://github.com/cicirello/JavaPermutationTools/blob/master/pom.xml) |
 | [&rho;&mu;](https://github.com/cicirello/rho-mu) | [build.yml](https://github.com/cicirello/rho-mu/blob/main/.github/workflows/build.yml) | [pom.xml](https://github.com/cicirello/rho-mu/blob/main/pom.xml) |
 | [XpathQS](https://github.com/nachg/xpathqs) | [build.yml](https://github.com/nachg/xpathqs/blob/master/.github/workflows/build.yml) | [build.gradle.kts](https://github.com/nachg/xpathqs/blob/master/build.gradle.kts) |
+
+## Command-Line Usage
 
 ## Support the Project
 
