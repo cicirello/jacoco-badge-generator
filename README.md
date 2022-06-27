@@ -44,17 +44,18 @@ The documentation is organized into the following sections:
   examples of the appearance of the badges that are generated, 
   including a description of the color scheme used, and the 
   formatting of the percentages.
-* [Inputs](#inputs): Detailed descriptions of the action inputs.
-* [Outputs](#outputs): Detailed descriptions of the action inputs.
-* [Example Workflows](#example-workflows): Example GitHub workflows 
-  demonstrating usage of the jacoco-badge-generator action.
-* [Multi-Module Example Workflows](#multi-module-example-workflows): Example 
-  GitHub workflows demonstrating usage of the jacoco-badge-generator 
-  action with multi-module projects.
-* [Examples in Other Projects](#examples-in-other-projects): Info and a link
-  to a template repository that we have setup to provide live runnable workflows
-  to get you started; as well as links to a few repositories that are actively
-  using the action, as well as direct links to the relevant workflow files.
+* GitHub Action documentation:
+  * [Inputs](#inputs): Detailed descriptions of the action inputs.
+  * [Outputs](#outputs): Detailed descriptions of the action inputs.
+  * [Example Workflows](#example-workflows): Example GitHub workflows 
+    demonstrating usage of the jacoco-badge-generator action.
+  * [Multi-Module Example Workflows](#multi-module-example-workflows): Example 
+    GitHub workflows demonstrating usage of the jacoco-badge-generator 
+    action with multi-module projects.
+  * [Examples in Other Projects](#examples-in-other-projects): Info and a link
+    to a template repository that we have setup to provide live runnable workflows
+    to get you started; as well as links to a few repositories that are actively
+    using the action, as well as direct links to the relevant workflow files.
 * [Support the Project](#support-the-project): Information on various 
   ways that you can support the project.
 
