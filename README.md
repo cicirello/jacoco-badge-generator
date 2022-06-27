@@ -8,7 +8,7 @@ Check out all of our GitHub Actions: https://actions.cicirello.org/
 
 | __GitHub Actions__ | [![GitHub release (latest by date)](https://img.shields.io/github/v/release/cicirello/jacoco-badge-generator?label=Marketplace&logo=GitHub)](https://github.com/marketplace/actions/jacoco-badge-generator) [![Count of Action Users](https://img.shields.io/endpoint?url=https://www.cicirello.org/endpoints/jacoco-badge-generator.json)](https://github.com/search?q=cicirello+jacoco-badge-generator+path:.github/workflows+language:YAML&type=Code) |
 | --- | --- |
-| __PyPI__ | [![PyPI](https://img.shields.io/pypi/v/jacoco-badge-generator?logo=pypi)](https://pypi.org/project/jacoco-badge-generator/) |
+| __Command-Line Utility__ | [![PyPI](https://img.shields.io/pypi/v/jacoco-badge-generator?logo=pypi)](https://pypi.org/project/jacoco-badge-generator/) |
 | __Build Status__ | [![build](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/build.yml/badge.svg)](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/build.yml) [![CodeQL](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/codeql-analysis.yml) |
 | __Source Info__ | [![License](https://img.shields.io/github/license/cicirello/jacoco-badge-generator)](https://github.com/cicirello/jacoco-badge-generator/blob/main/LICENSE) ![GitHub top language](https://img.shields.io/github/languages/top/cicirello/jacoco-badge-generator) |
 
@@ -963,6 +963,42 @@ can instead be done in the `<build>` section if you'd rather not use a profile.
 | [XpathQS](https://github.com/nachg/xpathqs) | [build.yml](https://github.com/nachg/xpathqs/blob/master/.github/workflows/build.yml) | [build.gradle.kts](https://github.com/nachg/xpathqs/blob/master/build.gradle.kts) |
 
 ## Command-Line Usage
+
+The jacoco-badge-generator started its life as a GitHub Action, but due to interest can now
+be used as a command-line utility outside of GitHub Actions. 
+
+### Installing from PyPI
+
+The jacoco-badge-generator requires Python 3 (and has been tested with 3.8 and above).
+
+To install from PyPi (Unix and MacOS):
+
+```shell
+python3 -m pip install jacoco-badge-generator
+```
+
+To install from PyPi (Windows):
+
+```shell
+py -m pip install jacoco-badge-generator
+```
+
+### Running for the First Time
+
+After installing, we recommend running it once with the `-h` or `--help` flag
+to see the details of all of the available command-line options.
+
+On Unix or MacOS:
+
+```shell
+python3 -m jacoco_badge_generator --help
+```
+
+On Windows:
+
+```shell
+py -m jacoco_badge_generator --help
+```
 
 ## Support the Project
 
