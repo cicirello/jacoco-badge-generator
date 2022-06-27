@@ -1039,6 +1039,21 @@ to disable generating the coverage badge, and enable the JSON endpoints:
 python3 -m jacoco_badge_generator --generate-coverage-badge false --generate-coverage-endpoint true --generate-branches-endpoint true
 ```
 
+### Changing Colors and Coverage Intervals
+
+If you want to change the colors used and the coverage intervals for each color,
+you can use the `--colors` and `--intervals` options. In the following example,
+green is used if coverage is at least 90 percent, yellow if coverage is less than 90 but
+at least 75 percent, orange is used if coverage is less than 75 percent but at least 60
+percent, and red is used if coverage is less than 60 percent.
+
+```Shell
+python3 -m jacoco_badge_generator --colors green yellow orange red --intervals 90 75 60
+```
+
+Colors can be specified as either SVG named colors as above or as 6-digit or 3-digit hex colors
+(see the [Inputs](#inputs) earlier for more detail).
+
 #### Changing the Badges Directory
 
 ```Shell
