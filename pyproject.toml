@@ -1,0 +1,51 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "jacoco-badge-generator"
+version = "0.0.2"
+authors = [
+  { name="Vincent A. Cicirello", email="development@cicirello.org" },
+]
+description = "JaCoCo coverage badges (SVG format), and coverage checks (e.g., decreasing coverage and minimum coverage)"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Testing",
+]
+keywords = [
+    "badges",
+    "badge generator",
+    "branches coverage",
+    "C0 coverage",
+    "C1 coverage",
+    "coverage",
+    "coverage reports",
+    "instructions coverage",
+    "jacoco",
+    "Java",
+    "JVM",
+    "Kotlin",
+    "Scala",
+    "testing",
+]
+
+[project.urls]
+"Information Page" = "https://actions.cicirello.org/jacoco-badge-generator/"
+"GitHub Repository" = "https://github.com/cicirello/jacoco-badge-generator"
+"Bug Tracker" = "https://github.com/cicirello/jacoco-badge-generator/issues"
+
+[tool.hatch.build]
+exclude = [
+    "/.github",
+    "/images",
+    "/src/entrypoint.py",
+    "/.dockerignore",
+    "/action.yml",
+    "/Dockerfile",
+]

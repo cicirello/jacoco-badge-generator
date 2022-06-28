@@ -6,33 +6,33 @@ Check out all of our GitHub Actions: https://actions.cicirello.org/
 
 ## About
 
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/cicirello/jacoco-badge-generator?label=Marketplace&logo=GitHub)](https://github.com/marketplace/actions/jacoco-badge-generator)
-[![Count of Action Users](https://img.shields.io/endpoint?url=https://www.cicirello.org/endpoints/jacoco-badge-generator.json)](https://github.com/search?q=cicirello+jacoco-badge-generator+path:.github/workflows+language:YAML&type=Code)
-[![build](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/build.yml/badge.svg)](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/build.yml)
-[![CodeQL](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/codeql-analysis.yml)
-[![License](https://img.shields.io/github/license/cicirello/jacoco-badge-generator)](https://github.com/cicirello/jacoco-badge-generator/blob/main/LICENSE)
-![GitHub top language](https://img.shields.io/github/languages/top/cicirello/jacoco-badge-generator)
+| __GitHub Actions__ | [![GitHub release (latest by date)](https://img.shields.io/github/v/release/cicirello/jacoco-badge-generator?label=Marketplace&logo=GitHub)](https://github.com/marketplace/actions/jacoco-badge-generator) [![Count of Action Users](https://img.shields.io/endpoint?url=https://www.cicirello.org/endpoints/jacoco-badge-generator.json)](https://github.com/search?q=cicirello+jacoco-badge-generator+path:.github/workflows+language:YAML&type=Code) |
+| :--- | :--- |
+| __Command-Line Utility__ | [![PyPI](https://img.shields.io/pypi/v/jacoco-badge-generator?logo=pypi)](https://pypi.org/project/jacoco-badge-generator/) |
+| __Build Status__ | [![build](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/build.yml/badge.svg)](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/build.yml) [![CodeQL](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/codeql-analysis.yml) |
+| __Source Info__ | [![License](https://img.shields.io/github/license/cicirello/jacoco-badge-generator)](https://github.com/cicirello/jacoco-badge-generator/blob/main/LICENSE) ![GitHub top language](https://img.shields.io/github/languages/top/cicirello/jacoco-badge-generator) |
 
-The jacoco-badge-generator GitHub Action parses a `jacoco.csv` from a JaCoCo coverage report,
-computes coverage percentages from [JaCoCo's Instructions and Branches counters](https://www.jacoco.org/jacoco/trunk/doc/counters.html), and 
-generates badges for one or both of these (configurable with action inputs) to provide an easy 
+The jacoco-badge-generator can be used in one of two ways: as a GitHub Action or as a command-line 
+utility (e.g., such as part of a local build script). The jacoco-badge-generator parses a `jacoco.csv` 
+from a JaCoCo coverage report, computes coverage percentages 
+from [JaCoCo's Instructions and Branches counters](https://www.jacoco.org/jacoco/trunk/doc/counters.html), and 
+generates badges for one or both of these (user configurable) to provide an easy 
 to read visual summary of the code coverage of your test cases. The default behavior directly
 generates the badges internally with no external calls, but the action also provides an option
-to instead generate [Shields JSON endpoints](#direct-badge-generation-vs-json-endpoint). The action supports
+to instead generate [Shields JSON endpoints](#direct-badge-generation-vs-json-endpoint). It supports
 both the basic case of a single `jacoco.csv`, as well as multi-module projects in which
 case the action can produce coverage badges from the combination of the JaCoCo reports
-from all modules, provided that the individual reports are independent.
+from all modules, provided that the individual reports are independent. It can also be configured to 
+generate a simple JSON file containing the coverages as double-precision floating-point values, either 
+instead of or in addition to generating the badges, which may be useful as input to other tools.
 
-The jacoco-badge-generator can also optionally be used as part of a pull-request check. Specifically, you can
-configure it to fail the workflow run if coverage decreased relative to prior run, and/or if coverage is below
-a target threshold. See the [Inputs](#inputs) section for details of how to configure it for this purpose. The
-action can also be configured to generate a simple JSON file containing the coverages as double-precision 
-floating-point values, either instead of or in addition to generating the badges, which may be useful as input
-to other tools.
+When used as a GitHub Action, the jacoco-badge-generator can also optionally be used as part of a pull-request 
+check. Specifically, you can configure it to fail the workflow run if coverage decreased relative to prior run, 
+and/or if coverage is below a target threshold. See the [Inputs](#inputs) section for details of how to configure 
+it for this purpose. 
 
-_The developers of the jacoco-badge-generator GitHub Action are not affiliated 
-with the developers of JaCoCo, although we are a fan and user of their excellent 
-test coverage tool._ 
+_The developers of the jacoco-badge-generator are not affiliated with the developers of JaCoCo, although we are a 
+fan and user of their excellent test coverage tool._ 
 
 ## Table of Contents
 
@@ -40,29 +40,41 @@ The documentation is organized into the following sections:
 * [The Coverage Metrics](#the-coverage-metrics): Explains the JaCoCo 
   metrics that are supported by the badge generator, such as what 
   they measure, and why they were chosen for inclusion for 
-  the jacoco-badge-generator GitHub Action.
+  the jacoco-badge-generator.
 * [Badge Style and Content](#badge-style-and-content): Provides 
   examples of the appearance of the badges that are generated, 
   including a description of the color scheme used, and the 
   formatting of the percentages.
-* [Inputs](#inputs): Detailed descriptions of the action inputs.
-* [Outputs](#outputs): Detailed descriptions of the action inputs.
-* [Example Workflows](#example-workflows): Example GitHub workflows 
-  demonstrating usage of the jacoco-badge-generator action.
-* [Multi-Module Example Workflows](#multi-module-example-workflows): Example 
-  GitHub workflows demonstrating usage of the jacoco-badge-generator 
-  action with multi-module projects.
-* [Examples in Other Projects](#examples-in-other-projects): Info and a link
-  to a template repository that we have setup to provide live runnable workflows
-  to get you started; as well as links to a few repositories that are actively
-  using the action, as well as direct links to the relevant workflow files.
+* [GitHub Action Usage](#github-action-usage): Details on how to use the 
+  jacoco-badge-generator GitHub Action (its primary use-case).
+  * [Inputs](#inputs): Detailed descriptions of the action inputs.
+  * [Outputs](#outputs): Detailed descriptions of the action inputs.
+  * [Example Workflows](#example-workflows): Example GitHub workflows 
+    demonstrating usage of the jacoco-badge-generator action.
+  * [Multi-Module Example Workflows](#multi-module-example-workflows): Example 
+    GitHub workflows demonstrating usage of the jacoco-badge-generator 
+    action with multi-module projects.
+  * [Examples in Other Projects](#examples-in-other-projects): Info and a link
+    to a template repository that we have setup to provide live runnable workflows
+    to get you started; as well as links to a few repositories that are actively
+    using the action, as well as direct links to the relevant workflow files.
+* [Command-Line Usage](#command-line-usage): Details on how to install and run
+  the jacoco-badge-generator as a command-line utility outside of GitHub Actions.
+  * [Installing from PyPI](#installing-from-pypi): How to install command-line
+    utility from PyPI.
+  * [Running for the First Time](#running-for-the-first-time): Command-line utility's
+    help menu.
+  * [CLI Examples](#cli-examples): Several examples of using the command-line utlity.
+* [Summary of Input Defaults](#summary-of-input-defaults): A table summarizing all
+  of the inputs, along with the defaults, for both GitHub Actions usage as well as
+  CLI usage.  
 * [Support the Project](#support-the-project): Information on various 
   ways that you can support the project.
 
 
 ## The Coverage Metrics
 
-The jacoco-badge-generator GitHub Action currently supports generating badges for 
+The jacoco-badge-generator currently supports generating badges for 
 the two primary coverage metrics generated by JaCoCo: Instructions (C0 Coverage), and 
 Branches (C1 Coverage). Here is a summary of what these compute and why they were chosen
 for inclusion by this badge generator.
@@ -135,12 +147,12 @@ the default colors:
 
 ### Customizing Colors or Coverage Intervals
 
-The jacoco-badge-generator action provides two inputs that can be used
-to customize the colors used for the badges. The `colors` input enables you to
-pass a list of colors to the action. The `intervals` input enables you to pass
-a list of percentages used to determine color choice. If you like the default
-colors, but want to start the colors at different percentages, then you can use
-the `intervals` input to accomplish that. These two inputs can be used either
+The jacoco-badge-generator provides two inputs that can be used to customize 
+the colors used for the badges. The `colors` input enables you to pass a list 
+of colors to the action. The `intervals` input enables you to pass a list of 
+percentages used to determine color choice. If you like the default colors, 
+but want to start the colors at different percentages, then you can use the 
+`intervals` input to accomplish that. These two inputs can be used either
 individually or in combination depending upon what you want to do. See the
 [Inputs](#inputs) section for more details.
 
@@ -158,22 +170,21 @@ instead be truncated to 79.9%).
 
 The default behavior generates badges that are inspired by the style of the badges 
 of [Shields.io](https://github.com/badges/shields), and generates the badges entirely
-within the jacoco-badge-generator GitHub Action, with no external calls. However, 
-the action now also supports an optional alternative to instead generate
-[Shields JSON endpoints](https://shields.io/endpoint). Most users will likely prefer
-the default behavior, for a variety of reasons, such as simpler insertion of
-badge into README and probable faster loading. The main reason to consider generating
-a JSON endpoint instead is if you are trying to match the style of the coverage badges
-to other badges in your README that use one of Shields's alternative styles. The default 
-internally generated badges match the default Shields style.
-See the [Inputs](#inputs) section for more details on how to generate JSON endpoints 
-instead of badges.
+within the jacoco-badge-generator, with no external calls. However, it also supports 
+an optional alternative to instead generate [Shields JSON endpoints](https://shields.io/endpoint). 
+Most users will likely prefer the default behavior, for a variety of reasons, such as 
+simpler insertion of badge into README and probable faster loading. The main reason to 
+consider generating a JSON endpoint instead is if you are trying to match the style of 
+the coverage badges to other badges in your README that use one of Shields's alternative 
+styles. The default internally generated badges match the default Shields style. See 
+the [Inputs](#inputs) section for more details on how to generate JSON endpoints instead 
+of badges.
 
 ### Adding the Badges to your README
 
 #### If you generate the badges (default behavior)....
 
-If you use the action's default badges directory and default badge filenames, then 
+If you use the default badges directory and default badge filenames, then 
 you can add the coverage badge to your repository's readme with the following 
 markdown: 
 ```markdown
@@ -229,17 +240,22 @@ your workflow, you can simply pass the URL of the endpoint from GitHub's raw ser
 of the table in section [Default Color Scheme](#default-color-scheme) were done that way,
 without the use of GitHub Pages).
 
-This is not an issue if you use the default behavior of directly generating the badge
-within the action, since in that case the image is served directly to the viewer 
-from the repository whose README is being viewed.
+This is not an issue if you use the default behavior of directly generating the badge,
+since in that case the image is served directly to the viewer from the repository whose 
+README is being viewed.
 
 
-## Inputs
+## GitHub Action Usage
+
+The jacoco-badge-generator's primary use-case is as a GitHub Action. The subsections of this
+section documents how to use it as a GitHub Action.
+
+### Inputs
 
 All inputs include default values, and are thus optional provided the
 defaults are relevant to your use-case.
 
-### `jacoco-csv-file`
+#### `jacoco-csv-file`
 
 This input is the full path, relative to the root of the repository, to 
 the `jacoco.csv` file, including filename.  It defaults 
@@ -267,18 +283,18 @@ to properly merge such overlapping reports. If this applies to your use-case, th
 you will need to have JaCoCo produce a single JaCoCo report first (for example, 
 see [jacoco:report-aggregate](https://www.jacoco.org/jacoco/trunk/doc/report-aggregate-mojo.html)). 
 
-### `badges-directory`
+#### `badges-directory`
 
 This input is the directory for storing badges, relative to the root of the 
 repository. The default is `.github/badges`. The action will create the badges
 directory if it doesn't already exist, although the action itself does not commit.
 
-### `generate-coverage-badge`
+#### `generate-coverage-badge`
 
 This input controls whether or not to generate the coverage badge (Instructions 
 Coverage), and defaults to `true`.
 
-### `coverage-badge-filename`
+#### `coverage-badge-filename`
 
 This input is the filename for the coverage badge (Instructions or C0 
 Coverage). The default filename 
@@ -287,13 +303,13 @@ created within the `badges-directory`
 directory. __The action doesn't commit the badge file. You will 
 need to have additional steps in your workflow to do that.__
 
-### `generate-branches-badge`
+#### `generate-branches-badge`
 
 This input controls whether or not to generate the branches coverage badge, and defaults
 to `false`. This defaults to `false` to avoid surprising users who upgrade from earlier
 versions with a badge they didn't know would be generated.
 
-### `branches-badge-filename`
+#### `branches-badge-filename`
 
 This input is the filename for the branches coverage badge (C1 
 Coverage). The default filename 
@@ -302,12 +318,12 @@ created within the `badges-directory`
 directory. __The action doesn't commit the badge file. You will 
 need to have additional steps in your workflow to do that.__
 
-### `generate-coverage-endpoint`
+#### `generate-coverage-endpoint`
 
 This input controls whether or not to generate a JSON endpoint 
 for coverage (Instructions Coverage), and defaults to `false`.
 
-### `coverage-endpoint-filename`
+#### `coverage-endpoint-filename`
 
 This input is the filename for the coverage endpoint (Instructions or C0 
 Coverage) if you have opted to generate a JSON endpoint instead of the
@@ -316,12 +332,12 @@ created within the `badges-directory`
 directory. __The action doesn't commit the JSON file. You will 
 need to have additional steps in your workflow to do that.__
 
-### `generate-branches-endpoint`
+#### `generate-branches-endpoint`
 
 This input controls whether or not to generate a JSON endpoint 
 for branches coverage, and defaults to `false`.
 
-### `branches-endpoint-filename`
+#### `branches-endpoint-filename`
 
 This input is the filename for the branches coverage endpoint (C1 
 Coverage) if you have opted to generate a JSON endpoint instead of the
@@ -330,7 +346,7 @@ created within the `badges-directory`
 directory. __The action doesn't commit the JSON file. You will 
 need to have additional steps in your workflow to do that.__
 
-### `generate-summary`
+#### `generate-summary`
 
 This input controls whether or not to generate a simple JSON
 summary report of the following form:
@@ -342,7 +358,7 @@ summary report of the following form:
 The default is `generate-summary: false`. To enable, use
 `generate-summary: true`.
 
-### `summary-filename`
+#### `summary-filename`
 
 This input is the filename for the summary report (see above). The
 default is `summary-filename: coverage-summary.json`, and will be
@@ -350,17 +366,17 @@ created within the `badges-directory`
 directory. __The action doesn't commit the JSON file. You will 
 need to have additional steps in your workflow to do that.__
 
-### `coverage-label`
+#### `coverage-label`
 
 This input is the text for the label on the left side of the coverage badge, which
 defaults to `coverage`.
 
-### `branches-label`
+#### `branches-label`
 
 This input is the text for the label on the left side of the branches coverage badge, which
 defaults to `branches`.
 
-### `colors`
+#### `colors`
 
 This input can be used to change the colors used for the badges.
 It defaults to `colors: '#4c1 #97ca00 #a4a61d #dfb317 #fe7d37 #e05d44'`,
@@ -382,7 +398,7 @@ colors than there are intervals, then the extra colors will be ignored. If you
 pass an empty list of colors, then the action will simply use the default colors.
 __The action does not do any validation of the colors that you pass.__
 
-### `intervals`
+#### `intervals`
 
 This input enables specifying the coverage intervals for the 
 different colors. It is a simple list of percentages. The default
@@ -420,7 +436,7 @@ you want to use bright green for 80 and above,
 yellow for 60 and above, and red for less than 60, you might do something like the
 following: `intervals: 80 80 80 60 60 0`. The 0 at the end is optional.  
 
-### `on-missing-report`
+#### `on-missing-report`
 
 This input controls what happens if one or more `jacoco.csv` files do not exist.
 This input accepts one of three possible values: `fail`, `quiet`, or `badges`.
@@ -446,7 +462,7 @@ Regardless of value passed to this input, the action will log warnings for
 any files listed in the `jacoco-csv-file` input that do not exist, for your 
 inspection in the workflow run. 
 
-### `fail-if-coverage-less-than`
+#### `fail-if-coverage-less-than`
 
 This input enables directing the action to fail the workflow run if
 the computed coverage is less than a minimum. The default is 0, effectively
@@ -457,7 +473,7 @@ For example, all of the following are equivalent: `fail-if-coverage-less-than: 0
 Note that in the last case, you need the quotes due to the percent sign.
 Values greater than 1 are assumed percents.
 
-### `fail-if-branches-less-than`
+#### `fail-if-branches-less-than`
 
 This input enables directing the action to fail the workflow run if
 the computed branches coverage is less than a minimum. The default is 0, effectively
@@ -468,7 +484,7 @@ For example, all of the following are equivalent: `fail-if-branches-less-than: 0
 Note that in the last case, you need the quotes due to the percent sign.
 Values greater than 1 are assumed percents.
 
-### `fail-on-coverage-decrease`
+#### `fail-on-coverage-decrease`
 
 This input enables directing the action to fail the workflow run if
 the computed coverage is less than it was on the previous run as recorded in either the
@@ -484,7 +500,7 @@ decreased since it is more precise than the truncated coverage percentage stored
 the badge or Shields endpoint. __Therefore, when using this feature, it is recommended that
 you also set `generate-summary: true` and commit the summary report JSON file to the repository.__
 
-### `fail-on-branches-decrease`
+#### `fail-on-branches-decrease`
 
 This input enables directing the action to fail the workflow run if
 the computed branches coverage is less than it was on the previous run as recorded in either the
@@ -501,30 +517,30 @@ the badge or Shields endpoint. __Therefore, when using this feature, it is recom
 you also set `generate-summary: true` and commit the summary report JSON file to the repository.__
 
 
-## Outputs
+### Outputs
 
 The action also outputs the actual computed coverage percentages as double-precision
 floating-point numbers. So you can add a step to your workflow to access these if 
 desired (these action outputs are values in the interval from 0.0 to 1.0).
 
-### `coverage`
+#### `coverage`
 
 This output is the actual computed coverage percentage in the interval 
 from 0.0 to 1.0.  This is coverage computed from the instructions
 coverage data in the JaCoCo csv report.
 
-### `branches`
+#### `branches`
 
 This output is the actual computed branches coverage percentage 
 in the interval from 0.0 to 1.0.  This is the percentage of branches
 covered, computed from the branches data in the JaCoCo csv report.
 
 
-## Example Workflows
+### Example Workflows
 
-### Prerequisite: Running JaCoCo
+#### Prerequisite: Running JaCoCo
 
-#### Running JaCoCo via Maven
+##### Running JaCoCo via Maven
 
 The example workflows assume that you are using Maven to build and test
 a Java project, and that you have the `jacoco-maven-plugin`
@@ -537,7 +553,7 @@ along the lines of the following:
     <plugin>
       <groupId>org.jacoco</groupId>
       <artifactId>jacoco-maven-plugin</artifactId>
-      <version>0.8.7</version>
+      <version>0.8.8</version>
       <executions>
         <execution>
           <goals>
@@ -559,10 +575,10 @@ along the lines of the following:
 
 Note that the jacoco-badge-generator action has been tested with
 the `jacoco.csv` files generated by `jacoco-maven-plugin` versions
-0.8.6 and 0.8.7, and has not been tested with earlier versions
+0.8.6 through 0.8.8, and has not been tested with earlier versions
 of JaCoCo.
 
-#### Running JaCoCo via Gradle
+##### Running JaCoCo via Gradle
 
 If you use gradle as your build tool, then you can configure JaCoCo
 in `build.gradle.kts` with:
@@ -593,7 +609,7 @@ jacocoTestReport {
 }
 ```
 
-### Basic Action Syntax
+#### Basic Action Syntax
 
 If you use Maven as your build tool, then you will have steps
 in your workflow along the lines of the following (which assumes
@@ -629,12 +645,12 @@ You can also use a specific release with:
 
 ```yml
     - name: Generate JaCoCo Badge
-      uses: cicirello/jacoco-badge-generator@v2.5.0
+      uses: cicirello/jacoco-badge-generator@v2.7.0
       with:
         generate-branches-badge: true
 ```
 
-### All Possible Action Inputs
+#### All Possible Action Inputs
 
 This shows a workflow step that uses all of the
 possible inputs of the `jacoco-badge-generator` action.
@@ -677,7 +693,7 @@ it is equivalent to:
       uses: cicirello/jacoco-badge-generator@v2
 ```
 
-### Example Workflow 1: Generate instructions (or C0) coverage badge only.
+#### Example Workflow 1: Generate instructions (or C0) coverage badge only.
 
 This sample workflow runs on pushes to the main
 branch.  It first sets up Java, and runs the tests with Maven. If you
@@ -741,7 +757,7 @@ jobs:
         path: target/site/jacoco/
 ```
 
-### Example Workflow 2: Generate instructions coverage and branches coverage badges.
+#### Example Workflow 2: Generate instructions coverage and branches coverage badges.
 
 This example workflow is just like the above example, however, it generates
 both badges (instructions coverage percentage and branches coverage percentage).
@@ -798,9 +814,9 @@ jobs:
         path: target/site/jacoco/
 ```
 
-## Multi-Module Example Workflows
+### Multi-Module Example Workflows
 
-### Example Workflow 3: Generate Instructions and Coverage Badges for a Multi-Module Project.
+#### Example Workflow 3: Generate Instructions and Coverage Badges for a Multi-Module Project.
 
 This example workflow generates both badges (instructions coverage percentage 
 and branches coverage percentage) for a multi-module project. The badges that are generated
@@ -859,7 +875,7 @@ jobs:
         fi
 ```
 
-### Example Workflow 4: Multi-Module Project with Separate Badges for Each Module.
+#### Example Workflow 4: Multi-Module Project with Separate Badges for Each Module.
 
 If you would prefer to generate separate coverage badges for each of the
 modules of a multi-module project, then just include multiple steps of the
@@ -927,9 +943,9 @@ jobs:
         fi
 ```
 
-## Examples in Other Projects
+### Examples in Other Projects
 
-### Template Repository with Runnable Workflow Examples 
+#### Template Repository with Runnable Workflow Examples 
 We now have
 a [template repository](https://github.com/cicirello/examples-jacoco-badge-generator) 
 with a simple Maven Java project, using the `jacoco-maven-plugin`,
@@ -941,7 +957,7 @@ fork it instead. Its README
 explains the contents of that repository, especially the details of the various 
 workflows it contains, and includes examples inserting the badges into its README.
 
-### Live Real Examples
+#### Live Real Examples
 
 If you would like to see examples where the action is actively used, here 
 are a few repositories that are actively using the `jacoco-badge-generator` action.
@@ -957,8 +973,172 @@ can instead be done in the `<build>` section if you'd rather not use a profile.
 | :----- | :----- | :-----|
 | [Chips-n-Salsa](https://github.com/cicirello/Chips-n-Salsa) | [build.yml](https://github.com/cicirello/Chips-n-Salsa/blob/master/.github/workflows/build.yml) | [pom.xml](https://github.com/cicirello/Chips-n-Salsa/blob/master/pom.xml) |
 | [JavaPermutationTools](https://github.com/cicirello/JavaPermutationTools) | [build.yml](https://github.com/cicirello/JavaPermutationTools/blob/master/.github/workflows/build.yml) | [pom.xml](https://github.com/cicirello/JavaPermutationTools/blob/master/pom.xml) |
-| [ZigguratGaussian](https://github.com/cicirello/ZigguratGaussian) | [build.yml](https://github.com/cicirello/ZigguratGaussian/blob/master/.github/workflows/build.yml) | [pom.xml](https://github.com/cicirello/ZigguratGaussian/blob/master/pom.xml) |
+| [&rho;&mu;](https://github.com/cicirello/rho-mu) | [build.yml](https://github.com/cicirello/rho-mu/blob/main/.github/workflows/build.yml) | [pom.xml](https://github.com/cicirello/rho-mu/blob/main/pom.xml) |
 | [XpathQS](https://github.com/nachg/xpathqs) | [build.yml](https://github.com/nachg/xpathqs/blob/master/.github/workflows/build.yml) | [build.gradle.kts](https://github.com/nachg/xpathqs/blob/master/build.gradle.kts) |
+
+
+## Command-Line Usage
+
+The jacoco-badge-generator started its life as a GitHub Action, but due to interest can now
+be used as a command-line utility outside of GitHub Actions. 
+
+### Installing from PyPI
+
+The jacoco-badge-generator requires Python 3 (and has been tested with 3.8 and above).
+
+To install from PyPi (Unix and MacOS):
+
+```Shell
+python3 -m pip install jacoco-badge-generator
+```
+
+To install from PyPi (Windows):
+
+```Shell
+py -m pip install jacoco-badge-generator
+```
+
+To upgrade to the latest version from PyPi (Unix and MacOS):
+
+```Shell
+python3 -m pip install --upgrade jacoco-badge-generator
+```
+
+To upgrade to the latest version from PyPi (Windows):
+
+```Shell
+py -m pip install --upgrade jacoco-badge-generator
+```
+
+### Running for the First Time
+
+After installing, we recommend running it once with the `-h` or `--help` flag
+to see the details of all of the available command-line options.
+
+On Unix or MacOS:
+
+```Shell
+python3 -m jacoco_badge_generator --help
+```
+
+On Windows:
+
+```Shell
+py -m jacoco_badge_generator --help
+```
+
+### CLI Examples
+
+All GitHub Action inputs have a counterpart command-line option that can be
+used in CLI mode. See the [Inputs](#inputs) section earlier for details. If the GitHub 
+Actions input is named `input-name`, then in CLI mode, the corresponding command-line 
+option is `--input-name`. All options are optional and provide relevant defaults 
+for the basic use-case. The defaults are nearly identical to those of the GitHub Action, 
+with a few exceptions.
+
+Here are a few examples. Note that all examples assume Unix (e.g., Python command is
+`python3`). If on Windows, just change `python3` to `py` in all of the examples below.
+
+#### All Defaults
+
+As an example, from the root of your project (assuming you've already run JaCoCo), execute
+the following. In this example, all of the defaults are used, which will generate only the
+instructions coverage badge, and will place it in a `badges` directory (creating it if it 
+doesn't exist). Note that the default directory for the generated badges is one of the differences
+between the defaults in CLI mode vs GitHub Actions mode.
+
+```Shell
+python3 -m jacoco_badge_generator
+```
+
+#### Generating Instructions Coverage and Branches Coverage Badges
+
+```Shell
+python3 -m jacoco_badge_generator --generate-branches-badge true
+```
+
+#### Generating Shields JSON Endpoints Instead of Badges
+
+If you want to generate Shields JSON endpoints instead of badges, you need
+to disable generating the coverage badge, and enable the JSON endpoints:
+
+```Shell
+python3 -m jacoco_badge_generator --generate-coverage-badge false --generate-coverage-endpoint true --generate-branches-endpoint true
+```
+
+#### Changing Colors and Coverage Intervals
+
+If you want to change the colors used and the coverage intervals for each color,
+you can use the `--colors` and `--intervals` options. In the following example,
+green is used if coverage is at least 90 percent, yellow if coverage is less than 90 but
+at least 75 percent, orange is used if coverage is less than 75 percent but at least 60
+percent, and red is used if coverage is less than 60 percent.
+
+```Shell
+python3 -m jacoco_badge_generator --colors green yellow orange red --intervals 90 75 60
+```
+
+Colors can be specified as either SVG named colors as above or as 6-digit or 3-digit hex colors
+(see the [Inputs](#inputs) earlier for more detail).
+
+#### Changing the Badges Directory
+
+```Shell
+python3 -m jacoco_badge_generator --badges-directory put/badges/here
+```
+
+#### Gradle Location of JaCoCo Report
+
+The utility by default assumes that the JaCoCo report is the Maven default 
+of `target/site/jacoco/jacoco.csv`. If it is somewhere else, there is an option
+to specify its location. Here is an example with Gradle's standard location
+and name of the JaCoCo csv report.
+
+```Shell
+python3 -m jacoco_badge_generator --jacoco-csv-file build/reports/jacoco/test/jacocoTestReport.csv
+```
+
+#### Multi-Module Example
+
+If you have a multi-module project with multiple coverage reports that you want to combine (provided
+they are independent), then you can specify the locations and names of all of the report files with
+something like:
+
+```Shell
+python3 -m jacoco_badge_generator --jacoco-csv-file reports/report1.csv reports/report2.csv
+```
+
+
+## Summary of Input Defaults
+
+The following table summarizes the default values of all inputs for both the GitHub Actions
+usage as well as the CLI usage. If your use-case requires the defaults as specified below, then
+you do not need to include them.
+
+| GitHub Actions Default | CLI Default |
+| --- | --- |
+| `jacoco-csv-file: target/site/jacoco/jacoco.csv` | `--jacoco-csv-file target/site/jacoco/jacoco.csv`<br>or<br>`-j target/site/jacoco/jacoco.csv` |
+| `badges-directory: .github/badges` | `--badges-directory badges`<br>or<br>`-d badges` |
+| `generate-coverage-badge: true` | `--generate-coverage-badge true` |
+| `coverage-badge-filename: jacoco.svg` | `--coverage-badge-filename jacoco.svg` |
+| `generate-branches-badge: false` | `--generate-branches-badge false` |
+| `branches-badge-filename: branches.svg` | `--branches-badge-filename branches.svg` |
+| `generate-coverage-endpoint: false` | `--generate-coverage-endpoint false` |
+| `coverage-endpoint-filename: jacoco.json` | `--coverage-endpoint-filename jacoco.json` |
+| `generate-branches-endpoint: false` | `--generate-branches-endpoint false` |
+| `branches-endpoint-filename: branches.json` | `--branches-endpoint-filename branches.json` |
+| `generate-summary: false` | `--generate-summary false` |
+| `summary-filename: coverage-summary.json` | `--summary-filename coverage-summary.json` |
+| `coverage-label: coverage` | `--coverage-label coverage` |
+| `branches-label: branches` | `--branches-label branches` |
+| `colors: '#4c1 #97ca00 #a4a61d #dfb317 #fe7d37 #e05d44'` | On Windows: `--colors #4c1 #97ca00 #a4a61d #dfb317 #fe7d37 #e05d44`<br>Bash or anywhere `#` has special meaning: `--colors '#4c1' '#97ca00' '#a4a61d' '#dfb317' '#fe7d37' '#e05d44'` |
+| `intervals: 100 90 80 70 60 0` | `--intervals 100 90 80 70 60 0` |
+| `on-missing-report: fail` | `--on-missing-report fail` |
+| `fail-if-coverage-less-than: 0` | `--fail-if-coverage-less-than 0` |
+| `fail-if-branches-less-than: 0` | `--fail-if-branches-less-than 0` |
+| `fail-on-coverage-decrease: false` | `--fail-on-coverage-decrease false` |
+| `fail-on-branches-decrease: false` | `--fail-on-branches-decrease false` |
+
 
 ## Support the Project
 
