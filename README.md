@@ -243,6 +243,9 @@ README is being viewed.
 
 ## GitHub Action Usage
 
+The jacoco-badge-generator's primary use-case is as a GitHub Action. The subsections of this
+section documents how to use it as a GitHub Action.
+
 ### Inputs
 
 All inputs include default values, and are thus optional provided the
