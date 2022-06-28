@@ -45,7 +45,8 @@ The documentation is organized into the following sections:
   examples of the appearance of the badges that are generated, 
   including a description of the color scheme used, and the 
   formatting of the percentages.
-* [GitHub Action Usage](#github-action-usage):
+* [GitHub Action Usage](#github-action-usage): Details on how to use the 
+  jacoco-badge-generator GitHub Action (its primary use-case).
   * [Inputs](#inputs): Detailed descriptions of the action inputs.
   * [Outputs](#outputs): Detailed descriptions of the action inputs.
   * [Example Workflows](#example-workflows): Example GitHub workflows 
