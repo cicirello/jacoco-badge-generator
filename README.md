@@ -59,6 +59,11 @@ The documentation is organized into the following sections:
     using the action, as well as direct links to the relevant workflow files.
 * [Command-Line Usage](#command-line-usage): Details on how to install and run
   the jacoco-badge-generator as a command-line utility outside of GitHub Actions.
+  * [Installing from PyPI](#installing-from-pypi): How to install command-line
+    utility from PyPI.
+  * [Running for the First Time](#running-for-the-first-time): Command-line utility's
+    help menu.
+  * [CLI Examples](#cli-examples): Several examples of using the command-line utlity.
 * [Support the Project](#support-the-project): Information on various 
   ways that you can support the project.
 
@@ -962,6 +967,7 @@ can instead be done in the `<build>` section if you'd rather not use a profile.
 | [&rho;&mu;](https://github.com/cicirello/rho-mu) | [build.yml](https://github.com/cicirello/rho-mu/blob/main/.github/workflows/build.yml) | [pom.xml](https://github.com/cicirello/rho-mu/blob/main/pom.xml) |
 | [XpathQS](https://github.com/nachg/xpathqs) | [build.yml](https://github.com/nachg/xpathqs/blob/master/.github/workflows/build.yml) | [build.gradle.kts](https://github.com/nachg/xpathqs/blob/master/build.gradle.kts) |
 
+
 ## Command-Line Usage
 
 The jacoco-badge-generator started its life as a GitHub Action, but due to interest can now
@@ -1039,7 +1045,7 @@ to disable generating the coverage badge, and enable the JSON endpoints:
 python3 -m jacoco_badge_generator --generate-coverage-badge false --generate-coverage-endpoint true --generate-branches-endpoint true
 ```
 
-### Changing Colors and Coverage Intervals
+#### Changing Colors and Coverage Intervals
 
 If you want to change the colors used and the coverage intervals for each color,
 you can use the `--colors` and `--intervals` options. In the following example,
