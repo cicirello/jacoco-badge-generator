@@ -1116,7 +1116,7 @@ you do not need to specify them.
 | `summary-filename: coverage-summary.json` | `--summary-filename coverage-summary.json` |
 | `coverage-label: coverage` | `--coverage-label coverage` |
 | `branches-label: branches` | `--branches-label branches` |
-| `colors: '#4c1 #97ca00 #a4a61d #dfb317 #fe7d37 #e05d44'` | |
+| `colors: '#4c1 #97ca00 #a4a61d #dfb317 #fe7d37 #e05d44'` | `--colors #4c1 #97ca00 #a4a61d #dfb317 #fe7d37 #e05d44` |
 | `intervals: 100 90 80 70 60 0` | `--intervals 100 90 80 70 60 0` |
 | `on-missing-report: fail` | `--on-missing-report fail` |
 | `fail-if-coverage-less-than: 0` | `--fail-if-coverage-less-than 0` |
