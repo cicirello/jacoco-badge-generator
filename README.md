@@ -1102,20 +1102,20 @@ you do not need to specify them.
 
 | GitHub Actions Default | CLI Default |
 | --- | --- |
-| `jacoco-csv-file: target/site/jacoco/jacoco.csv` | |
-| `badges-directory: .github/badges` | |
-| `generate-coverage-badge: true` | |
-| `coverage-badge-filename: jacoco.svg` | |
-| `generate-branches-badge: false` | |
-| `branches-badge-filename: branches.svg` | |
-| `generate-coverage-endpoint: false` | |
-| `coverage-endpoint-filename: jacoco.json` | |
-| `generate-branches-endpoint: false` | |
-| `branches-endpoint-filename: branches.json` | |
-| `generate-summary: false` | |
-| `summary-filename: coverage-summary.json` | |
-| `coverage-label: coverage` | |
-| `branches-label: branches` | |
+| `jacoco-csv-file: target/site/jacoco/jacoco.csv` | `--jacoco-csv-file target/site/jacoco/jacoco.csv` |
+| `badges-directory: .github/badges` | `--badges-directory badges` |
+| `generate-coverage-badge: true` | `--generate-coverage-badge true` |
+| `coverage-badge-filename: jacoco.svg` | `--coverage-badge-filename jacoco.svg` |
+| `generate-branches-badge: false` | `--generate-branches-badge false` |
+| `branches-badge-filename: branches.svg` | `--branches-badge-filename branches.svg` |
+| `generate-coverage-endpoint: false` | `--generate-coverage-endpoint false` |
+| `coverage-endpoint-filename: jacoco.json` | `--coverage-endpoint-filename jacoco.json` |
+| `generate-branches-endpoint: false` | `--generate-branches-endpoint false` |
+| `branches-endpoint-filename: branches.json` | `--branches-endpoint-filename branches.json` |
+| `generate-summary: false` | `--generate-summary false` |
+| `summary-filename: coverage-summary.json` | `--summary-filename coverage-summary.json` |
+| `coverage-label: coverage` | `--coverage-label coverage` |
+| `branches-label: branches` | `--branches-label branches` |
 | `colors: '#4c1 #97ca00 #a4a61d #dfb317 #fe7d37 #e05d44'` | |
 | `intervals: 100 90 80 70 60 0` | |
 | `on-missing-report: fail` | |
