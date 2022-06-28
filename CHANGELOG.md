@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 ### CI/CD
+* Added workflow to automatically publish CLI utility to PyPI on new releases of GitHub Action to GitHub Marketplace.
 
 
 ## [2.6.1] - 2022-02-18
