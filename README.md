@@ -10,6 +10,7 @@ Check out all of our GitHub Actions: https://actions.cicirello.org/
 | :--- | :--- |
 | __Command-Line Utility__ | [![PyPI](https://img.shields.io/pypi/v/jacoco-badge-generator?logo=pypi)](https://pypi.org/project/jacoco-badge-generator/) |
 | __Build Status__ | [![build](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/build.yml/badge.svg)](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/build.yml) [![CodeQL](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/codeql-analysis.yml) |
+| __Security__ | [![Snyk security score](https://snyk-widget.herokuapp.com/badge/pip/jacoco-badge-generator/badge.svg)](https://snyk.io/vuln/pip%3Ajacoco-badge-generator) |
 | __Source Info__ | [![License](https://img.shields.io/github/license/cicirello/jacoco-badge-generator)](https://github.com/cicirello/jacoco-badge-generator/blob/main/LICENSE) ![GitHub top language](https://img.shields.io/github/languages/top/cicirello/jacoco-badge-generator) |
 
 The jacoco-badge-generator can be used in one of two ways: as a GitHub Action or as a command-line 
