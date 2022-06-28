@@ -1098,7 +1098,7 @@ python3 -m jacoco_badge_generator --jacoco-csv-file reports/report1.csv reports/
 
 The following table summarizes the default values of all inputs for both the GitHub Actions
 usage as well as the CLI usage. If your use-case requires the defaults as specified below, then
-you do not need to specify them.
+you do not need to include them.
 
 | GitHub Actions Default | CLI Default |
 | --- | --- |
