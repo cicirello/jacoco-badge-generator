@@ -65,6 +65,9 @@ The documentation is organized into the following sections:
   * [Running for the First Time](#running-for-the-first-time): Command-line utility's
     help menu.
   * [CLI Examples](#cli-examples): Several examples of using the command-line utlity.
+* [Summary of Input Defaults](#summary-of-input-defaults): A table summarizing all
+  of the inputs, along with the defaults, for both GitHub Actions usage as well as
+  CLI usage.  
 * [Support the Project](#support-the-project): Information on various 
   ways that you can support the project.
 
