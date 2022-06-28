@@ -1094,6 +1094,35 @@ python3 -m jacoco_badge_generator --jacoco-csv-file reports/report1.csv reports/
 ```
 
 
+## Summary of Input Defaults
+
+The following table summarizes the default values of all inputs for both the GitHub Actions
+usage as well as the CLI usage. If your use-case requires the defaults as specified below, then
+you do not need to specify them.
+
+| GitHub Actions Default | CLI Default |
+| --- | --- |
+| `jacoco-csv-file: target/site/jacoco/jacoco.csv` | |
+| `badges-directory: .github/badges` | |
+| `generate-coverage-badge: true` | |
+| `coverage-badge-filename: jacoco.svg` | |
+| `generate-branches-badge: false` | |
+| `branches-badge-filename: branches.svg` | |
+| `generate-coverage-endpoint: false` | |
+| `coverage-endpoint-filename: jacoco.json` | |
+| `generate-branches-endpoint: false` | |
+| `branches-endpoint-filename: branches.json` | |
+| `generate-summary: false` | |
+| `summary-filename: coverage-summary.json` | |
+| `coverage-label: coverage` | |
+| `branches-label: branches` | |
+| `colors: '#4c1 #97ca00 #a4a61d #dfb317 #fe7d37 #e05d44'` | |
+| `intervals: 100 90 80 70 60 0` | |
+| `on-missing-report: fail` | |
+| `fail-if-coverage-less-than: 0` | |
+| `fail-if-branches-less-than: 0` | |
+| `fail-on-coverage-decrease: false` | |
+| `fail-on-branches-decrease: false` | |
 
 
 ## Support the Project
