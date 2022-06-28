@@ -1117,8 +1117,8 @@ you do not need to include them.
 
 | GitHub Actions Default | CLI Default |
 | --- | --- |
-| `jacoco-csv-file: target/site/jacoco/jacoco.csv` | `--jacoco-csv-file target/site/jacoco/jacoco.csv` |
-| `badges-directory: .github/badges` | `--badges-directory badges` |
+| `jacoco-csv-file: target/site/jacoco/jacoco.csv` | `--jacoco-csv-file target/site/jacoco/jacoco.csv`<br>or<br>`-j target/site/jacoco/jacoco.csv` |
+| `badges-directory: .github/badges` | `--badges-directory badges`<br>or<br>`-d badges` |
 | `generate-coverage-badge: true` | `--generate-coverage-badge true` |
 | `coverage-badge-filename: jacoco.svg` | `--coverage-badge-filename jacoco.svg` |
 | `generate-branches-badge: false` | `--generate-branches-badge false` |
