@@ -7,18 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2022-06-28
 
 ### Added
-* CLI Mode: Ability to run as a command-line utility outside of GitHub Actions, such as part of a local build script, etc.
 
 ### Changed
-* Refactored main control block to improve maintainability (#63).
-* Refactored organization of source files (#64).
-* Bumped base Docker image cicirello/pyaction from 4.1.0 to 4.6.0.
 
 ### Deprecated
 
 ### Removed
 
 ### Fixed
+
+### CI/CD
+
+
+## [2.7.0] - 2022-06-28
+
+### Added
+* CLI Mode: Ability to run as a command-line utility outside of GitHub Actions, such as part of a local build script, etc.
+
+### Changed
+* Refactored main control block to improve maintainability (#63).
+* Refactored organization of source files (#64).
+* Bumped base Docker image cicirello/pyaction from 4.1.0 to 4.6.0.
 
 ### CI/CD
 * Added workflow to automatically publish CLI utility to PyPI on new releases of GitHub Action to GitHub Marketplace.
