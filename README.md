@@ -45,7 +45,7 @@ The documentation is organized into the following sections:
   examples of the appearance of the badges that are generated, 
   including a description of the color scheme used, and the 
   formatting of the percentages.
-* GitHub Action documentation:
+* [GitHub Action Usage](#github-action-usage):
   * [Inputs](#inputs): Detailed descriptions of the action inputs.
   * [Outputs](#outputs): Detailed descriptions of the action inputs.
   * [Example Workflows](#example-workflows): Example GitHub workflows 
@@ -241,12 +241,14 @@ since in that case the image is served directly to the viewer from the repositor
 README is being viewed.
 
 
-## Inputs
+## GitHub Action Usage
+
+### Inputs
 
 All inputs include default values, and are thus optional provided the
 defaults are relevant to your use-case.
 
-### `jacoco-csv-file`
+#### `jacoco-csv-file`
 
 This input is the full path, relative to the root of the repository, to 
 the `jacoco.csv` file, including filename.  It defaults 
@@ -274,18 +276,18 @@ to properly merge such overlapping reports. If this applies to your use-case, th
 you will need to have JaCoCo produce a single JaCoCo report first (for example, 
 see [jacoco:report-aggregate](https://www.jacoco.org/jacoco/trunk/doc/report-aggregate-mojo.html)). 
 
-### `badges-directory`
+#### `badges-directory`
 
 This input is the directory for storing badges, relative to the root of the 
 repository. The default is `.github/badges`. The action will create the badges
 directory if it doesn't already exist, although the action itself does not commit.
 
-### `generate-coverage-badge`
+#### `generate-coverage-badge`
 
 This input controls whether or not to generate the coverage badge (Instructions 
 Coverage), and defaults to `true`.
 
-### `coverage-badge-filename`
+#### `coverage-badge-filename`
 
 This input is the filename for the coverage badge (Instructions or C0 
 Coverage). The default filename 
@@ -294,13 +296,13 @@ created within the `badges-directory`
 directory. __The action doesn't commit the badge file. You will 
 need to have additional steps in your workflow to do that.__
 
-### `generate-branches-badge`
+#### `generate-branches-badge`
 
 This input controls whether or not to generate the branches coverage badge, and defaults
 to `false`. This defaults to `false` to avoid surprising users who upgrade from earlier
 versions with a badge they didn't know would be generated.
 
-### `branches-badge-filename`
+#### `branches-badge-filename`
 
 This input is the filename for the branches coverage badge (C1 
 Coverage). The default filename 
@@ -309,12 +311,12 @@ created within the `badges-directory`
 directory. __The action doesn't commit the badge file. You will 
 need to have additional steps in your workflow to do that.__
 
-### `generate-coverage-endpoint`
+#### `generate-coverage-endpoint`
 
 This input controls whether or not to generate a JSON endpoint 
 for coverage (Instructions Coverage), and defaults to `false`.
 
-### `coverage-endpoint-filename`
+#### `coverage-endpoint-filename`
 
 This input is the filename for the coverage endpoint (Instructions or C0 
 Coverage) if you have opted to generate a JSON endpoint instead of the
@@ -323,12 +325,12 @@ created within the `badges-directory`
 directory. __The action doesn't commit the JSON file. You will 
 need to have additional steps in your workflow to do that.__
 
-### `generate-branches-endpoint`
+#### `generate-branches-endpoint`
 
 This input controls whether or not to generate a JSON endpoint 
 for branches coverage, and defaults to `false`.
 
-### `branches-endpoint-filename`
+#### `branches-endpoint-filename`
 
 This input is the filename for the branches coverage endpoint (C1 
 Coverage) if you have opted to generate a JSON endpoint instead of the
@@ -337,7 +339,7 @@ created within the `badges-directory`
 directory. __The action doesn't commit the JSON file. You will 
 need to have additional steps in your workflow to do that.__
 
-### `generate-summary`
+#### `generate-summary`
 
 This input controls whether or not to generate a simple JSON
 summary report of the following form:
@@ -349,7 +351,7 @@ summary report of the following form:
 The default is `generate-summary: false`. To enable, use
 `generate-summary: true`.
 
-### `summary-filename`
+#### `summary-filename`
 
 This input is the filename for the summary report (see above). The
 default is `summary-filename: coverage-summary.json`, and will be
@@ -357,17 +359,17 @@ created within the `badges-directory`
 directory. __The action doesn't commit the JSON file. You will 
 need to have additional steps in your workflow to do that.__
 
-### `coverage-label`
+#### `coverage-label`
 
 This input is the text for the label on the left side of the coverage badge, which
 defaults to `coverage`.
 
-### `branches-label`
+#### `branches-label`
 
 This input is the text for the label on the left side of the branches coverage badge, which
 defaults to `branches`.
 
-### `colors`
+#### `colors`
 
 This input can be used to change the colors used for the badges.
 It defaults to `colors: '#4c1 #97ca00 #a4a61d #dfb317 #fe7d37 #e05d44'`,
@@ -389,7 +391,7 @@ colors than there are intervals, then the extra colors will be ignored. If you
 pass an empty list of colors, then the action will simply use the default colors.
 __The action does not do any validation of the colors that you pass.__
 
-### `intervals`
+#### `intervals`
 
 This input enables specifying the coverage intervals for the 
 different colors. It is a simple list of percentages. The default
@@ -427,7 +429,7 @@ you want to use bright green for 80 and above,
 yellow for 60 and above, and red for less than 60, you might do something like the
 following: `intervals: 80 80 80 60 60 0`. The 0 at the end is optional.  
 
-### `on-missing-report`
+#### `on-missing-report`
 
 This input controls what happens if one or more `jacoco.csv` files do not exist.
 This input accepts one of three possible values: `fail`, `quiet`, or `badges`.
@@ -453,7 +455,7 @@ Regardless of value passed to this input, the action will log warnings for
 any files listed in the `jacoco-csv-file` input that do not exist, for your 
 inspection in the workflow run. 
 
-### `fail-if-coverage-less-than`
+#### `fail-if-coverage-less-than`
 
 This input enables directing the action to fail the workflow run if
 the computed coverage is less than a minimum. The default is 0, effectively
@@ -464,7 +466,7 @@ For example, all of the following are equivalent: `fail-if-coverage-less-than: 0
 Note that in the last case, you need the quotes due to the percent sign.
 Values greater than 1 are assumed percents.
 
-### `fail-if-branches-less-than`
+#### `fail-if-branches-less-than`
 
 This input enables directing the action to fail the workflow run if
 the computed branches coverage is less than a minimum. The default is 0, effectively
@@ -475,7 +477,7 @@ For example, all of the following are equivalent: `fail-if-branches-less-than: 0
 Note that in the last case, you need the quotes due to the percent sign.
 Values greater than 1 are assumed percents.
 
-### `fail-on-coverage-decrease`
+#### `fail-on-coverage-decrease`
 
 This input enables directing the action to fail the workflow run if
 the computed coverage is less than it was on the previous run as recorded in either the
@@ -491,7 +493,7 @@ decreased since it is more precise than the truncated coverage percentage stored
 the badge or Shields endpoint. __Therefore, when using this feature, it is recommended that
 you also set `generate-summary: true` and commit the summary report JSON file to the repository.__
 
-### `fail-on-branches-decrease`
+#### `fail-on-branches-decrease`
 
 This input enables directing the action to fail the workflow run if
 the computed branches coverage is less than it was on the previous run as recorded in either the
@@ -508,30 +510,30 @@ the badge or Shields endpoint. __Therefore, when using this feature, it is recom
 you also set `generate-summary: true` and commit the summary report JSON file to the repository.__
 
 
-## Outputs
+### Outputs
 
 The action also outputs the actual computed coverage percentages as double-precision
 floating-point numbers. So you can add a step to your workflow to access these if 
 desired (these action outputs are values in the interval from 0.0 to 1.0).
 
-### `coverage`
+#### `coverage`
 
 This output is the actual computed coverage percentage in the interval 
 from 0.0 to 1.0.  This is coverage computed from the instructions
 coverage data in the JaCoCo csv report.
 
-### `branches`
+#### `branches`
 
 This output is the actual computed branches coverage percentage 
 in the interval from 0.0 to 1.0.  This is the percentage of branches
 covered, computed from the branches data in the JaCoCo csv report.
 
 
-## Example Workflows
+### Example Workflows
 
-### Prerequisite: Running JaCoCo
+#### Prerequisite: Running JaCoCo
 
-#### Running JaCoCo via Maven
+##### Running JaCoCo via Maven
 
 The example workflows assume that you are using Maven to build and test
 a Java project, and that you have the `jacoco-maven-plugin`
@@ -569,7 +571,7 @@ the `jacoco.csv` files generated by `jacoco-maven-plugin` versions
 0.8.6 through 0.8.8, and has not been tested with earlier versions
 of JaCoCo.
 
-#### Running JaCoCo via Gradle
+##### Running JaCoCo via Gradle
 
 If you use gradle as your build tool, then you can configure JaCoCo
 in `build.gradle.kts` with:
@@ -600,7 +602,7 @@ jacocoTestReport {
 }
 ```
 
-### Basic Action Syntax
+#### Basic Action Syntax
 
 If you use Maven as your build tool, then you will have steps
 in your workflow along the lines of the following (which assumes
@@ -641,7 +643,7 @@ You can also use a specific release with:
         generate-branches-badge: true
 ```
 
-### All Possible Action Inputs
+#### All Possible Action Inputs
 
 This shows a workflow step that uses all of the
 possible inputs of the `jacoco-badge-generator` action.
@@ -684,7 +686,7 @@ it is equivalent to:
       uses: cicirello/jacoco-badge-generator@v2
 ```
 
-### Example Workflow 1: Generate instructions (or C0) coverage badge only.
+#### Example Workflow 1: Generate instructions (or C0) coverage badge only.
 
 This sample workflow runs on pushes to the main
 branch.  It first sets up Java, and runs the tests with Maven. If you
@@ -748,7 +750,7 @@ jobs:
         path: target/site/jacoco/
 ```
 
-### Example Workflow 2: Generate instructions coverage and branches coverage badges.
+#### Example Workflow 2: Generate instructions coverage and branches coverage badges.
 
 This example workflow is just like the above example, however, it generates
 both badges (instructions coverage percentage and branches coverage percentage).
@@ -805,9 +807,9 @@ jobs:
         path: target/site/jacoco/
 ```
 
-## Multi-Module Example Workflows
+### Multi-Module Example Workflows
 
-### Example Workflow 3: Generate Instructions and Coverage Badges for a Multi-Module Project.
+#### Example Workflow 3: Generate Instructions and Coverage Badges for a Multi-Module Project.
 
 This example workflow generates both badges (instructions coverage percentage 
 and branches coverage percentage) for a multi-module project. The badges that are generated
@@ -866,7 +868,7 @@ jobs:
         fi
 ```
 
-### Example Workflow 4: Multi-Module Project with Separate Badges for Each Module.
+#### Example Workflow 4: Multi-Module Project with Separate Badges for Each Module.
 
 If you would prefer to generate separate coverage badges for each of the
 modules of a multi-module project, then just include multiple steps of the
@@ -934,9 +936,9 @@ jobs:
         fi
 ```
 
-## Examples in Other Projects
+### Examples in Other Projects
 
-### Template Repository with Runnable Workflow Examples 
+#### Template Repository with Runnable Workflow Examples 
 We now have
 a [template repository](https://github.com/cicirello/examples-jacoco-badge-generator) 
 with a simple Maven Java project, using the `jacoco-maven-plugin`,
@@ -948,7 +950,7 @@ fork it instead. Its README
 explains the contents of that repository, especially the details of the various 
 workflows it contains, and includes examples inserting the badges into its README.
 
-### Live Real Examples
+#### Live Real Examples
 
 If you would like to see examples where the action is actively used, here 
 are a few repositories that are actively using the `jacoco-badge-generator` action.
