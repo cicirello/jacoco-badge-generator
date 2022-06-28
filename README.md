@@ -998,6 +998,18 @@ To install from PyPi (Windows):
 py -m pip install jacoco-badge-generator
 ```
 
+To upgrade to the latest version from PyPi (Unix and MacOS):
+
+```Shell
+python3 -m pip install --upgrade jacoco-badge-generator
+```
+
+To upgrade to the latest version from PyPi (Windows):
+
+```Shell
+py -m pip install --upgrade jacoco-badge-generator
+```
+
 ### Running for the First Time
 
 After installing, we recommend running it once with the `-h` or `--help` flag
