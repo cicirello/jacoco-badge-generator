@@ -12,6 +12,7 @@ Check out all of our GitHub Actions: https://actions.cicirello.org/
 | __Build Status__ | [![build](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/build.yml/badge.svg)](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/build.yml) [![CodeQL](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/cicirello/jacoco-badge-generator/actions/workflows/codeql-analysis.yml) |
 | __Security__ | [![Snyk security score](https://snyk-widget.herokuapp.com/badge/pip/jacoco-badge-generator/badge.svg)](https://snyk.io/vuln/pip%3Ajacoco-badge-generator) |
 | __Source Info__ | [![License](https://img.shields.io/github/license/cicirello/jacoco-badge-generator)](https://github.com/cicirello/jacoco-badge-generator/blob/main/LICENSE) ![GitHub top language](https://img.shields.io/github/languages/top/cicirello/jacoco-badge-generator) |
+| __Support__ | [![GitHub Sponsors](https://img.shields.io/badge/sponsor-30363D?logo=GitHub-Sponsors&logoColor=#EA4AAA)](https://github.com/sponsors/cicirello) [![Liberapay](https://img.shields.io/badge/Liberapay-F6C915?logo=liberapay&logoColor=black)](https://liberapay.com/cicirello) [![Ko-Fi](https://img.shields.io/badge/Ko--fi-F16061?logo=ko-fi&logoColor=white)](https://ko-fi.com/cicirello) | 
 
 The jacoco-badge-generator can be used in one of two ways: as a GitHub Action or as a command-line 
 utility (e.g., such as part of a local build script). The jacoco-badge-generator parses a `jacoco.csv` 
