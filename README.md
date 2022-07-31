@@ -69,7 +69,8 @@ The documentation is organized into the following sections:
   * [CLI Examples](#cli-examples): Several examples of using the command-line utlity.
 * [Summary of Input Defaults](#summary-of-input-defaults): A table summarizing all
   of the inputs, along with the defaults, for both GitHub Actions usage as well as
-  CLI usage.  
+  CLI usage.
+* [Blog Posts](#blog-posts): A selection of blog posts about the GitHub Action.
 * [Support the Project](#support-the-project): Information on various 
   ways that you can support the project.
 
@@ -1141,6 +1142,11 @@ you do not need to include them.
 | `fail-on-coverage-decrease: false` | `--fail-on-coverage-decrease false` |
 | `fail-on-branches-decrease: false` | `--fail-on-branches-decrease false` |
 
+## Blog Posts
+
+Here is a selection of blog posts about the jacoco-badge-generator on DEV.to:
+* [The jacoco-badge-generator GitHub Action is now also available as a CLI tool from PyPI](https://dev.to/cicirello/the-jacoco-badge-generator-github-action-is-now-also-available-as-a-cli-tool-from-pypi-3ma0), posted on DEV on July 8, 2022.
+* [JaCoCo coverage badges, PR coverage checks, and PR coverage comments, from GitHub Actions](https://dev.to/cicirello/jacoco-coverage-badges-pr-coverage-checks-and-pr-coverage-comments-from-github-actions-4a8f), posted on DEV on November 29, 2021.
 
 ## Support the Project
 
