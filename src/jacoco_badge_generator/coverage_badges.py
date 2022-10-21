@@ -632,4 +632,4 @@ def main(jacocoCsvFile,
                 json.dump(coverageDictionary(cov, branches), summaryFile, sort_keys=True)
 
         set_action_outputs({"coverage" : cov, "branches" : branches})
-        add_workflow_job_summary(cov, branches)
+        add_workflow_job_summary(float(cov), float(branches))
