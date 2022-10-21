@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2022-10-21
 
 ### Added
+* Generate and output a GitHub Actions workflow job summary with the coverage percentages.
 
 ### Changed
 
