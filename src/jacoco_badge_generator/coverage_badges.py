@@ -458,6 +458,22 @@ def coverageDictionary(cov, branches) :
     """
     return { "coverage" : 100 * cov, "branches" : 100 * branches }
 
+def set_action_outputs(output_pairs) :
+    """Sets the GitHub Action outputs if running as a GitHub Action,
+    and otherwise logs coverage percentages to terminal if running in
+    CLI mode.
+
+    Keyword arguments:
+    output_pairs - Dictionary of outputs with values
+    """
+    if "GITHUB_OUTPUT" in os.environ :
+        with open(os.environ["GITHUB_OUTPUT"], "a") as f :
+            for key, value in output_pairs.items() :
+                print("{0}={1}".format(key, value), file=f)
+    else :
+        for key, value in output_pairs.items() :
+            print("{0}={1}".format(key, value))
+
 def main(jacocoCsvFile,
          badgesDirectory,
          coverageFilename,
@@ -594,5 +610,4 @@ def main(jacocoCsvFile,
             with open(summaryFilenameWithPath, "w") as summaryFile :
                 json.dump(coverageDictionary(cov, branches), summaryFile, sort_keys=True)
 
-        print("::set-output name=coverage::" + str(cov))
-        print("::set-output name=branches::" + str(branches))
+        set_action_outputs({"coverage" : cov, "branches" : branches})
