@@ -62,5 +62,6 @@ if __name__ == "__main__" :
         generateSummary = sys.argv[18].lower() == "true",
         summaryFilename = sys.argv[19],
         coverageLabel = sys.argv[20],
-        branchesLabel = sys.argv[21]
+        branchesLabel = sys.argv[21],
+        ghActionsMode = True
     )

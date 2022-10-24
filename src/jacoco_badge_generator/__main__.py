@@ -226,5 +226,6 @@ if __name__ == "__main__" :
         generateSummary = args.generateSummary == "true",
         summaryFilename = args.summaryFilename,
         coverageLabel = args.coverageLabel,
-        branchesLabel = args.branchesLabel
+        branchesLabel = args.branchesLabel,
+        ghActionsMode = False
     )

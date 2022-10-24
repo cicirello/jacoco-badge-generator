@@ -464,22 +464,29 @@ def coverageDictionary(cov, branches) :
     """
     return { "coverage" : 100 * cov, "branches" : 100 * branches }
 
-def set_action_outputs(output_pairs) :
+def set_action_outputs(output_pairs, ghActionsMode) :
     """Sets the GitHub Action outputs if running as a GitHub Action,
     and otherwise logs coverage percentages to terminal if running in
     CLI mode. Note that if the CLI mode is used within a GitHub Actions
     workflow, it will be treated the same as GitHub Actions mode.
 
+    Temporary continued support for deprecated set-output for self-hosted
+    GitHub users with versions that don't have the new GITHUB_OUTPUT env
+    variable. Detected if running in GitHub Actions mode, but such that
+    GITHUB_OUTPUT doesn't exist.
+
     Keyword arguments:
     output_pairs - Dictionary of outputs with values
+    ghActionsMode - True if running as a GitHub Action, otherwise pass False 
     """
     if "GITHUB_OUTPUT" in os.environ :
         with open(os.environ["GITHUB_OUTPUT"], "a") as f :
             for key, value in output_pairs.items() :
                 print("{0}={1}".format(key, value), file=f)
     else :
+        output_template = "::set-output name={0}::{1}" if ghActionsMode else "{0}={1}"
         for key, value in output_pairs.items() :
-            print("{0}={1}".format(key, value))
+            print(output_template.format(key, value))
 
 def add_workflow_job_summary(cov, branches) :
     """When running as a GitHub Action, adds a job summary, and otherwise
@@ -515,7 +522,8 @@ def main(jacocoCsvFile,
          generateSummary,
          summaryFilename,
          coverageLabel,
-         branchesLabel) :
+         branchesLabel,
+         ghActionsMode) :
     """Main function.
 
     Keyword arguments:
@@ -555,6 +563,7 @@ def main(jacocoCsvFile,
     summaryFilename - The filename of the summary file.
     coverageLabel - Text for the left-side of the coverage badge.
     branchesLabel - Text for the left-side of the branches coverage badge.
+    ghActionsMode - True if running in GitHub Actions mode, or False otherwise.
     """
     if onMissingReport not in {"fail", "quiet", "badges"} :
         print("ERROR: Invalid value for on-missing-report.")
@@ -631,5 +640,8 @@ def main(jacocoCsvFile,
             with open(summaryFilenameWithPath, "w") as summaryFile :
                 json.dump(coverageDictionary(cov, branches), summaryFile, sort_keys=True)
 
-        set_action_outputs({"coverage" : cov, "branches" : branches})
+        set_action_outputs(
+            {"coverage" : cov, "branches" : branches},
+            ghActionsMode
+        )
         add_workflow_job_summary(cov, branches)
