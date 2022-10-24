@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2022-10-21
+## [Unreleased] - 2022-10-24
 
 ### Added
 
@@ -17,9 +17,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 ### Dependencies
-* Bump cicirello/pyaction from 4.11.0 to 4.11.1
 
 ### CI/CD
+
+
+## [2.8.1] - 2022-10-24
+
+### Fixed
+* The replacement for GitHub Action's deprecated `set-output` is not available yet for all self-hosted users. This patch
+  handles that by using the new `$GITHUB_OUTPUT` environment file if it exists, and otherwise falling back to `set-output`.
+
+### Dependencies
+* Bump cicirello/pyaction from 4.11.0 to 4.11.1
 
 
 ## [2.8.0] - 2022-10-21
