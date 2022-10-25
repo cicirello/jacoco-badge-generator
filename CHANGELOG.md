@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Bump cicirello/pyaction from 4.11.1 to 4.12.0, including upgrading Python within the Docker container to 3.11.
 
 ### CI/CD
+* Bump Python to 3.11 in CI/CD workflows.
 
 
 ## [2.8.1] - 2022-10-24
