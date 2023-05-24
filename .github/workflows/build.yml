@@ -110,6 +110,21 @@ jobs:
         echo "coverage = ${{ steps.integration5.outputs.coverage }}"
         echo "branch coverage = ${{ steps.integration5.outputs.branches }}"
 
+    - name: Integration test with multiple csv files with glob
+      id: integration6
+      uses: ./
+      with:
+        jacoco-csv-file: **/multi*.csv
+        badges-directory: tests/glob/badges
+        generate-branches-badge: true
+        coverage-badge-filename: coverageMulti.svg
+        branches-badge-filename: branchesMulti.svg
+
+    - name: Log integration test outputs with multiple csv files with glob
+      run: |
+        echo "coverage = ${{ steps.integration6.outputs.coverage }}"
+        echo "branch coverage = ${{ steps.integration6.outputs.branches }}"
+
     - name: Integration test of CLI use-case
       id: integrationCLI
       run: |
@@ -120,6 +135,7 @@ jobs:
         python3 -B -m jacoco_badge_generator --jacoco-csv-file tests/jacoco.csv --badges-directory tests/cli/badgesJSON --generate-coverage-badge false --generate-coverage-endpoint true --generate-branches-endpoint true
         python3 -B -m jacoco_badge_generator --jacoco-csv-file tests/summaryReportTest.csv --badges-directory tests/cli/summary --generate-coverage-badge false --generate-summary true
         python3 -B -m jacoco_badge_generator --jacoco-csv-file tests/jacoco.csv --badges-directory tests/cli/badges --generate-branches-badge true --generate-coverage-endpoint true --generate-branches-endpoint true --coverage-badge-filename customCoverage.svg --branches-badge-filename customBranches.svg --coverage-endpoint-filename customCoverage.json --branches-endpoint-filename customBranches.json --coverage-label "custom coverage label one" --branches-label "custom coverage label two"
+        python3 -B -m jacoco_badge_generator --jacoco-csv-file **/multi*.csv --badges-directory tests/glob/badges --generate-branches-badge true --coverage-badge-filename coverageMultiCLI.svg --branches-badge-filename branchesMultiCLI.svg
 
     - name: Verify integration test results
       run: python3 -u -m unittest tests/integration.py

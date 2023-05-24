@@ -1,7 +1,7 @@
 # jacoco-badge-generator: Github action for generating a jacoco coverage
 # percentage badge.
 # 
-# Copyright (c) 2020-2022 Vincent A Cicirello
+# Copyright (c) 2020-2023 Vincent A Cicirello
 # https://www.cicirello.org/
 #
 # MIT License
@@ -33,6 +33,22 @@ sys.path.insert(0,'src')
 import jacoco_badge_generator.coverage_badges as jbg
 
 class IntegrationTest(unittest.TestCase) :
+
+    def testCLIGLOBIntegrationMultiJacocoReportsCase(self) :
+        with open("tests/78.svg","r") as expected :
+            with open("tests/glob/badges/coverageMultiCLI.svg","r") as generated :
+                self.assertEqual(expected.read(), generated.read())
+        with open("tests/87b.svg","r") as expected :
+            with open("tests/glob/badges/branchesMultiCLI.svg","r") as generated :
+                self.assertEqual(expected.read(), generated.read())
+
+    def testGLOBIntegrationMultiJacocoReportsCase(self) :
+        with open("tests/78.svg","r") as expected :
+            with open("tests/glob/badges/coverageMulti.svg","r") as generated :
+                self.assertEqual(expected.read(), generated.read())
+        with open("tests/87b.svg","r") as expected :
+            with open("tests/glob/badges/branchesMulti.svg","r") as generated :
+                self.assertEqual(expected.read(), generated.read())
 
     def testCLIIntegrationCustomCoverageLabel(self) :
         with open("tests/custom1.svg","r") as expected :
