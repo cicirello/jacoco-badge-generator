@@ -7,7 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2023-05-24
 
 ### Added
-* Support for glob patterns in GitHub Actions mode for specifying multiple JaCoCo reports for multi-module projects (note: CLI mode already supported this indirectly since the shell expands globs automatically).
 
 ### Changed
 
@@ -16,6 +15,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 ### Fixed
+
+### Dependencies
+
+### CI/CD
+
+
+## [2.9.0] - 2023-05-24
+
+### Added
+* Support for glob patterns in GitHub Actions mode for specifying multiple JaCoCo reports for multi-module projects (note: CLI mode already supported this indirectly since the shell expands globs automatically).
 
 ### Dependencies
 * Bump cicirello/pyaction from 4.11.1 to 4.19.0, including upgrading Python within the Docker container to 3.11.
