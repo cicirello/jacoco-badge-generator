@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2023-05-24
 
 ### Added
-* Support for glob patterns to specify multiple jacoco reports for multimodule projects.
+* Support for glob patterns in GitHub Actions mode for specifying multiple JaCoCo reports for multi-module projects (note: CLI mode already supported this indirectly since the shell expands globs automatically).
 
 ### Changed
 
