@@ -1,7 +1,7 @@
 # jacoco-badge-generator: Github action for generating a jacoco coverage
 # percentage badge.
 # 
-# Copyright (c) 2020-2022 Vincent A Cicirello
+# Copyright (c) 2020-2023 Vincent A Cicirello
 # https://www.cicirello.org/
 #
 # MIT License
@@ -421,7 +421,8 @@ class TestJacocoBadgeGenerator(unittest.TestCase) :
         self.assertAlmostEqual(0, jbg.stringToPercentage("hello"))
 
     def testFilterMissingReports_empty(self) :
-        self.assertEqual([], jbg.filterMissingReports([]))
+        self.assertEqual(([], False), jbg.filterMissingReports([]))
+        self.assertEqual(([], True), jbg.filterMissingReports(["**/idontexist*.csv"]))
 
     def testFilterMissingReports(self) :
         expected = ["tests/jacoco100.csv", "tests/jacoco90.csv"]
@@ -431,7 +432,19 @@ class TestJacocoBadgeGenerator(unittest.TestCase) :
                 "tests/idontexist3.csv",
                 "tests/jacoco90.csv",
                 "tests/idontexist4.csv"]
-        self.assertEqual(expected, jbg.filterMissingReports(case))
+        self.assertEqual((expected, True), jbg.filterMissingReports(case))
+
+    def testFilterMissingReports_withGlobs(self) :
+        expected = {
+            "tests/jacoco.csv",
+            "tests/jacoco90.csv",
+            "tests/jacoco100.csv",
+            "tests/jacoco901.csv",
+            "tests/jacocoDivZero.csv" }
+        case = ["**/j*.csv"]
+        reports, isMissing = jbg.filterMissingReports(case)
+        actual = { s.replace("\\", "/") for s in reports }
+        self.assertEqual((expected, False), (actual, isMissing))
         
     def testFullCoverage(self) :
         self.assertAlmostEqual(1, jbg.computeCoverage(["tests/jacoco100.csv"])[0])

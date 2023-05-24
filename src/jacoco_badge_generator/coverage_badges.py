@@ -1,7 +1,7 @@
 # jacoco-badge-generator: Coverage badges, and pull request coverage checks,
 # from JaCoCo reports in GitHub Actions.
 # 
-# Copyright (c) 2020-2022 Vincent A Cicirello
+# Copyright (c) 2020-2023 Vincent A Cicirello
 # https://www.cicirello.org/
 #
 # MIT License
@@ -33,6 +33,7 @@ import os
 import os.path
 import json
 from .text_length import calculateTextLength110
+from glob import glob
 
 badgeTemplate = '<svg xmlns="http://www.w3.org/2000/svg" width="{6}" \
 height="20" role="img" aria-label="{3}: {0}">\
@@ -250,28 +251,32 @@ def formFullPathToFile(directory, filename) :
 
 def filterMissingReports(jacocoFileList, failIfMissing=False) :
     """Validates report file existence, and returns a list
-    containing a subset of the report files that exist. Logs
-    files that don't exist to the console as warnings.
+    containing a subset of the report files that exist and a boolean
+    flag that will be True if any reports were missing or False
+    otherwise. Logs files that don't exist to the console as warnings.
 
     Keyword arguments:
-    jacocoFileList - A list of jacoco.csv files.
+    jacocoFileList - A list of jacoco.csv files or glob patterns specifying such files.
     failIfMissing - If true and if any of the jacoco.csv files
     don't exist, then it will exit with a non-zero exit code causing
     workflow to fail.
     """
     goodReports = []
+    isMissing = False
     for f in jacocoFileList :
-        if os.path.exists(f) :
-            goodReports.append(f)
-        else :
-            print("WARNING: Report file", f, "does not exist.")
+        files = glob(f, recursive=True)
+        for report in files:
+            goodReports.append(report)
+        if len(files) == 0:
+            isMissing = True
+            print("WARNING: Report file", f, "does not exist or glob", f, "is empty.")
     if len(goodReports) == 0 :
         print("WARNING: No JaCoCo csv reports found.")
         if failIfMissing :
             sys.exit(1)
-    if failIfMissing and len(goodReports) != len(jacocoFileList) :
+    if failIfMissing and isMissing :
         sys.exit(1)
-    return goodReports
+    return goodReports, isMissing
 
 def stringToPercentage(s) :
     """Converts a string describing a percentage to
@@ -577,9 +582,9 @@ def main(jacocoCsvFile,
         badgesDirectory = ""
 
     jacocoFileList = jacocoCsvFile.split()
-    filteredFileList = filterMissingReports(jacocoFileList, onMissingReport=="fail")
+    filteredFileList, isMissing = filterMissingReports(jacocoFileList, onMissingReport=="fail")
     
-    noReportsMissing = len(jacocoFileList)==len(filteredFileList)
+    noReportsMissing = not isMissing
 
     if len(filteredFileList) > 0 and (noReportsMissing or onMissingReport!="quiet") :  
 
