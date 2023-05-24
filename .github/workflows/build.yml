@@ -114,7 +114,7 @@ jobs:
       id: integration6
       uses: ./
       with:
-        jacoco-csv-file: **/multi*.csv
+        jacoco-csv-file: "**/multi*.csv"
         badges-directory: tests/glob/badges
         generate-branches-badge: true
         coverage-badge-filename: coverageMulti.svg
