@@ -1223,6 +1223,7 @@ you do not need to include them.
 ## Blog Posts
 
 Here is a selection of blog posts about the jacoco-badge-generator on DEV.to:
+* [JaCoCo Coverage Badges for Multi-Module Projects in GitHub Actions](https://dev.to/cicirello/jacoco-coverage-badges-for-multi-module-projects-in-github-actions-ace), posted on DEV on May 25, 2023.
 * [Using GitHub Actions to Build a Java Project With Pull Request Coverage Commenting and Coverage Badges](https://dev.to/cicirello/using-github-actions-to-build-a-java-project-with-pull-request-coverage-commenting-and-coverage-badges-50a2), posted on DEV on November 9, 2022.
 * [The jacoco-badge-generator GitHub Action is now also available as a CLI tool from PyPI](https://dev.to/cicirello/the-jacoco-badge-generator-github-action-is-now-also-available-as-a-cli-tool-from-pypi-3ma0), posted on DEV on July 8, 2022.
 * [JaCoCo coverage badges, PR coverage checks, and PR coverage comments, from GitHub Actions](https://dev.to/cicirello/jacoco-coverage-badges-pr-coverage-checks-and-pr-coverage-comments-from-github-actions-4a8f), posted on DEV on November 29, 2021.
