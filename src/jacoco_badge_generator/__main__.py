@@ -203,13 +203,6 @@ if __name__ == "__main__" :
         dest="failOnBranchesDecrease",
         choices=['true', 'false']
     )
-    parser.add_argument(
-        "--append-workflow-summary",
-        default="true",
-        help="If true, will append the coverage summary to the workflow summary (default: true).",
-        dest="appendWorkflowSummary",
-        choices=['true', 'false']
-    )
     args = parser.parse_args()
 
     main(
@@ -232,7 +225,7 @@ if __name__ == "__main__" :
         branchesJSON = args.branchesJSON,
         generateSummary = args.generateSummary == "true",
         summaryFilename = args.summaryFilename,
-        appendWorkflowSummary = args.appendWorkflowSummary == "true",
+        appendWorkflowSummary = False,
         coverageLabel = args.coverageLabel,
         branchesLabel = args.branchesLabel,
         ghActionsMode = False
