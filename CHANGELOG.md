@@ -7,7 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2023-09-03
 
 ### Added
-* Option to suppress workflow job summary in GitHub Actions Mode.
 
 ### Changed
 
@@ -18,9 +17,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 ### Dependencies
-* Bump cicirello/pyaction from 4.19.0 to 4.22.0
 
 ### CI/CD
+
+
+## [2.10.0] - 2023-09-03
+
+### Added
+* Option to suppress workflow job summary in GitHub Actions Mode.
+
+### Dependencies
+* Bump cicirello/pyaction from 4.19.0 to 4.22.0
 
 
 ## [2.9.0] - 2023-05-24
