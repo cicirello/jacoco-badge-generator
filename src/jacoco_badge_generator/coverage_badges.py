@@ -526,6 +526,7 @@ def main(jacocoCsvFile,
          branchesJSON,
          generateSummary,
          summaryFilename,
+         appendWorkflowSummary,
          coverageLabel,
          branchesLabel,
          ghActionsMode) :
@@ -649,4 +650,7 @@ def main(jacocoCsvFile,
             {"coverage" : cov, "branches" : branches},
             ghActionsMode
         )
-        add_workflow_job_summary(cov, branches)
+
+        if appendWorkflowSummary :
+            add_workflow_job_summary(cov, branches)
+        

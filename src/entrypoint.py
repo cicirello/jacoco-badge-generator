@@ -61,7 +61,8 @@ if __name__ == "__main__" :
         branchesJSON = sys.argv[17],
         generateSummary = sys.argv[18].lower() == "true",
         summaryFilename = sys.argv[19],
-        coverageLabel = sys.argv[20],
-        branchesLabel = sys.argv[21],
+        appendWorkflowSummary = sys.argv[20].lower() == "true",
+        coverageLabel = sys.argv[21],
+        branchesLabel = sys.argv[22],
         ghActionsMode = True
     )
