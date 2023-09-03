@@ -526,6 +526,7 @@ def main(jacocoCsvFile,
          branchesJSON,
          generateSummary,
          summaryFilename,
+         appendWorkflowSummary,
          coverageLabel,
          branchesLabel,
          ghActionsMode) :
@@ -566,6 +567,8 @@ def main(jacocoCsvFile,
     generateSummary - Boolean to control whether or not to generate a JSON file
         containing the coverage percentages as floating-point values.
     summaryFilename - The filename of the summary file.
+    appendWorkflowSummary - If True and if running in GitHub Actions, logs coverage
+        percentages to workflow job summary.
     coverageLabel - Text for the left-side of the coverage badge.
     branchesLabel - Text for the left-side of the branches coverage badge.
     ghActionsMode - True if running in GitHub Actions mode, or False otherwise.
@@ -649,4 +652,7 @@ def main(jacocoCsvFile,
             {"coverage" : cov, "branches" : branches},
             ghActionsMode
         )
-        add_workflow_job_summary(cov, branches)
+
+        if appendWorkflowSummary :
+            add_workflow_job_summary(cov, branches)
+        

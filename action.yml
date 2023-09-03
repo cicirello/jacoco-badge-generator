@@ -116,6 +116,10 @@ inputs:
     description: 'The filename of the summary file.'
     required: false
     default: 'coverage-summary.json'
+  generate-workflow-summary:
+    description: 'Controls whether or not to append markdown summary to the GitHub Workflow Summary page.'
+    required: false
+    default: true
 outputs:
   coverage:
     description: 'The jacoco coverage percentage as computed from the data in the jacoco.csv file.'
@@ -144,5 +148,6 @@ runs:
     - ${{ inputs.branches-endpoint-filename }}
     - ${{ inputs.generate-summary }}
     - ${{ inputs.summary-filename }}
+    - ${{ inputs.generate-workflow-summary }}
     - ${{ inputs.coverage-label }}
     - ${{ inputs.branches-label }}

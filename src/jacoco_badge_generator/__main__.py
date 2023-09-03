@@ -225,6 +225,7 @@ if __name__ == "__main__" :
         branchesJSON = args.branchesJSON,
         generateSummary = args.generateSummary == "true",
         summaryFilename = args.summaryFilename,
+        appendWorkflowSummary = False,
         coverageLabel = args.coverageLabel,
         branchesLabel = args.branchesLabel,
         ghActionsMode = False
