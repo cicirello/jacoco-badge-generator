@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "jacoco-badge-generator"
-version = "2.9.0"
+version = "2.10.0"
 authors = [
   { name="Vincent A. Cicirello", email="development@cicirello.org" },
 ]

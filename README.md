@@ -530,6 +530,12 @@ decreased since it is more precise than the truncated coverage percentage stored
 the badge or Shields endpoint. __Therefore, when using this feature, it is recommended that
 you also set `generate-summary: true` and commit the summary report JSON file to the repository.__
 
+#### `generate-workflow-summary`
+
+This input controls whether or not to log the coverage percentages to the GitHub Actions
+Workflow Job Summary. The default is `generate-workflow-summary: true`. This input is only 
+relevant when running in GitHub Actions mode, and not when running as a CLI tool.
+
 
 ### Outputs
 
@@ -659,7 +665,7 @@ You can also use a specific release with:
 
 ```yml
     - name: Generate JaCoCo Badge
-      uses: cicirello/jacoco-badge-generator@v2.9.0
+      uses: cicirello/jacoco-badge-generator@v2.10.0
       with:
         generate-branches-badge: true
 ```
@@ -697,6 +703,7 @@ what these inputs do.
         fail-if-branches-less-than: 0
         fail-on-coverage-decrease: false
         fail-on-branches-decrease: false
+        generate-workflow-summary: true
 ```
 
 Since the above shows all of the default values of the action inputs, 
@@ -1219,6 +1226,7 @@ you do not need to include them.
 | `fail-if-branches-less-than: 0` | `--fail-if-branches-less-than 0` |
 | `fail-on-coverage-decrease: false` | `--fail-on-coverage-decrease false` |
 | `fail-on-branches-decrease: false` | `--fail-on-branches-decrease false` |
+| `generate-workflow-summary: true` | n/a |
 
 ## Blog Posts
 
