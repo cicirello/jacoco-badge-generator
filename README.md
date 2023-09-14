@@ -70,6 +70,7 @@ The documentation is organized into the following sections:
 * [Summary of Input Defaults](#summary-of-input-defaults): A table summarizing all
   of the inputs, along with the defaults, for both GitHub Actions usage as well as
   CLI usage.
+* [Built With](#built-with): A list of languages, tools, etc used to develop this action.
 * [Blog Posts](#blog-posts): A selection of blog posts about the GitHub Action.
 * [Support the Project](#support-the-project): Information on various 
   ways that you can support the project.
@@ -1227,6 +1228,16 @@ you do not need to include them.
 | `fail-on-coverage-decrease: false` | `--fail-on-coverage-decrease false` |
 | `fail-on-branches-decrease: false` | `--fail-on-branches-decrease false` |
 | `generate-workflow-summary: true` | n/a |
+
+## Built With
+
+The `jacoco-badge-generator` action uses the following:
+* Python (CLI mode is 100% Python)
+* GitHub Actions mode additionally utilizes the following:
+  * The [cicirello/pyaction](https://actions.cicirello.org/pyaction/) Docker container (see
+    [pyaction's GitHub repository](https://github.com/cicirello/pyaction)); and
+  * We started with our template repository for GitHub Actions implemented in 
+    Python: [cicirello/python-github-action-template](https://github.com/cicirello/python-github-action-template).
 
 ## Blog Posts
 
