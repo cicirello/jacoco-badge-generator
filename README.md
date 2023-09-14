@@ -1234,7 +1234,8 @@ you do not need to include them.
 The `jacoco-badge-generator` action uses the following:
 * Python (CLI mode is 100% Python)
 * GitHub Actions mode additionally utilizes the following:
-  * The [cicirello/pyaction](https://actions.cicirello.org/pyaction/) Docker container (see
+  * The [cicirello/pyaction](https://actions.cicirello.org/pyaction/) Docker container, which 
+    is designed to support GitHub Actions development in the Python language (see
     [pyaction's GitHub repository](https://github.com/cicirello/pyaction)); and
   * We started with our template repository for GitHub Actions implemented in 
     Python: [cicirello/python-github-action-template](https://github.com/cicirello/python-github-action-template).
