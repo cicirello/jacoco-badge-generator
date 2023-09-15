@@ -117,9 +117,13 @@ inputs:
     required: false
     default: 'coverage-summary.json'
   generate-workflow-summary:
-    description: 'Controls whether or not to append markdown summary to the GitHub Workflow Summary page.'
+    description: 'Controls whether or not to append summary to the GitHub workflow summary page.'
     required: false
     default: true
+  workflow-summary-heading:
+    description: 'The heading for the GitHub workflow job summary'
+    required: false
+    default: JaCoCo Test Coverage Summary
 outputs:
   coverage:
     description: 'The jacoco coverage percentage as computed from the data in the jacoco.csv file.'
@@ -151,3 +155,4 @@ runs:
     - ${{ inputs.generate-workflow-summary }}
     - ${{ inputs.coverage-label }}
     - ${{ inputs.branches-label }}
+    - ${{ inputs.workflow-summary-heading }}

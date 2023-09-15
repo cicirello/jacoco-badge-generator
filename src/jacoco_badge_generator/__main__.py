@@ -228,5 +228,6 @@ if __name__ == "__main__" :
         appendWorkflowSummary = False,
         coverageLabel = args.coverageLabel,
         branchesLabel = args.branchesLabel,
-        ghActionsMode = False
+        ghActionsMode = False,
+        workflowJobSummaryHeading = "JaCoCo Test Coverage Summary"
     )
