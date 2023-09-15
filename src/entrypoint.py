@@ -64,5 +64,6 @@ if __name__ == "__main__" :
         appendWorkflowSummary = sys.argv[20].lower() == "true",
         coverageLabel = sys.argv[21],
         branchesLabel = sys.argv[22],
-        ghActionsMode = True
+        ghActionsMode = True,
+        workflowJobSummaryHeading = sys.argv[23]
     )
