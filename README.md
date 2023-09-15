@@ -534,9 +534,19 @@ you also set `generate-summary: true` and commit the summary report JSON file to
 #### `generate-workflow-summary`
 
 This input controls whether or not to log the coverage percentages to the GitHub Actions
-Workflow Job Summary. The default is `generate-workflow-summary: true`. This input is only 
+workflow job summary. The default is `generate-workflow-summary: true`. This input is only 
 relevant when running in GitHub Actions mode, and not when running as a CLI tool.
 
+#### `workflow-summary-heading`
+
+This input is used to override the heading for the GitHub Actions workflow job summary that
+can be found on the Actions tab with detailed workflow logs. It defaults to: 
+`workflow-summary-heading: JaCoCo Test Coverage Summary`. This default should be fine in most 
+cases. If you are using this action in a multimodule project, and generating separate badges 
+for each module, then you might consider using this input so that the GitHub workflow job 
+summary is clearer as to which output corresponds to which module. See the
+[Multi-Module Example Workflows](#multi-module-example-workflows) section for examples. This 
+input is only relevant when running in GitHub Actions mode, and not when running as a CLI tool.
 
 ### Outputs
 
@@ -666,7 +676,7 @@ You can also use a specific release with:
 
 ```yml
     - name: Generate JaCoCo Badge
-      uses: cicirello/jacoco-badge-generator@v2.10.0
+      uses: cicirello/jacoco-badge-generator@v2.11.0
       with:
         generate-branches-badge: true
 ```
@@ -705,6 +715,7 @@ what these inputs do.
         fail-on-coverage-decrease: false
         fail-on-branches-decrease: false
         generate-workflow-summary: true
+        workflow-summary-heading: JaCoCo Test Coverage Summary
 ```
 
 Since the above shows all of the default values of the action inputs, 
@@ -997,6 +1008,7 @@ jobs:
         branches-badge-filename: branches1.svg
         coverage-label: coverage (module 1)
         branches-label: branches (module 1)
+        workflow-summary-heading: Module 1 JaCoCo Test Coverage Summary
 
     - name: Generate JaCoCo Badges for Module 2
       id: jacocoMod2
@@ -1008,6 +1020,7 @@ jobs:
         branches-badge-filename: branches2.svg
         coverage-label: coverage (module 2)
         branches-label: branches (module 2)
+        workflow-summary-heading: Module 2 JaCoCo Test Coverage Summary
 
     - name: Commit the badge (if it changed)
       run: |
@@ -1228,6 +1241,7 @@ you do not need to include them.
 | `fail-on-coverage-decrease: false` | `--fail-on-coverage-decrease false` |
 | `fail-on-branches-decrease: false` | `--fail-on-branches-decrease false` |
 | `generate-workflow-summary: true` | n/a |
+| `workflow-summary-heading: JaCoCo Test Coverage Summary` | n/a |
 
 ## Built With
 
