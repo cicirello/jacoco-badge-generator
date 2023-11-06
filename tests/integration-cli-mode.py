@@ -42,14 +42,6 @@ class IntegrationTest(unittest.TestCase) :
             with open("tests/glob/badges/branchesMultiCLI.svg","r") as generated :
                 self.assertEqual(expected.read(), generated.read())
 
-    def testGLOBIntegrationMultiJacocoReportsCase(self) :
-        with open("tests/78.svg","r") as expected :
-            with open("tests/glob/badges/coverageMulti.svg","r") as generated :
-                self.assertEqual(expected.read(), generated.read())
-        with open("tests/87b.svg","r") as expected :
-            with open("tests/glob/badges/branchesMulti.svg","r") as generated :
-                self.assertEqual(expected.read(), generated.read())
-
     def testCLIIntegrationCustomCoverageLabel(self) :
         with open("tests/custom1.svg","r") as expected :
             with open("tests/cli/badges/customCoverage.svg","r") as generated :
@@ -70,26 +62,6 @@ class IntegrationTest(unittest.TestCase) :
             with open("tests/cli/badges/customBranches.json","r") as generated :
                 self.assertEqual(expected.read(), generated.read())
 
-    def testIntegrationCustomCoverageLabel(self) :
-        with open("tests/custom1.svg","r") as expected :
-            with open("tests/badges/customCoverage.svg","r") as generated :
-                self.assertEqual(expected.read(), generated.read())
-
-    def testIntegrationCustomBranchesLabel(self) :
-        with open("tests/custom2.svg","r") as expected :
-            with open("tests/badges/customBranches.svg","r") as generated :
-                self.assertEqual(expected.read(), generated.read())
-
-    def testIntegrationCustomCoverageLabelJSON(self) :
-        with open("tests/custom1.json","r") as expected :
-            with open("tests/badges/customCoverage.json","r") as generated :
-                self.assertEqual(expected.read(), generated.read())
-
-    def testIntegrationCustomBranchesLabelJSON(self) :
-        with open("tests/custom2.json","r") as expected :
-            with open("tests/badges/customBranches.json","r") as generated :
-                self.assertEqual(expected.read(), generated.read())
-
     def testCLIIntegrationInstructionsBadge(self) :
         with open("tests/100.svg","r") as expected :
             with open("tests/cli/badges/jacoco.svg","r") as generated :
@@ -108,51 +80,11 @@ class IntegrationTest(unittest.TestCase) :
             with open("tests/cli/badges/branchesMulti.svg","r") as generated :
                 self.assertEqual(expected.read(), generated.read())
                 
-    def testIntegrationInstructionsBadge(self) :
-        with open("tests/100.svg","r") as expected :
-            with open("tests/badges/jacoco.svg","r") as generated :
-                self.assertEqual(expected.read(), generated.read())
-
-    def testIntegrationBranchesBadge(self) :
-        with open("tests/90b.svg","r") as expected :
-            with open("tests/badges/branches.svg","r") as generated :
-                self.assertEqual(expected.read(), generated.read())
-
-    def testIntegrationMultiJacocoReportsCase(self) :
-        with open("tests/78.svg","r") as expected :
-            with open("tests/badges/coverageMulti.svg","r") as generated :
-                self.assertEqual(expected.read(), generated.read())
-        with open("tests/87b.svg","r") as expected :
-            with open("tests/badges/branchesMulti.svg","r") as generated :
-                self.assertEqual(expected.read(), generated.read())
-
-    def testIntegrationSummaryReport(self) :
-        with open("tests/summary/coverage-summary.json", "r") as f :
-            d = json.load(f)
-            self.assertAlmostEqual(72.72727272727272, d["coverage"])
-            self.assertAlmostEqual(77.77777777777777, d["branches"])
-    
     def testCLIIntegrationSummaryReport(self) :
         with open("tests/cli/summary/coverage-summary.json", "r") as f :
             d = json.load(f)
             self.assertAlmostEqual(72.72727272727272, d["coverage"])
             self.assertAlmostEqual(77.77777777777777, d["branches"])
-
-    def testIntegrationInstructionsJSON(self) :
-        with open("tests/endpoints/jacoco.json", "r") as f :
-            d = json.load(f)
-            self.assertEqual(1, d["schemaVersion"])
-            self.assertEqual("coverage", d["label"])
-            self.assertEqual("100%", d["message"])
-            self.assertEqual(jbg.defaultColors[0], d["color"])
-
-    def testIntegrationBranchesJSON(self) :
-        with open("tests/endpoints/branches.json", "r") as f :
-            d = json.load(f)
-            self.assertEqual(1, d["schemaVersion"])
-            self.assertEqual("branches", d["label"])
-            self.assertEqual("90%", d["message"])
-            self.assertEqual(jbg.defaultColors[1], d["color"])
 
     def testCLIIntegrationInstructionsJSON(self) :
         with open("tests/cli/badgesJSON/jacoco.json", "r") as f :

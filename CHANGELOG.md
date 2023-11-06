@@ -21,6 +21,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### CI/CD
 * Bump Python to 3.12 in CI/CD workflows when running unit tests.
+* Matrix testing for Python versions 3.8 through 3.12 for unit tests.
+* Matrix testing the CLI mode for Python versions 3.8 through 3.12.
 
 
 ## [2.11.0] - 2023-09-15
