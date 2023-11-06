@@ -1,6 +1,6 @@
 # Copyright (c) 2020-2023 Vincent A. Cicirello
 # https://www.cicirello.org/
 # Licensed under the MIT License
-FROM ghcr.io/cicirello/pyaction:4.25.0
+FROM ghcr.io/cicirello/pyaction:4.26.0
 COPY src /
 ENTRYPOINT ["/entrypoint.py"]
