@@ -621,7 +621,7 @@ plugins {
 
 tasks.jacocoTestReport {
     reports {
-        csv.isEnabled = true
+        csv.required.set(true)
     }
 }
 ```
@@ -635,7 +635,7 @@ plugins {
 
 jacocoTestReport {
     reports {
-        csv.enabled true
+        csv.required = true
     }
 }
 ```
