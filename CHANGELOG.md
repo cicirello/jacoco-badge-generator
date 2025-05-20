@@ -20,9 +20,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Bump cicirello/pyaction from 4.23.0 to 4.33.0, including upgrading Python to 3.13 within the Docker container of the action.
 
 ### CI/CD
-* Bump Python to 3.12 in CI/CD workflows when running unit tests.
-* Matrix testing for Python versions 3.8 through 3.12 for unit tests.
-* Matrix testing the CLI mode for Python versions 3.8 through 3.12.
+* Bump Python to 3.13 in CI/CD workflows when running unit tests.
+* Matrix testing for Python versions 3.8 through 3.13 for unit tests.
+* Matrix testing the CLI mode for Python versions 3.8 through 3.13.
 
 
 ## [2.11.0] - 2023-09-15
