@@ -1,7 +1,7 @@
 # jacoco-badge-generator: Coverage badges, and pull request coverage checks,
 # from JaCoCo reports in GitHub Actions.
 # 
-# Copyright (c) 2020-2023 Vincent A Cicirello
+# Copyright (c) 2020-2025 Vincent A Cicirello
 # https://www.cicirello.org/
 #
 # MIT License
@@ -533,7 +533,9 @@ def main(jacocoCsvFile,
          coverageLabel,
          branchesLabel,
          ghActionsMode,
-         workflowJobSummaryHeading) :
+         workflowJobSummaryHeading,
+         coverageDecreaseLimit,
+         branchesDecreaseLimit) :
     """Main function.
 
     Keyword arguments:
@@ -578,6 +580,11 @@ def main(jacocoCsvFile,
     ghActionsMode - True if running in GitHub Actions mode, or False otherwise.
     workflowJobSummaryHeading - the heading for the GitHub workflow job summary
         (ignored when run in CLI mode).
+    coverageDecreaseLimit - Overrides fail-on-coverage-decrease when coverage is at
+        least this limit, specified as a floating-point value in the interval [0.0, 1.0].
+    branchesDecreaseLimit - Overrides fail-on-branches-decrease when branches
+        coverage is at least this limit, specified as a floating-point value in the
+        interval [0.0, 1.0].
     """
     if onMissingReport not in {"fail", "quiet", "badges"} :
         print("ERROR: Invalid value for on-missing-report.")
@@ -599,6 +606,10 @@ def main(jacocoCsvFile,
 
         cov, branches = computeCoverage(filteredFileList)
 
+        # Disable fail on decrease when coverage is at least the limit
+        failOnCoverageDecrease = failOnCoverageDecrease and cov < coverageDecreaseLimit
+        failOnBranchesDecrease = failOnBranchesDecrease and branches < branchesDecreaseLimit
+
         if coverageIsFailing(cov, branches, minCoverage, minBranches) :
             print("Failing the workflow run.")
             sys.exit(1)
@@ -611,21 +622,31 @@ def main(jacocoCsvFile,
 
         # If using the fail on decrease options, in combination with the summary report, use summary
         # report for the check since it is more accurate.
-        if (failOnCoverageDecrease or failOnBranchesDecrease) and generateSummary and os.path.isfile(summaryFilenameWithPath) :
+        if ((failOnCoverageDecrease or failOnBranchesDecrease) and
+            generateSummary and
+            os.path.isfile(summaryFilenameWithPath)):
             if coverageDecreasedSummary(failOnCoverageDecrease, failOnBranchesDecrease, summaryFilenameWithPath, cov, branches) :
                 print("Failing the workflow run.")
                 sys.exit(1)
         else : # Otherwise use the prior coverages as stored in badges / JSON.
-            if failOnCoverageDecrease and generateCoverageBadge and coverageDecreased(cov, coverageBadgeWithPath, coverageLabel) :
+            if (failOnCoverageDecrease and
+                generateCoverageBadge and
+                coverageDecreased(cov, coverageBadgeWithPath, coverageLabel)):
                 print("Failing the workflow run.")
                 sys.exit(1)
-            if failOnBranchesDecrease and generateBranchesBadge and coverageDecreased(branches, branchesBadgeWithPath, branchesLabel) :
+            if (failOnBranchesDecrease and
+                generateBranchesBadge and
+                coverageDecreased(branches, branchesBadgeWithPath, branchesLabel)):
                 print("Failing the workflow run.")
                 sys.exit(1)
-            if failOnCoverageDecrease and generateCoverageJSON and coverageDecreasedEndpoint(cov, coverageJSONWithPath, coverageLabel) :
+            if (failOnCoverageDecrease and
+                generateCoverageJSON and
+                coverageDecreasedEndpoint(cov, coverageJSONWithPath, coverageLabel)):
                 print("Failing the workflow run.")
                 sys.exit(1)
-            if failOnBranchesDecrease and generateBranchesJSON and coverageDecreasedEndpoint(branches, branchesJSONWithPath, branchesLabel) :
+            if (failOnBranchesDecrease and
+                generateBranchesJSON and
+                coverageDecreasedEndpoint(branches, branchesJSONWithPath, branchesLabel)):
                 print("Failing the workflow run.")
                 sys.exit(1)
             

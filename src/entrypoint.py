@@ -3,7 +3,7 @@
 # jacoco-badge-generator: Coverage badges, and pull request coverage checks,
 # from JaCoCo reports in GitHub Actions.
 # 
-# Copyright (c) 2020-2023 Vincent A Cicirello
+# Copyright (c) 2020-2025 Vincent A Cicirello
 # https://www.cicirello.org/
 #
 # MIT License
@@ -65,5 +65,7 @@ if __name__ == "__main__" :
         coverageLabel = sys.argv[21],
         branchesLabel = sys.argv[22],
         ghActionsMode = True,
-        workflowJobSummaryHeading = sys.argv[23]
+        workflowJobSummaryHeading = sys.argv[23],
+        coverageDecreaseLimit = stringToPercentage(sys.argv[24]),
+        branchesDecreaseLimit = stringToPercentage(sys.argv[25])
     )
