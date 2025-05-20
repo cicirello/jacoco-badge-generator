@@ -63,8 +63,9 @@ jobs:
         export PYTHONPATH=$PWD/src
         echo $PYTHONPATH
         #python3 -B -m jacoco_badge_generator --jacoco-csv-file tests/summaryReportTest.csv --badges-directory tests --generate-coverage-badge false --generate-branches-badge false --generate-coverage-endpoint false --generate-branches-endpoint false --generate-summary true --summary-filename reportTestFail.json --fail-on-coverage-decrease true
-        python3 -B -m jacoco_badge_generator --jacoco-csv-file tests/summaryReportTest.csv --badges-directory tests --generate-coverage-badge false --generate-branches-badge false --generate-coverage-endpoint false --generate-branches-endpoint false --generate-summary true --summary-filename reportTestFail.json --fail-on-branches-decrease true
+        #python3 -B -m jacoco_badge_generator --jacoco-csv-file tests/summaryReportTest.csv --badges-directory tests --generate-coverage-badge false --generate-branches-badge false --generate-coverage-endpoint false --generate-branches-endpoint false --generate-summary true --summary-filename reportTestFail.json --fail-on-branches-decrease true
         #python3 -B -m jacoco_badge_generator --jacoco-csv-file tests/summaryReportTest.csv --badges-directory tests --generate-coverage-badge false --generate-branches-badge false --generate-coverage-endpoint false --generate-branches-endpoint false --generate-summary true --summary-filename reportTestFail.json --fail-on-coverage-decrease true --coverage-decrease-limit 0.72
+        python3 -B -m jacoco_badge_generator --jacoco-csv-file tests/summaryReportTest.csv --badges-directory tests --generate-coverage-badge false --generate-branches-badge false --generate-coverage-endpoint false --generate-branches-endpoint false --generate-summary true --summary-filename reportTestFail.json --fail-on-branches-decrease true --branches-decrease-limit 0.77
 
 
   actions-mode-tests:
