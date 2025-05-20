@@ -515,6 +515,8 @@ decreased since it is more precise than the truncated coverage percentage stored
 the badge or Shields endpoint. __Therefore, when using this feature, it is recommended that
 you also set `generate-summary: true` and commit the summary report JSON file to the repository.__
 
+It is recommended that if you set `fail-on-coverage-decrease: true` that you also use the `coverage-decrease-limit` input (see below).
+
 #### `fail-on-branches-decrease`
 
 This input enables directing the action to fail the workflow run if
@@ -530,6 +532,30 @@ If more than one of these exist, this feature will use the summary report to det
 decreased since it is more precise than the truncated coverage percentage stored in 
 the badge or Shields endpoint. __Therefore, when using this feature, it is recommended that
 you also set `generate-summary: true` and commit the summary report JSON file to the repository.__
+
+It is recommended that if you set `fail-on-branches-decrease: true` that you also use the `branches-decrease-limit` input (see below).
+
+#### `coverage-decrease-limit`
+
+This input enables overriding `fail-on-coverage-decrease` when coverage is at least this 
+limit. To use, first set `fail-on-coverage-decrease: true`. You can then set the limit
+as desired, such as `coverage-decrease-limit: 95`, which in this example would only fail
+the workflow if coverage decreased and is also below 95%. If coverage is 95% or higher in
+this example, the action will ignore the `fail-on-coverage-decrease`. You can specify the
+limit as either 95 or 0.95, which are both equivalent. The default is 
+`coverage-decrease-limit: 100`, which means that if you are using
+`fail-on-coverage-decrease: true` any decrease will fail the workflow.
+
+#### `branches-decrease-limit`
+
+This input enables overriding `fail-on-branches-decrease` when branches coverage is at least 
+this limit. To use, first set `fail-on-branches-decrease: true`. You can then set the limit
+as desired, such as `branches-decrease-limit: 95`, which in this example would only fail
+the workflow if branches coverage decreased and is also below 95%. If branches coverage is 
+95% or higher in this example, the action will ignore the `fail-on-branches-decrease`. You 
+can specify the limit as either 95 or 0.95, which are both equivalent. The default is 
+`branches-decrease-limit: 100`, which means that if you are using
+`fail-on-branches-decrease: true` any decrease will fail the workflow.
 
 #### `generate-workflow-summary`
 
@@ -718,7 +744,9 @@ what these inputs do.
         fail-if-coverage-less-than: 0
         fail-if-branches-less-than: 0
         fail-on-coverage-decrease: false
+        coverage-decrease-limit: 100
         fail-on-branches-decrease: false
+        branches-decrease-limit: 100
         generate-workflow-summary: true
         workflow-summary-heading: JaCoCo Test Coverage Summary
 ```
@@ -1244,7 +1272,9 @@ you do not need to include them.
 | `fail-if-coverage-less-than: 0` | `--fail-if-coverage-less-than 0` |
 | `fail-if-branches-less-than: 0` | `--fail-if-branches-less-than 0` |
 | `fail-on-coverage-decrease: false` | `--fail-on-coverage-decrease false` |
+| `coverage-decrease-limit: 100` | `--coverage-decrease-limit 100` |
 | `fail-on-branches-decrease: false` | `--fail-on-branches-decrease false` |
+| `branches-decrease-limit: 100` | `--branches-decrease-limit 100` |
 | `generate-workflow-summary: true` | n/a |
 | `workflow-summary-heading: JaCoCo Test Coverage Summary` | n/a |
 

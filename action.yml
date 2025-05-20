@@ -1,7 +1,7 @@
 # jacoco-badge-generator: Coverage badges, and pull request coverage checks, 
 # from JaCoCo reports in GitHub Actions
 # 
-# Copyright (c) 2020-2023 Vincent A Cicirello
+# Copyright (c) 2020-2025 Vincent A Cicirello
 # https://www.cicirello.org/
 #
 # MIT License
@@ -84,6 +84,14 @@ inputs:
     description: 'Enables failing workflow if branches coverage is less than it was on previous run.'
     required: false
     default: false
+  coverage-decrease-limit:
+    description: 'Overrides fail-on-coverage-decrease when coverage is at least this limit'
+    required: false
+    default: 100
+  branches-decrease-limit:
+    description: 'Overrides fail-on-branches-decrease when branches coverage is at least this limit'
+    required: false
+    default: 100
   intervals:
     description: 'List of coverage percentages as cutoffs for each color.'
     required: false
@@ -156,3 +164,5 @@ runs:
     - ${{ inputs.coverage-label }}
     - ${{ inputs.branches-label }}
     - ${{ inputs.workflow-summary-heading }}
+    - ${{ inputs.coverage-decrease-limit }}
+    - ${{ inputs.branches-decrease-limit }}

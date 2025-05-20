@@ -1,7 +1,7 @@
 # jacoco-badge-generator: Coverage badges, and pull request coverage checks,
 # from JaCoCo reports in GitHub Actions.
 # 
-# Copyright (c) 2020-2023 Vincent A Cicirello
+# Copyright (c) 2020-2025 Vincent A Cicirello
 # https://www.cicirello.org/
 #
 # MIT License
@@ -42,7 +42,7 @@ if __name__ == "__main__" :
     # usage within an GitHub Actions workflow.
 
     print("jacoco-badge-generator: Generate coverage badges from JaCoCo coverage reports")
-    print("Copyright (C) 2022-2023 Vincent A. Cicirello (https://www.cicirello.org/)")
+    print("Copyright (C) 2022-2025 Vincent A. Cicirello (https://www.cicirello.org/)")
     print("MIT License: https://github.com/cicirello/jacoco-badge-generator/blob/main/LICENSE")
     print()
 
@@ -203,6 +203,20 @@ if __name__ == "__main__" :
         dest="failOnBranchesDecrease",
         choices=['true', 'false']
     )
+    parser.add_argument(
+        "--coverage-decrease-limit",
+        default=1.0,
+        help="Overrides fail-on-coverage-decrease when coverage is at least this limit",
+        dest="coverageDecreaseLimit",
+        type=lambda s : stringToPercentage(s)
+    )
+    parser.add_argument(
+        "--branches-decrease-limit",
+        default=1.0,
+        help="Overrides fail-on-branches-decrease when branches coverage is at least this limit",
+        dest="branchesDecreaseLimit",
+        type=lambda s : stringToPercentage(s)
+    )
     args = parser.parse_args()
 
     main(
@@ -229,5 +243,7 @@ if __name__ == "__main__" :
         coverageLabel = args.coverageLabel,
         branchesLabel = args.branchesLabel,
         ghActionsMode = False,
-        workflowJobSummaryHeading = "JaCoCo Test Coverage Summary"
+        workflowJobSummaryHeading = "JaCoCo Test Coverage Summary",
+        coverageDecreaseLimit = args.coverageDecreaseLimit,
+        branchesDecreaseLimit = args.branchesDecreaseLimit
     )
