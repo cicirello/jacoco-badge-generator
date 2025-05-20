@@ -744,7 +744,9 @@ what these inputs do.
         fail-if-coverage-less-than: 0
         fail-if-branches-less-than: 0
         fail-on-coverage-decrease: false
+        coverage-decrease-limit: 100
         fail-on-branches-decrease: false
+        branches-decrease-limit: 100
         generate-workflow-summary: true
         workflow-summary-heading: JaCoCo Test Coverage Summary
 ```
