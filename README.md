@@ -1272,7 +1272,9 @@ you do not need to include them.
 | `fail-if-coverage-less-than: 0` | `--fail-if-coverage-less-than 0` |
 | `fail-if-branches-less-than: 0` | `--fail-if-branches-less-than 0` |
 | `fail-on-coverage-decrease: false` | `--fail-on-coverage-decrease false` |
+| `coverage-decrease-limit: 100` | `--coverage-decrease-limit 100` |
 | `fail-on-branches-decrease: false` | `--fail-on-branches-decrease false` |
+| `branches-decrease-limit: 100` | `--branches-decrease-limit 100` |
 | `generate-workflow-summary: true` | n/a |
 | `workflow-summary-heading: JaCoCo Test Coverage Summary` | n/a |
 
