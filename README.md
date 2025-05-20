@@ -515,6 +515,8 @@ decreased since it is more precise than the truncated coverage percentage stored
 the badge or Shields endpoint. __Therefore, when using this feature, it is recommended that
 you also set `generate-summary: true` and commit the summary report JSON file to the repository.__
 
+It is recommended that if you set `fail-on-coverage-decrease: true` that you also use the `coverage-decrease-limit` input (see below).
+
 #### `fail-on-branches-decrease`
 
 This input enables directing the action to fail the workflow run if
@@ -530,6 +532,8 @@ If more than one of these exist, this feature will use the summary report to det
 decreased since it is more precise than the truncated coverage percentage stored in 
 the badge or Shields endpoint. __Therefore, when using this feature, it is recommended that
 you also set `generate-summary: true` and commit the summary report JSON file to the repository.__
+
+It is recommended that if you set `fail-on-branches-decrease: true` that you also use the `branches-decrease-limit` input (see below).
 
 #### `coverage-decrease-limit`
 
