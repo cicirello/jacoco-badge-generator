@@ -198,3 +198,4 @@ jobs:
         #fail-on-coverage-decrease: true
         fail-on-branches-decrease: true
         coverage-decrease-limit: 0.72
+        branches-decrease-limit: 0.77
