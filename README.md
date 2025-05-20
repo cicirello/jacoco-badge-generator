@@ -535,7 +535,12 @@ you also set `generate-summary: true` and commit the summary report JSON file to
 
 This input controls whether or not to log the coverage percentages to the GitHub Actions
 workflow job summary. The default is `generate-workflow-summary: true`. This input is only 
-relevant when running in GitHub Actions mode, and not when running as a CLI tool.
+relevant when running in GitHub Actions mode, and not when running as a CLI tool. When this
+input is set to `true`, the action will output coverage information to the workflow job
+summary, which you can find via the Actions tab of your repository. That output will look
+something like this:
+
+![Example of a workflow summary](images/job-summary-example.png)
 
 #### `workflow-summary-heading`
 
