@@ -7,9 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2025-05-20
 
 ### Added
-* Added inputs for disabling failure on decrease when coverage is above a specified limit:
-  * `coverage-decrease-limit`: Overrides `fail-on-coverage-decrease` when coverage is at least this limit
-  * `branches-decrease-limit`: Overrides `fail-on-branches-decrease` when branches coverage is at least this limit
 
 ### Changed
 
@@ -18,6 +15,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 ### Fixed
+
+### Dependencies
+
+### CI/CD
+
+
+## [2.12.0] - 2025-05-20
+
+### Added
+* Added inputs for disabling failure on decrease when coverage is above a specified limit:
+  * `coverage-decrease-limit`: Overrides `fail-on-coverage-decrease` when coverage is at least this limit
+  * `branches-decrease-limit`: Overrides `fail-on-branches-decrease` when branches coverage is at least this limit
 
 ### Dependencies
 * Bump cicirello/pyaction from 4.23.0 to 4.33.0, including upgrading Python to 3.13 within the Docker container of the action.
