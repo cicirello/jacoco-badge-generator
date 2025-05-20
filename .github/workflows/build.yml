@@ -195,6 +195,6 @@ jobs:
         generate-branches-endpoint: false
         generate-summary: true
         summary-filename: reportTestFail.json
-        fail-on-coverage-decrease: true
-        #fail-on-branches-decrease: true
+        #fail-on-coverage-decrease: true
+        fail-on-branches-decrease: true
         coverage-decrease-limit: 0.72
