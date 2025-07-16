@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2025-07-15
+## [Unreleased] - 2025-07-16
 
 ### Added
 
@@ -17,10 +17,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 ### Dependencies
-* Updated Docker file to use new tag format for `cicirello/pyaction`
-* Bumps `cicirello/pyaction` to `3.13.5-gh-2.75.1`.
 
 ### CI/CD
+
+
+## [2.12.1] - 2025-07-16
+
+### Dependencies (GitHub Actions Mode)
+* Updated Docker file to use new tag format for `cicirello/pyaction`
+* Bumps `cicirello/pyaction` to `3.13.5-gh-2.75.1` (Python 3.13.5).
 
 
 ## [2.12.0] - 2025-05-20
