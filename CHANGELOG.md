@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 ### Dependencies
+* Bump `cicirello/pyaction` to `3.13.6-gh-2.76.2`
 
 ### CI/CD
 
