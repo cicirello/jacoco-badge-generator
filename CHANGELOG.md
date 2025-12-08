@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2025-10-09
+## [Unreleased] - 2025-12-08
 
 ### Added
 
@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 ### Dependencies
-* Bump `cicirello/pyaction` to `3.14.0-gh-2.81.0`
+* Bump `cicirello/pyaction` to `3.14.1-gh-2.83.1`
 * Bump Python to 3.14 in the action's container
 * Bump minimum supported Python version to 3.10 for CLI-mode
   
